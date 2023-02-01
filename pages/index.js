@@ -16,6 +16,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
        <h1>PMI Report management system</h1>
+       <h2>Dashboard</h2>
       </main>
     </>
   )
