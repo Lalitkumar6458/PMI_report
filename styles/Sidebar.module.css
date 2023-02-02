@@ -1,0 +1,38 @@
+.side_bar_main{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.side_bar_main .close_sidebar{
+    position: absolute;
+    top: 27px;
+    right: -18px;
+    background: #FFFFFF;
+border: 2px solid #DADADA;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+}
+.icon_left{
+font-size: 26px;
+color:#445BFF;
+}
+.logo_name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.logo_name img{
+    width: 120px;
+    height: 90px;
+}
+.logo_name h2{
+    font-size: 23px;
+    color: var(--white);
+}
