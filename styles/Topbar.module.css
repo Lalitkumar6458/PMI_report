@@ -1,0 +1,69 @@
+.top_bar_con{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+    padding-right: 10px;
+}
+.right_btn_con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+ 
+}
+.usen_info_con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.dopdown_user{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    position: relative;
+}
+.dopdown_user h5{
+    font-size: 14px;
+    font-family: var(--font-poppins);
+    color: rgb(17, 17, 17);
+}
+.icon_drop{
+    font-size: 15px;
+    color: #9A9A9A;
+
+    margin-top: 2px;
+
+}
+.icon_t{
+    font-size: 18px;
+    cursor: pointer;
+}
+.icon_user{
+    font-size: 20px;
+    color: rgb(36, 107, 189);
+}
+.drop_down{
+    position: absolute;
+    top: 124%;
+    left: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 120px;
+}
+.drop_down ul {
+    width: 100%;
+}
+.drop_down ul li{
+    list-style: none;
+    line-height: 35px;
+   
+
+}
+.drop_down ul li a{
+    text-decoration: none;
+    color: black;
+}

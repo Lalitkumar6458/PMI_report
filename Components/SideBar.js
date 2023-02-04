@@ -1,6 +1,6 @@
 import React ,{useState} from 'react'
 import styles from "@/styles/Sidebar.module.css";
-import { FaAngleLeft, FaRegComments} from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaRegComments} from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { RiFolderShield2Line } from "react-icons/ri";
   import {MdOutlineSpaceDashboard,
@@ -113,7 +113,7 @@ $("#heading_img img").css({
     <div className={styles.side_bar_main}>
         
     <div className={styles.close_sidebar} onClick={()=>handler_side_bar()}>
-        <FaAngleLeft className={styles.icon_left}/>
+      {sidebar? <FaAngleRight className={styles.icon_right}/>: <FaAngleLeft className={styles.icon_left}/>}
     </div>
     <div className={styles.logo_name} id="heading_img">
         <Image src={logo} alt="logo"/>
