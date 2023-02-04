@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import styles from "../styles/Topbar.module.css"
 import { FiSearch,FiChevronDown } from "react-icons/fi";
 import { FaUserCircle} from "react-icons/fa";
@@ -8,8 +8,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const TopBar = () => {
+const[userdrop,setUserdrop]=useState(false)
 
-
+const dropDown_show=()=>{
+    if(userdrop == false){
+       
+        setUserdrop(true)
+    }else{
+     
+        setUserdrop(false)
+    }
+}
+   
     
   return (
     <div className={styles.top_bar_con}>
@@ -20,16 +30,16 @@ const TopBar = () => {
             <span><IoNotificationsOutline className={styles.icon_t} /></span>
             <div className={styles.usen_info_con}>
                 <span><FaUserCircle className={styles.icon_user} /></span>
-                <div className={styles.dopdown_user}>
+                <div className={styles.dopdown_user} id="drop_down_user" onClick={()=>dropDown_show()}>
 
                 <h5>Username </h5><FiChevronDown className={styles.icon_drop} />
-                <div className={styles.drop_down}>
+               {userdrop?<div className={styles.drop_down} id="drop_down">
                     <ul>
-                        <li><Link href=""><FaUserCircle />Profile</Link></li>
-                        <li><Link href=""><BiHelpCircle />Help</Link></li>
-                        <li><Link href=""><BiLogOut/>Logout</Link></li>
+                        <li><Link href=""><FaUserCircle className={styles.icons_drop} />Profile</Link></li>
+                        <li><Link href=""><BiHelpCircle className={styles.icons_drop} />Help</Link></li>
+                        <li><Link href=""><BiLogOut className={styles.icons_drop}/>Logout</Link></li>
                     </ul>
-                </div>
+                </div>:null} 
                 </div>
             </div>
 

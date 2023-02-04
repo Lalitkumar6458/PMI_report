@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import React, { Children } from 'react'
+import React, { Children,useEffect } from 'react'
 import SideBar from './SideBar'
 import TopBar from './TopBar'
 
 const Layout = ({children ,title}) => {
-
-
+  
+ 
 
   return (
     <>
