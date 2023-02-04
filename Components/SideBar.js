@@ -1,21 +1,109 @@
 import React ,{useState} from 'react'
 import styles from "@/styles/Sidebar.module.css";
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaRegComments} from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
-import { MdOutlineCategory } from "react-icons/md";
+import { RiFolderShield2Line } from "react-icons/ri";
+  import {MdOutlineSpaceDashboard,
+  MdOutlineAnalytics,
+  MdOutlineIntegrationInstructions,
+  MdOutlineMoreHoriz,
+  MdOutlineSettings,
+  MdOutlineLogout,
+  MdOutlineCategory
+} from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { BiMessageSquareDots } from "react-icons/bi";
 import Image from 'next/image';
 import logo from "../public/Images/pmilogo.png"
 import Link from 'next/link';
+import { useRouter } from "next/router";
 
 
 const SideBar = () => {
+    const router = useRouter()
+         console.log(router.asPath,"pathname")
     const[sidebar,setSidebar]=useState(false)
+
+    const menu = [
+        {
+          id: 1,
+          name: "Dashboard",
+          link: "/",
+          icon: (
+            <MdOutlineSpaceDashboard className={styles.icon} />
+          ),
+        },
+        {
+          id: 2,
+          name: "Chemical",
+          link: "/Chemical",
+          icon: (
+            <CgProfile className={styles.icon} />
+          ),
+        },
+        {
+          id: 3,
+          name: "Category",
+          link: "/Category",
+          icon: (
+            <MdOutlineCategory className={styles.icon} />
+          ),
+        },
+        {
+          id: 4,
+          name: "History",
+          link: "/History",
+          icon: (
+            <MdOutlineAnalytics className={styles.icon} />
+          ),
+        },
+  
+        {
+          id: 5,
+          name: "About",
+          link: "/About",
+          icon: (
+            <BiMessageSquareDots className={styles.icon} />
+          ),
+        },
+       
+      ];
+
     function handler_side_bar(){
         if(sidebar==false){
             setSidebar(true)
             $(".container_main").css("grid-template-columns","5% auto")
+            $("#links_all ul").css("padding-left","5px")
+            $("#links_all ul li").css("padding-left","15px")
+            $("#links_all ul li a").css("gap","30px")
+            $("#links_all label").css({
+            "margin-left":"7px",
+            "font-size":"10px"
+            })
+            $("#heading_img h2").hide()
+            $("#heading_img img").css({
+                "width":"66px",
+    "height": "53px"
+})
+            
+
+            // $(".side_all_links ul li").css("")
         }else{
+            $("#links_all ul").css("padding-left","20px")
+            $("#links_all ul li").css("padding-left","20px")
+            $("#links_all ul li a").css("gap","10px")
+            $("#links_all label").css({
+            "margin-left":"30px",
+            "font-size":"12px"
+            })
+$("#heading_img h2").show()
+$("#heading_img img").css({
+    "width":"80px",
+"height": "60px"
+})
+
             $(".container_main").css("grid-template-columns","17% auto")
+            
             setSidebar(false)
         }
      
@@ -25,25 +113,31 @@ const SideBar = () => {
     <div className={styles.side_bar_main}>
         
     <div className={styles.close_sidebar} onClick={()=>handler_side_bar()}>
-        <FaAngleLeft className={styles.icon_left}/>
+      {sidebar? <FaAngleRight className={styles.icon_right}/>: <FaAngleLeft className={styles.icon_left}/>}
     </div>
-    <div className={styles.logo_name}>
+    <div className={styles.logo_name} id="heading_img">
         <Image src={logo} alt="logo"/>
-        <h2>PMI Report</h2>
+        <h2 id="heading">PMI Report</h2>
     </div>
-    <div className={styles.side_all_links}>
-        <label>Menu</label>
+    <div className={styles.side_all_links} id="links_all">
+        <label>MAIN MENU</label>
 <ul>
-    <li><Link href="/"><RxDashboard/>Dashboard</Link></li>
-    <li><Link href="/Chemical">Chemical</Link></li>
-    <li><Link href="/Category"><MdOutlineCategory/>Category</Link></li>
-    <li><Link href="/History">History</Link></li>
-    <li><Link href="/About">About</Link></li>
+    {
+         menu.map((item,index)=>{
+            return(
+<li className={router.asPath == item.link?styles.active:""}><Link href={item.link}>{item.icon}{item.name}</Link></li>
+            )
+
+
+         }
+         )
+    }
+   
 </ul>
 <label>General</label>
 <ul>
-    <li><Link href="/">File & Folders</Link></li>
-    <li><Link href="/Chemical">Settings</Link></li>
+    <li><Link href="/"><RiFolderShield2Line className={styles.icon} />File & Folders</Link></li>
+    <li><Link href="/Settings"><MdOutlineSettings className={styles.icon} /> Settings</Link></li>
     </ul>
     </div>
     </div>

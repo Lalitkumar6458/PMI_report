@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, { Children } from 'react'
 import SideBar from './SideBar'
+import TopBar from './TopBar'
 
 const Layout = ({children ,title}) => {
 
@@ -22,7 +23,9 @@ const Layout = ({children ,title}) => {
        <SideBar></SideBar>
        </div>
        <main className='right_side_section'>
-        <div className='top_bar'></div>
+        <div className='top_bar'>
+          <TopBar></TopBar>
+        </div>
         <div className='page_container'>
            {children}
         </div>
