@@ -20,6 +20,11 @@
     justify-content: center;
     gap: 10px;
 }
+.top_bar_con h2{
+    font-size: 20px;
+    font-family: var(--font-roboto);
+    color: rgb(22, 21, 21);
+}
 .dopdown_user{
     display: flex;
     align-items: center;
@@ -50,9 +55,12 @@
 .drop_down{
     position: absolute;
     top: 124%;
-    left: 20px;
+right:0;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     width: 120px;
+    transition: all 0.6s ease-in-out;
+    border-radius: 5px;
+    background-color: var(--white);
 }
 .drop_down ul {
     width: 100%;
@@ -60,10 +68,24 @@
 .drop_down ul li{
     list-style: none;
     line-height: 35px;
-   
+    padding:0px 10px;
 
+}
+.drop_down ul li:hover{
+    background-color: var(--hover-blue);
+}
+.drop_down ul li:hover>a{
+color: var(--white);
+}
+.icons_drop{
+    font-size: 18px;
 }
 .drop_down ul li a{
     text-decoration: none;
-    color: black;
+    color: var(--dark-blue);
+    font-size: 16px;
+    font-family: var(--font-poppins);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
