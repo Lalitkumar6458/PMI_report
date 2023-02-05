@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React, { Children,useEffect } from 'react'
+import Mobile_Tabs from './Mobile_Tabs'
 import SideBar from './SideBar'
 import TopBar from './TopBar'
 
@@ -30,6 +31,7 @@ const Layout = ({children ,title}) => {
            {children}
         </div>
        </main>
+       <Mobile_Tabs/>
         </div>
        
     </div>

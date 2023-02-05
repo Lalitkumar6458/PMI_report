@@ -1,8 +1,12 @@
+import Layout from '@/Components/Layout'
 import React from 'react'
 
 const Category = () => {
+
   return (
-    <div>Category</div>
+    <Layout title="Category">
+      Catagory
+    </Layout>
   )
 }
 

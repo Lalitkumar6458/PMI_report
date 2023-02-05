@@ -85,9 +85,6 @@ const SideBar = () => {
                 "width":"66px",
     "height": "53px"
 })
-            
-
-            // $(".side_all_links ul li").css("")
         }else{
             $("#links_all ul").css("padding-left","20px")
             $("#links_all ul li").css("padding-left","20px")

@@ -101,10 +101,23 @@ margin-left: 30px;
 }
 .side_all_links ul li .icon{
 font-size: 24px;
+overflow: visible;
 }
 .side_all_links ul .active{
     background-color: var(--hover-blue);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+   
+}
+  
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+   .container_main{
+    
+   }
 }
