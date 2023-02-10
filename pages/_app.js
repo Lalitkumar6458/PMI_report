@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useState,useEffect } from 'react'
 import Router from 'next/router'
 import loader from "../public/Images/loader_gif.gif"
+import 'bootstrap/dist/css/bootstrap.css'
+import 'smart-webcomponents-react/source/styles/smart.default.css';
 
 export default function App({ Component, pageProps }) {
 

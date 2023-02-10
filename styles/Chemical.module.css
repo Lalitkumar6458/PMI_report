@@ -30,8 +30,8 @@ font-size: 1.6rem;
 font-family: var(--font-poppins);
 }
 .grade_chemical{
-    display: grid;
-    grid-template-columns: 50% 50%;
+    /* display: grid;
+    grid-template-columns: 50% 50%; */
 }
 .grade_chemical .input_field{
 border-right: 1px solid ;
@@ -54,10 +54,12 @@ border: 2px solid #1C1F37;
 border-radius: 11px;
 height: 40px;
 padding-left: 10px;
+font-size: 1.7rem;
 }
 .grade_chemical .input_field .input_div{
     display: flex;
     flex-direction: column;
+    width: 39%;
     
 }
 .group_input{
@@ -255,13 +257,145 @@ gap: 10px;
     transform: translateY(-50%);
     left: 7px;
 }
+.mobile_table_c,.small_height_b{
+    display: none;
+}
 @media  (max-width: 767px) {
+    .small_height_b{
+        position: absolute;
+        right: 12px;
+        top: -16px;
+        border: none;
+        background: #D9D9D9;
+        font-size: 1.5rem;
+        padding: 5px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .mobile_table_c{
+        display: inline-table;
+    }
     .grade_chemical{
-       display: flex;
-       flex-direction: column;
+       
+      border: 1px solid var(--btn-bgColor);
+      border-radius: 8px;
+      transition: all 3s ease-in-out;
+
+    }
+    .alloys_content{
+        border: none;
     }
     .alloys_content,.table_grades{
-        height: auto;
+        
+        
     }
+    .grade_input{
+        margin-bottom: 15px;
     
+        width: 86%;
+    }
+    .input_div input{
+        width: 130px;
+    }
+    .grade_chemical .input_field{
+        padding: 30px 13px;
+    }
+    .grade_chemical .input_field input::placeholder{
+        font-size: 1.1rem;
+        color: #262a44;
+        font-weight: 500;
+        font-family: var(--font-poppins);
+    }
+    .main_grade{
+        display: none;
+    }
+    .mobile_table_c{
+        border-collapse: collapse;
+        border: 1px solid;
+        margin-top: 80px;
+    width: 100%;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 0;
+    }
+    .mobile_table_c .td_mobile{
+        border: 1px solid;
+        padding: 30px 10px;
+        border-right: 0;
+    border-left: 0;
+    border-bottom: 0;
+    }
+    .mobile_table_c td table{
+        border-collapse: collapse;
+        border: 1px solid;
+    }
+    .mobile_table_c td table td,  .mobile_table_c td table th{
+        border: 1px solid;
+        padding: 4px;
+        font-size: 1.5rem;
+    }
+    .wrraper_box{
+        position: absolute;
+        right: 4px;
+        top: 47px;
+    }
+    .chemical_comp{
+        padding: 0;
+    }
+    .divChemical{
+        border: 1px solid var( --text-green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 20px 2px;
+        border-radius: 6px
+
+    }
+    .divChemical h3{
+        position: absolute;
+    top: -12px;
+    left: 8px;
+    background: #fff;
+    padding: 2px 5px;
+    }
+    .buttons_eddit{
+        position: absolute;
+        top: -14px;
+        right: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+    .buttons_eddit span{
+        font-size: 1.5rem;
+        background-color: #0A194E;
+        padding: 5px;
+        border-radius: 5px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .buttons_eddit span .icon_edit{
+        color: #D9B430;
+    }
+    .buttons_eddit span .icon_delete{
+        color: #EE1414;
+    }
+}
+@media  (max-width: 576px) {
+    .Chemical_container{
+        padding: 30px 15px;
+    }
+    .grade_chemical .input_field{
+        border-right: 0px;
+    }
+    .alloys_content,.table_grades{
+        
+    }
 }

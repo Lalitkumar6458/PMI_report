@@ -2,7 +2,7 @@ import Layout from '@/Components/Layout'
 import React,{useState} from 'react'
 import styles from "@/styles/Chemical.module.css";
 import { FaAngleLeft, FaAngleRight, FaPlusCircle,FaEdit} from "react-icons/fa";
-import { HiOutlineSaveAs,HiOutlineSearch } from "react-icons/hi";
+import { HiOutlineSaveAs,HiOutlineSearch,HiArrowNarrowDown,HiArrowNarrowUp } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import Image from 'next/image';
 import add_gif from "../public/Images/add_gif.gif"
@@ -20,6 +20,7 @@ const Chemical = () => {
   const [values, setValues] = useState(initialValues);
   const [grade,setGrade]=useState('')
   const [checkempty,setCheckempty]=useState(true)
+  const [smallbox,setSmallbox]=useState(false)
 
   const [gradedata, setGradedata] = useState({});
 
@@ -78,13 +79,15 @@ console.log(value,"grade_name")
     var saveData=[grade,arrlist]
     console.log("data",saveData)
   }
+  
   return <Layout title="Chemical">
     <div className={styles.Chemical_container}>
      <div className={styles.alloys_content}>
       <h2>Add Chemical</h2>
-      <div className={styles.grade_chemical}>
-        <div className={styles.input_field}>
-          <div className={`${styles.input_div} ${styles.grade_input}`}>
+      <button className={styles.small_height_b} onClick={()=>{smallbox?setSmallbox(false):setSmallbox(true)}}>{smallbox?<HiArrowNarrowUp/>:<HiArrowNarrowDown/>}</button>
+      <div className={smallbox?`${styles.grade_chemical} row`:`${styles.grade_chemical} row height_set`} >
+        <div className={`${styles.input_field} col-12 col-md-6 drop_box`}>
+          <div className={`${styles.input_div} ${styles.grade_input} `}>
             <label>Grade Name</label>
             <input type="text" placeholder='Enter Grade name...' value={grade} name="grade_name"
     onChange={Gradehandler} />
@@ -103,7 +106,7 @@ console.log(value,"grade_name")
           <button className={styles.add_btn} onClick={()=>sumbit_input()}>Add <FaPlusCircle/></button>
           </div>
         </div>
-        <div className={styles.table_fields} id="table_fields">
+        <div className={`${styles.table_fields} col-12 col-md-6 drop_box`} id="table_fields">
 
           {checkempty?<div className={styles.empty_table}>
 
@@ -232,6 +235,121 @@ it's Chemical</h4>
               </td>
             </tr>
           </tbody>
+        </table>
+
+        <table className={styles.mobile_table_c}>
+          <tbody>
+            <tr>
+            <td className={styles.td_mobile}>
+          <div className={styles.divChemical}>
+            <h3>Grade:316L</h3>
+                  <table >
+                    <thead>
+                      <tr>
+                        <th>Ni</th>
+                        <th>Cr</th>
+                        <th>Mn</th>
+                        <th>Mo</th>
+                        <th>Co</th>
+                        <th>Cu</th>
+                        <th>Fe</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>10-14</td>
+                        <td>2.00 max</td>
+                        <td>23-25</td>
+                        <td>20-56</td>
+                        <td>10-14</td>
+                        <td>10-14</td>
+                        <td>10-14</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div className={styles.buttons_eddit}>
+                    <span><FaEdit className={styles.icon_edit}/></span>
+                    <span><MdDelete className={styles.icon_delete}/></span>
+
+                  </div>
+                </div> 
+        </td>
+            </tr>
+            <tr>
+            <td className={styles.td_mobile}>
+          <div className={styles.divChemical}>
+            <h3>Grade:316L</h3>
+                  <table >
+                    <thead>
+                      <tr>
+                        <th>Ni</th>
+                        <th>Cr</th>
+                        <th>Mn</th>
+                        <th>Mo</th>
+                        <th>Co</th>
+                        <th>Cu</th>
+                        <th>Fe</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>10-14</td>
+                        <td>2.00 max</td>
+                        <td>23-25</td>
+                        <td>20-56</td>
+                        <td>10-14</td>
+                        <td>10-14</td>
+                        <td>10-14</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div className={styles.buttons_eddit}>
+                    <span><FaEdit className={styles.icon_edit}/></span>
+                    <span><MdDelete className={styles.icon_delete}/></span>
+
+                  </div>
+                </div> 
+        </td>
+            </tr>
+            <tr>
+            <td className={styles.td_mobile}>
+          <div className={styles.divChemical}>
+            <h3>Grade:316L</h3>
+                  <table >
+                    <thead>
+                      <tr>
+                        <th>Ni</th>
+                        <th>Cr</th>
+                        <th>Mn</th>
+                        <th>Mo</th>
+                        <th>Co</th>
+                        <th>Cu</th>
+                        <th>Fe</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>10-14</td>
+                        <td>2.00 max</td>
+                        <td>23-25</td>
+                        <td>20-56</td>
+                        <td>10-14</td>
+                        <td>10-14</td>
+                        <td>10-14</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div className={styles.buttons_eddit}>
+                    <span><FaEdit className={styles.icon_edit}/></span>
+                    <span><MdDelete className={styles.icon_delete}/></span>
+
+                  </div>
+                </div> 
+        </td>
+            </tr>
+          
+          </tbody>
+         
         </table>
 
       </div>
