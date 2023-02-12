@@ -1,16 +1,28 @@
 import Layout from '@/Components/Layout'
 import React,{useState} from 'react'
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Modal,Input } from 'antd';
 import styles from "@/styles/Chemical.module.css";
 import { FaAngleLeft, FaAngleRight, FaPlusCircle,FaEdit} from "react-icons/fa";
 import { HiOutlineSaveAs,HiOutlineSearch,HiArrowNarrowDown,HiArrowNarrowUp } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import Image from 'next/image';
 import add_gif from "../public/Images/add_gif.gif"
+import { ChemicalSave } from '@/Api/Url';
+import axios from 'axios'
 var arrlist={}
 var table_th=[]
 var table_td=[]
 
 const Chemical = () => {
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+    alert("click")
+    setOpen(true);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
 
   const initialValues = {
     el_name:"",
@@ -78,6 +90,46 @@ console.log(value,"grade_name")
   const saveGrade=()=>{
     var saveData=[grade,arrlist]
     console.log("data",saveData)
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'JWT fefege...'
+    }
+    var data={
+      grade_name:grade,
+      chemical:arrlist
+    }
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        grade_name:grade,
+        chemical:arrlist
+      }
+  };
+  // fetch(ChemicalSave,JSON.stringify({
+  //   grade_name:grade,
+  //   chemical:arrlist
+  // }))
+  //     .then(response => console.log(response.json(),"data"))
+  //     .then(data => console.log(data));
+  const data_obj=JSON.stringify({
+    "grade_name":grade,
+          "chemical":arrlist
+     }
+          
+        )
+        console.log("data:",data_obj)
+ axios.post(ChemicalSave,data_obj)
+      .then((response) => {
+       console.log(response.json())
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error,"error")
+
+      })
   }
   
   return <Layout title="Chemical">
@@ -194,7 +246,7 @@ it's Chemical</h4>
                 </div>
               </td>
               <td className={styles.button_actions}>
-              <button>Edit <FaEdit className={styles.icon_t}/></button>
+              <button onClick={showModal}>Edit <FaEdit className={styles.icon_t}/></button>
                <button>Delete <MdDelete className={styles.icon_t}/></button>
               </td>
             </tr>
@@ -340,7 +392,7 @@ it's Chemical</h4>
                     </tbody>
                   </table>
                   <div className={styles.buttons_eddit}>
-                    <span><FaEdit className={styles.icon_edit}/></span>
+                    <span onClick={showModal}><FaEdit className={styles.icon_edit}/></span>
                     <span><MdDelete className={styles.icon_delete}/></span>
 
                   </div>
@@ -356,7 +408,58 @@ it's Chemical</h4>
 
       </div>
      </div>
+     
     </div>
+    <Modal
+     
+        open={open}
+        onOk={hideModal}
+        onCancel={hideModal}
+        okText="Ok"
+        bodyStyle={{
+          height:"auto",
+          width:"295px",
+          paddingBottom:"15px"
+        }}
+
+        width="295px"
+
+        cancelText="Cencel"
+      >
+       <div className={styles.chemical_update}>
+        <div className={styles.chemical_hed}>
+<h2>Chemical Update </h2>
+        <h3>(Grade:SS316L)</h3>
+        </div>
+        <div className={styles.input_box}>
+          <div className={styles.grade_box}>
+            <label>Grade:</label>
+            <Input placeholder="grade name"  />
+          </div>
+          <div className={styles.grade_box}>
+            <label>Ni:</label>
+            <Input placeholder="grade name"  />
+          </div>
+          <div className={styles.grade_box}>
+            <label>Cr:</label>
+            <Input placeholder="grade name"  />
+          </div>
+        </div>
+        <div className={styles.button_group}>
+       
+          <Button className={styles.Cancel_btn} onClick={hideModal}>
+            Cencel
+          </Button>
+
+          <Button className={styles.Update_btn}>
+            Update
+          </Button>
+        </div>
+       
+        
+       </div>
+      </Modal>
+   
   </Layout>
 }
 

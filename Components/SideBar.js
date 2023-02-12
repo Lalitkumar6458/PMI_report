@@ -122,7 +122,7 @@ $("#heading_img img").css({
     {
          menu.map((item,index)=>{
             return(
-<li className={router.asPath == item.link?styles.active:""}><Link href={item.link}>{item.icon}{item.name}</Link></li>
+<li className={router.asPath == item.link?styles.active:""} key={item.id}><Link href={item.link}>{item.icon}{item.name}</Link></li>
             )
 
 

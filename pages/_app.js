@@ -5,7 +5,7 @@ import Router from 'next/router'
 import loader from "../public/Images/loader_gif.gif"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'smart-webcomponents-react/source/styles/smart.default.css';
-
+import Loader from '@/Components/SmallComponets/Loader'
 export default function App({ Component, pageProps }) {
 
 
@@ -26,7 +26,7 @@ useEffect(()=>{
 },[])
   return <>
   {loading?<div className='loader'>
-    <Image src={loader} alt=""/>
+    <Loader/>
   </div>:<Component {...pageProps} />
   
 }

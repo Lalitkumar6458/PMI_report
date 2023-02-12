@@ -65,7 +65,7 @@ const Mobile_Tabs = () => {
         <ul>
             {menu.map((item)=>{
                 return (
-                    <li className={router.asPath == item.link?"active":""}><Link href={item.link}>{item.icon}{item.name}</Link></li>
+                    <li className={router.asPath == item.link?"active":""} key={item.id}><Link href={item.link}>{item.icon}{item.name}</Link></li>
                 )
             })}
            

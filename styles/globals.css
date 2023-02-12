@@ -61,6 +61,85 @@ html{
 .mobile_topbar{
   display: none;
 }
+.ant-modal-close{
+  display: none;
+}
+.ant-modal-content{
+  padding: 0 !important;
+}
+.ant-modal-footer{
+  display: none;
+}
+.Border_box{
+  position: relative;
+  border: 1px solid var(--dark-blue);
+  border-radius: 8px;
+  padding-bottom: 20px;
+}
+.Border_box h2{
+  position: absolute;
+  background-color: #081A51;
+  color: #30D987;
+  padding: 5px 10px;
+  border-radius: 5px;
+  top: -17px;
+  left: 10px;
+}
+.Button_g{
+  padding: 5px 15px;
+  font-size: 1.5rem;
+  border: none;
+  background-color: var(--btn-bgColor);
+  color: var(--white);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  align-self: flex-end;
+}
+.Button_g .icon_btn{
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+.editable-row .ant-form-item-explain {
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+}
+.search_box .ant-select-selector{
+  border: 1.5px solid #081A51 !important;
+}
+.ant-select-selection-placeholder{
+  font-family: 'Inter'!important;
+font-style: normal !important;
+font-weight: 500!important;
+font-size: 1.2rem!important;
+line-height: 11px!important;
+color: #8E8E8E!important;
+display: flex;
+align-items: center;
+}
+.shapes-5 {
+  width: 40px;
+  height: 40px;
+  color:rgb(18, 28, 85);
+  background:
+    linear-gradient(currentColor 0 0),
+    linear-gradient(currentColor 0 0),
+    linear-gradient(currentColor 0 0),
+    linear-gradient(currentColor 0 0);
+  background-size: 21px 21px;
+  background-repeat:no-repeat;
+  animation: sh5 1.5s infinite cubic-bezier(0.3,1,0,1);
+}
+@keyframes sh5 {
+ 0%   {background-position: 0    0,100% 0   ,100% 100%,0 100%}
+ 33%  {background-position: 0    0,100% 0   ,100% 100%,0 100%;width:60px;height: 60px}
+ 66%  {background-position: 100% 0,100% 100%,0    100%,0 0   ;width:60px;height: 60px}
+ 100% {background-position: 100% 0,100% 100%,0    100%,0 0   }
+}
+
 
 /* Media Query for low resolution  Tablets, Ipads */
 @media  (max-width: 767px) {
@@ -134,6 +213,23 @@ height: 100%;
 .mobile_tabs ul li a .icon_tab{
 font-size: 23px;
 }
+.Border_box {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.page_container {
+  height: 83vh;
+overflow: auto;
+}
+.container_main .right_side_section{
+  overflow: auto;
+}
 
 }
 
+@media  (max-width: 576px) {
+  html{
+
+    font-size: 60.50%;
+  }
+}

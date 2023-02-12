@@ -260,6 +260,88 @@ gap: 10px;
 .mobile_table_c,.small_height_b{
     display: none;
 }
+.chemical_hed{
+    background: #081A51;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px 0;
+    gap: 5px;
+    padding-top: 8px;
+}
+.chemical_hed h2{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 1.8rem;
+line-height: 1.6rem;
+
+color: #FFFFFF;
+
+}
+.chemical_hed h3{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 1.8rem;
+line-height: 1.6rem;
+
+color: #FFFFFF;
+}
+.input_box{
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.grade_box{
+    display: flex;
+    align-items: center;
+    background: #D9D9D9;
+    border: 1px solid #000000;
+    border-radius: 14px;
+    padding: 5px 8px;
+    gap: 10px;
+}
+.grade_box input{
+    background-color: #919BE7;
+    color: #1C1F37;
+
+}
+.grade_box label{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 600;
+font-size: 1.5rem;
+line-height: 1.5rem;
+
+color: #313131;
+}
+.Update_btn,.Cancel_btn{
+    background: #1C1F37;
+border-radius: 12.1931px;color: #ffff;
+padding: 10px 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.4rem;
+}
+.Cancel_btn{
+    background-color: #AADBF2;
+    color: #1C1F37;
+}
+.button_group{
+    width: 100%;
+    display: flex;
+align-items: center;
+justify-content: center;
+gap: 20px;
+}
+
 @media  (max-width: 767px) {
     .small_height_b{
         position: absolute;
@@ -398,4 +480,23 @@ gap: 10px;
     .alloys_content,.table_grades{
         
     }
+    .group_input{
+        display: flex;
+        align-items: center;
+       
+        gap: 10px;
+    }
+    .group_input input{
+        width: 113px;
+    }
+    .group_input input::placeholder{
+       font-size: 1rem;
+    }
+    .grade_chemical .input_field label{
+        font-size: 1.4rem;
+    }
+    .grade_chemical .input_field input::placeholder{
+        color: transparent;
+    }
+    
 }
