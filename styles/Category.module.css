@@ -52,7 +52,13 @@ color: #8E8E8E;
     width: fit-content;
     margin-bottom: 5px;
 }
+.Client_cont{
+    display: block;
+}
 @media  (max-width: 767px) {
+    .Client_cont{
+        display: none;
+    }
     .Category_con{
         padding: 30px 15px;
        

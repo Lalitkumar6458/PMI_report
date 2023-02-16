@@ -9,6 +9,7 @@ import { UserAddOutlined } from '@ant-design/icons';
 import ClientTable from '@/Components/SmallComponets/ClientTable'
 import { saveClient } from '@/Api/Url'
 import axios from 'axios'
+import EditTable from '@/Components/SmallComponets/EditTable'
 
 
 
@@ -140,7 +141,11 @@ const options = [
       </div>
 
       <div className={styles.client_table}>
+        <div className={styles.Client_cont}>
+
 <ClientTable/>
+        </div>
+<EditTable/>
       </div>
      </div>
      </div>
