@@ -10,6 +10,7 @@ import ClientTable from '@/Components/SmallComponets/ClientTable'
 import { saveClient } from '@/Api/Url'
 import axios from 'axios'
 import EditTable from '@/Components/SmallComponets/EditTable'
+import {HiArrowNarrowDown,HiArrowNarrowUp } from "react-icons/hi";
 
 
 
@@ -53,6 +54,7 @@ const NumericInput = (props) => {
 
 
 const Category = () => {
+  const [smallbox,setSmallbox]=useState(false)
   const [value, setValue] = useState('');
 const AddClient=()=>{
 const data={
@@ -91,9 +93,11 @@ const options = [
     <Layout title="Category">
      <div className={styles.Category_con}>
       
- <div className='Border_box'>
+ <div className={smallbox?'Border_box height_down':'Border_box'}>
   <h2>Add Client</h2>
-  <div className={styles.input_box}>
+  <button className="small_height_b" onClick={()=>{smallbox?setSmallbox(false):setSmallbox(true)}}>{smallbox?<HiArrowNarrowDown/>:<HiArrowNarrowUp/>}</button>
+
+  <div className={styles.input_box} style={{display:smallbox?"none":""}}>
 <div className={styles.input_div}>
   <label>Name</label>
   <Input placeholder="Enter Client Name.." />
@@ -108,7 +112,7 @@ const options = [
   <label>Phone No.</label>
   <NumericInput
       style={{
-        width: 120,
+       
       }}
       value={value}
       onChange={setValue}

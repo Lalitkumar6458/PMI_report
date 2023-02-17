@@ -108,6 +108,9 @@ font-style: normal;
 font-weight: 600;
 color: #1C1F37;
 }
+.client_infobox .input_client input{
+    height: 40px !important;
+}
 .client_infobox .input_client input,.client_infobox .input_client textarea{
     background: #B3BAF0;
     border-radius: 4px;
@@ -116,6 +119,19 @@ color: #1C1F37;
 font-style: normal;
 font-weight: 600;
 color: #0A194E;
+}
+.updateButton{
+    background-color: #1C1F37;
+    color: #fff;
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+.updateButton:hover{
+    background-color: #1C1F37!important;
+    color: #fff!important;
 }
 @media  (max-width: 767px) {
     .EditTable_con{

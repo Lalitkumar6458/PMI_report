@@ -106,13 +106,13 @@ console.log("index",newData)
       <label>Phone No.</label>
       <Input value={newData[0].phoneno}  />
     </div>
-    <div className={styles.input_client}>
+    <div className={styles.input_client} style={{height:"113px"}}>
       <label>Address</label>
       <TextArea className={styles.text_client} showCount value={newData[0].address} maxLength={100} />
 
     </div>
 
-    <Button type='primary'>Update</Button>
+    <Button type='primary' className={styles.updateButton}>Update</Button>
   </div>
 </div>
     </Layout>

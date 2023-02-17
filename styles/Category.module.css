@@ -15,6 +15,7 @@
 .input_box .input_div{
     display: flex;
     flex-direction: column;
+    width: 20%;
 }
 .input_box .input_div label{
     font-size: 1.6rem;
@@ -56,6 +57,9 @@ color: #8E8E8E;
     display: block;
 }
 @media  (max-width: 767px) {
+    .input_box .input_div{
+        width: 40%;
+    }
     .Client_cont{
         display: none;
     }
@@ -69,4 +73,9 @@ color: #8E8E8E;
 
 }
 
+}
+@media  (max-width: 576px) {
+    .input_box .input_div{
+        width: 100%;
+    }
 }

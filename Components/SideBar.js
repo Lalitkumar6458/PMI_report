@@ -72,7 +72,13 @@ const SideBar = () => {
     function handler_side_bar(){
         if(sidebar==false){
             setSidebar(true)
-            $(".container_main").css("grid-template-columns","5% auto")
+           if($(window).width()<=920){
+            $(".container_main").css("grid-template-columns","9% auto")
+
+           }else{
+
+             $(".container_main").css("grid-template-columns","5% auto")
+           }
             $("#links_all ul").css("padding-left","5px")
             $("#links_all ul li").css("padding-left","15px")
             $("#links_all ul li a").css("gap","30px")
