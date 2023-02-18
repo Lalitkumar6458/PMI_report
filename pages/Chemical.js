@@ -113,15 +113,19 @@ console.log(value,"grade_name")
   //     .then(response => console.log(response.json(),"data"))
   //     .then(data => console.log(data));
   const data_obj=JSON.stringify({
-    "grade_name":grade,
-          "chemical":arrlist
-     }
+    grade_name:grade,
+    chemical_name:arrlist
+     })
           
-        )
+        
         console.log("data:",data_obj)
- axios.post(ChemicalSave,data_obj)
+ axios.post(ChemicalSave,data_obj,{
+  'Content-Type': 'application/json',
+  Connection: 'Keep-Alive',
+  Authorization: `Bearer test`,
+},)
       .then((response) => {
-       console.log(response.json())
+       console.log("response data c",response.data)
       })
       .catch((error) => {
         // dispatch({

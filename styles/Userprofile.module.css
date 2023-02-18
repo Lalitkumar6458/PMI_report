@@ -1,0 +1,42 @@
+
+.image_box{
+    width: 100%;
+}
+.input_box{
+
+}
+.input_box label,.image_box label{
+    font-size: 1.5rem;
+    color: var(--dark-blue);
+    font-weight: 500;
+}
+.input_box input{
+    border: 1.7px solid var(--dark-blue);
+    margin-bottom: 10px;
+}
+.input_box input::placeholder{
+    color: rgb(73, 73, 194);
+}
+.Save_details_btn{
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: rgb(14, 26, 134);
+
+    padding: 0px 20px;
+    height: 42px;
+    margin-top: 20px;
+}
+.Save_details_btn:hover{
+    background-color: #fff !important;
+    color: rgb(14, 26, 134) !important;
+    border: 1px solid;
+}
+@media  (max-width: 768px) {
+    .input_box label,.image_box label{
+        font-size: 1.7rem;
+        color: var(--dark-blue);
+        font-weight: 500;
+        white-space: nowrap;
+    }
+}

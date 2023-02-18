@@ -70,11 +70,15 @@ html{
 .ant-modal-footer{
   display: none;
 }
+.Borbox_con{
+  width: 100%;
+  padding: 3% 4%;
+}
 .Border_box{
   position: relative;
   border: 1px solid var(--dark-blue);
   border-radius: 8px;
-  padding-bottom: 20px;
+  padding: 20px 20px;
 }
 .small_height_b{
   position: absolute;
@@ -97,7 +101,9 @@ html{
   border-radius: 5px;
   top: -17px;
   left: 10px;
+  font-size: 1.9rem;
 }
+
 .Button_g{
   padding: 5px 15px;
   font-size: 1.5rem;
@@ -145,6 +151,13 @@ align-items: center;
   background-size: 21px 21px;
   background-repeat:no-repeat;
   animation: sh5 1.5s infinite cubic-bezier(0.3,1,0,1);
+}
+.ant-upload{
+  border-color: #081A51 !important;
+}
+.logo_upload .ant-upload {
+  width: 240px !important;
+  border-color: #081A51 !important;
 }
 @keyframes sh5 {
  0%   {background-position: 0    0,100% 0   ,100% 100%,0 100%}
@@ -201,7 +214,10 @@ ul{
   height: 100%;
  
 }
-
+.Borbox_con {
+  width: 100%;
+  padding: 9% 4%;
+}
 .mobile_tabs ul li a{
   text-decoration: none;
   display: flex;
@@ -249,4 +265,8 @@ overflow: auto;
 
     font-size: 60.50%;
   }
+  .logo_upload .ant-upload {
+    width: 199px !important;
+    border-color: #081A51 !important;
+}
 }

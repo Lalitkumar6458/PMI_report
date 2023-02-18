@@ -27,7 +27,10 @@ useEffect(()=>{
   return <>
   {loading?<div className='loader'>
     <Loader/>
-  </div>:<Component {...pageProps} />
+  </div>:
+  
+  <Component {...pageProps} />
+
   
 }
   

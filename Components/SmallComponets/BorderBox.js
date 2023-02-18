@@ -1,12 +1,15 @@
 import React from 'react'
 
-const BorderBox = (props) => {
-    const {title,content}=props.ele
+const BorderBox = ({children,title}) => {
+ 
   return (
-    <div className='Border_box'>
-<h1>{title} </h1>
-{content}
+    <div className='Borbox_con'>
+<div className='Border_box'>
+      <h2>{title}</h2>
+{children}
     </div>
+    </div>
+    
   )
 }
 

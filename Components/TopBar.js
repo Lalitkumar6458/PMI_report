@@ -10,6 +10,8 @@ import logo from "../public/Images/pmilogo.png"
 
 
 
+
+
 const TopBar = () => {
 const[userdrop,setUserdrop]=useState(false)
 const wrapperRef = useRef(null);
@@ -49,6 +51,7 @@ const dropDown_show=()=>{
     <>
       <div className={styles.top_bar_con}>
         <h2>Dashboard</h2>
+
        
         <div className={styles.right_btn_con}>
 
@@ -61,7 +64,7 @@ const dropDown_show=()=>{
                 <h5>Username </h5><FiChevronDown className={styles.icon_drop} />
                {userdrop?<div className={styles.drop_down} id="drop_down">
                     <ul>
-                        <li><Link href=""><FaUserCircle className={styles.icons_drop} />Profile</Link></li>
+                        <li><Link href="/UserProfile"><FaUserCircle className={styles.icons_drop} />Profile</Link></li>
                         <li><Link href=""><BiHelpCircle className={styles.icons_drop} />Help</Link></li>
                         <li><Link href=""><BiLogOut className={styles.icons_drop}/>Logout</Link></li>
                     </ul>
