@@ -8,7 +8,7 @@ const ClientInfo = () => {
 const router=useRouter()
 const{query}=router
 const { TextArea } = Input;
-console.log("router:",router)
+
 const data=[
   {
     id:1,
@@ -81,9 +81,9 @@ const data=[
     address:"mumbai"
   }
 ]
-console.log(query.clientid,"query.clientid")
+
 let newData=data.filter((x) => x.id == query.clientid);
-console.log("index",newData)
+
   return (
     <Layout title="client">
 

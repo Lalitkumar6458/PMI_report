@@ -84,12 +84,12 @@ const dropDown_show=()=>{
             <span><FiSearch className={styles.icon_t}/>  </span>
             <div className={styles.usen_info_con}>
                 <span><FaUserCircle className={styles.icon_user} /></span>
-                <div className={styles.dopdown_user} id="drop_down_user" onClick={()=>dropDown_show()}>
+                <div className={styles.dopdown_user} id="drop_down_user" ref={wrapperRef} onClick={()=>dropDown_show()}>
 
                 <h5>Username </h5><FiChevronDown className={styles.icon_drop} />
                {userdrop?<div className={styles.drop_down} id="drop_down">
                     <ul>
-                        <li><Link href=""><FaUserCircle className={styles.icons_drop} />Profile</Link></li>
+                        <li><Link href="/UserProfile"><FaUserCircle className={styles.icons_drop} />Profile</Link></li>
                         <li><Link href=""><BiHelpCircle className={styles.icons_drop} />Help</Link></li>
                         <li><Link href=""><BiLogOut className={styles.icons_drop}/>Logout</Link></li>
                     </ul>

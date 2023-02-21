@@ -21,7 +21,7 @@ import { useRouter } from "next/router";
 
 const SideBar = () => {
     const router = useRouter()
-         console.log(router.asPath,"pathname")
+  
     const[sidebar,setSidebar]=useState(false)
 
     const menu = [

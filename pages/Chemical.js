@@ -13,17 +13,21 @@ import axios from 'axios'
 var arrlist={}
 var table_th=[]
 var table_td=[]
-
+// var modalData;
 const Chemical = () => {
   const [open, setOpen] = useState(false);
-  const showModal = () => {
-    alert("click")
+  const [modalData,setModalData]=useState({})
+  const showModal = (data) => {
+      setModalData({...data})
     setOpen(true);
+    console.log("modalData 345",modalData)
   };
   const hideModal = () => {
     setOpen(false);
   };
-
+const Deletegrade=(item_id)=>{
+alert("delete id"+item_id)
+}
   const initialValues = {
     el_name:"",
     percent:""
@@ -50,7 +54,7 @@ const Chemical = () => {
    =(e)=>{
 const{value}=e.target;
 setGrade(value)
-console.log(value,"grade_name")
+
   }
 
  
@@ -81,7 +85,7 @@ console.log(value,"grade_name")
         percent:""
       })
   
-      console.log("gradedata",arrlist)
+
 
     }
   
@@ -89,7 +93,6 @@ console.log(value,"grade_name")
   }
   const saveGrade=()=>{
     var saveData=[grade,arrlist]
-    console.log("data",saveData)
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'JWT fefege...'
@@ -118,7 +121,6 @@ console.log(value,"grade_name")
      })
           
         
-        console.log("data:",data_obj)
  axios.post(ChemicalSave,data_obj,{
   'Content-Type': 'application/json',
   Connection: 'Keep-Alive',
@@ -136,6 +138,34 @@ console.log(value,"grade_name")
       })
   }
   
+  const Grade_data=[
+    {
+      id:1,
+      grade:"304L",
+      Chemical:{
+        Ni: "57.00",
+        Cr: "1.0*",
+        Mo: "21.00",
+        Fe: "19.00",
+      }
+    },
+    {
+      id:2,
+      grade:"316L",
+      Chemical:{
+        Ni: "57.00",
+        Cr: "1.0*",
+        Mo: "21.00",
+        Fe: "19.00",
+      }
+    }
+  ]
+
+  const updateChemical=(e)=>{
+    console.log("change doing",e.target.name,modalData.Chemical[e.target.name])
+    modalData.Chemical[e.target.name]=e.target.value
+    console.log("modalData upfdae",modalData)
+  }
   return <Layout title="Chemical">
     <div className={styles.Chemical_container}>
      <div className={styles.alloys_content}>
@@ -219,190 +249,101 @@ it's Chemical</h4>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className={styles.grade_td}>Grade:316L</td>
-              <td>
-                <div className={styles.divChemical}>
-                  <table >
-                    <thead>
-                      <tr>
-                        <th>Ni</th>
-                        <th>Cr</th>
-                        <th>Mn</th>
-                        <th>Mo</th>
-                        <th>Co</th>
-                        <th>Cu</th>
-                        <th>Fe</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>10-14</td>
-                        <td>2.00 max</td>
-                        <td>23-25</td>
-                        <td>20-56</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </td>
-              <td className={styles.button_actions}>
-              <button onClick={showModal}>Edit <FaEdit className={styles.icon_t}/></button>
-               <button>Delete <MdDelete className={styles.icon_t}/></button>
-              </td>
-            </tr>
 
-            <tr>
-              <td>Grade:316L</td>
-              <td>
-                <div className={styles.divChemical}>
-                  <table >
-                    <thead>
-                      <tr>
-                        <th>Ni</th>
-                        <th>Cr</th>
-                        <th>Mn</th>
-                        <th>Mo</th>
-                        <th>Co</th>
-                        <th>Cu</th>
-                        <th>Fe</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>10-14</td>
-                        <td>2.00 max</td>
-                        <td>23-25</td>
-                        <td>20-56</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </td>
-              <td className={styles.button_actions}>
-              <button>Edit <FaEdit className={styles.icon_t}/></button>
-               <button>Delete <MdDelete className={styles.icon_t}/></button>
-              </td>
-            </tr>
+
+            {
+              Grade_data.map((item)=>{
+                return(
+                  <tr key={item.id}>
+                  <td className={styles.grade_td}>Grade:{item.grade}</td>
+                  <td>
+                    <div className={styles.divChemical}>
+                      <table >
+                        <thead>
+                          
+                                <tr>
+                                {Object.keys(item.Chemical).map((each,index)=>{
+                      return(
+                        <th key={index}>{each}</th>
+                      )
+                                })}
+                                </tr>
+                           
+                         
+                        </thead>
+                        <tbody>
+                        <tr>
+                        {Object.keys(item.Chemical).map((each,index)=>{
+                            
+                      return(
+                    <td key={index}>{item.Chemical[each]}</td>
+                      )
+                     
+                                })}
+                                 </tr>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                  <td className={styles.button_actions}>
+                  <button  onClick={()=>showModal(item)} >Edit <FaEdit className={styles.icon_t}/></button>
+                   <button onClick={()=>Deletegrade(item.id)}>Delete <MdDelete className={styles.icon_t}/></button>
+                  </td>
+                </tr>
+                )
+              })
+            }
+          
+
+           
           </tbody>
         </table>
 
         <table className={styles.mobile_table_c}>
           <tbody>
-            <tr>
-            <td className={styles.td_mobile}>
-          <div className={styles.divChemical}>
-            <h3>Grade:316L</h3>
-                  <table >
-                    <thead>
-                      <tr>
-                        <th>Ni</th>
-                        <th>Cr</th>
-                        <th>Mn</th>
-                        <th>Mo</th>
-                        <th>Co</th>
-                        <th>Cu</th>
-                        <th>Fe</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>10-14</td>
-                        <td>2.00 max</td>
-                        <td>23-25</td>
-                        <td>20-56</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className={styles.buttons_eddit}>
-                    <span><FaEdit className={styles.icon_edit}/></span>
-                    <span><MdDelete className={styles.icon_delete}/></span>
 
-                  </div>
-                </div> 
-        </td>
-            </tr>
-            <tr>
-            <td className={styles.td_mobile}>
-          <div className={styles.divChemical}>
-            <h3>Grade:316L</h3>
-                  <table >
-                    <thead>
-                      <tr>
-                        <th>Ni</th>
-                        <th>Cr</th>
-                        <th>Mn</th>
-                        <th>Mo</th>
-                        <th>Co</th>
-                        <th>Cu</th>
-                        <th>Fe</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>10-14</td>
-                        <td>2.00 max</td>
-                        <td>23-25</td>
-                        <td>20-56</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className={styles.buttons_eddit}>
-                    <span><FaEdit className={styles.icon_edit}/></span>
-                    <span><MdDelete className={styles.icon_delete}/></span>
 
-                  </div>
-                </div> 
-        </td>
-            </tr>
+          {
+              Grade_data.map((item)=>{
+return( <tr>
+  <td className={styles.td_mobile}>
+<div className={styles.divChemical}>
+  <h3>Grade:{item.grade}</h3>
+        <table >
+          <thead>
+          <tr>
+                                {Object.keys(item.Chemical).map((each,index)=>{
+                      return(
+                        <th key={index}>{each}</th>
+                      )
+                                })}
+                                </tr>
+          </thead>
+          <tbody>
             <tr>
-            <td className={styles.td_mobile}>
-          <div className={styles.divChemical}>
-            <h3>Grade:316L</h3>
-                  <table >
-                    <thead>
-                      <tr>
-                        <th>Ni</th>
-                        <th>Cr</th>
-                        <th>Mn</th>
-                        <th>Mo</th>
-                        <th>Co</th>
-                        <th>Cu</th>
-                        <th>Fe</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>10-14</td>
-                        <td>2.00 max</td>
-                        <td>23-25</td>
-                        <td>20-56</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                        <td>10-14</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className={styles.buttons_eddit}>
-                    <span onClick={showModal}><FaEdit className={styles.icon_edit}/></span>
-                    <span><MdDelete className={styles.icon_delete}/></span>
-
-                  </div>
-                </div> 
-        </td>
+            {Object.keys(item.Chemical).map((each,index)=>{
+                            
+                            return(
+                          <td key={index}>{item.Chemical[each]}</td>
+                            )
+                           
+                                      })}
             </tr>
+          </tbody>
+        </table>
+        <div className={styles.buttons_eddit}>
+          <span  ><FaEdit className={styles.icon_edit} onClick={()=>showModal(item)} /></span>
+          <span><MdDelete className={styles.icon_delete} onClick={()=>Deletegrade(item.id)} /></span>
+
+        </div>
+      </div> 
+</td>
+  </tr>)
+
+              })}
+           
+          
           
           </tbody>
          
@@ -433,21 +374,26 @@ it's Chemical</h4>
        <div className={styles.chemical_update}>
         <div className={styles.chemical_hed}>
 <h2>Chemical Update </h2>
-        <h3>(Grade:SS316L)</h3>
+        <h3>(Grade:{modalData?modalData.grade:""})</h3>
         </div>
         <div className={styles.input_box}>
           <div className={styles.grade_box}>
             <label>Grade:</label>
-            <Input placeholder="grade name"  />
+            <Input placeholder="grade name" value={modalData?modalData.grade:""} />
           </div>
-          <div className={styles.grade_box}>
-            <label>Ni:</label>
-            <Input placeholder="grade name"  />
+
+          {
+            modalData.Chemical?Object.keys(modalData.Chemical).map((item)=>{
+         return (
+<div className={styles.grade_box}>
+            <label>{item}:</label>
+            <Input placeholder="grade name" name={item} value={modalData.Chemical[item]} onChange={updateChemical}  />
           </div>
-          <div className={styles.grade_box}>
-            <label>Cr:</label>
-            <Input placeholder="grade name"  />
-          </div>
+         )
+            }):""
+          }
+          
+        
         </div>
         <div className={styles.button_group}>
        

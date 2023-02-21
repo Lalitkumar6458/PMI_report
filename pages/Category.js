@@ -52,28 +52,30 @@ const NumericInput = (props) => {
   );
 };
 
-
+const initialState={
+  name:"",
+  email:"",
+  phone:"",
+  address:""
+}
 const Category = () => {
   const [smallbox,setSmallbox]=useState(false)
   const [value, setValue] = useState('');
+  const[clientInfo,setClientInfo]=useState(initialState)
 const AddClient=()=>{
-const data={
-  name:"lalit kumar",
-  email:"lalit@gmail.com",
-  phoneno:"9326874950",
-  Address:"mumbai"
-}
-axios.post(saveClient,data)
-      .then((response) => {
-       console.log(response.json())
-      })
-      .catch((error) => {
-        // dispatch({
-        //   type: ERROR_FINDING_USER
-        // })
-        console.log(error,"error")
+  clientInfo["phone"]=value
+  console.log("client info data",clientInfo)
+// axios.post(saveClient,data)
+//       .then((response) => {
+//        console.log(response.json())
+//       })
+//       .catch((error) => {
+//         // dispatch({
+//         //   type: ERROR_FINDING_USER
+//         // })
+//         console.log(error,"error")
 
-      })
+//       })
 }
 
 
@@ -88,7 +90,12 @@ const options = [
     value: 'Inconel-600',
   },
 ];
-
+const handleValueChange=(e)=>{
+  setClientInfo({
+    ...clientInfo,
+    [e.target.name]:e.target.value
+  })
+}
   return (
     <Layout title="Category">
      <div className={styles.Category_con}>
@@ -100,12 +107,12 @@ const options = [
   <div className={styles.input_box} style={{display:smallbox?"none":""}}>
 <div className={styles.input_div}>
   <label>Name</label>
-  <Input placeholder="Enter Client Name.." />
+  <Input placeholder="Enter Client Name.." name="name" value={clientInfo.name} onChange={handleValueChange} />
   
 </div>
 <div className={styles.input_div}>
   <label>Email</label>
-  <Input placeholder="Enter Email.." />
+  <Input placeholder="Enter Email.." name="email" value={clientInfo.email} onChange={handleValueChange} />
   
 </div>
 <div className={styles.input_div}>
@@ -121,7 +128,7 @@ const options = [
 </div> 
 <div className={styles.input_div}>
   <label>Address</label>
-  <Input placeholder="Enter Address.." />
+  <Input placeholder="Enter Address.."  name="address" value={clientInfo.address} onChange={handleValueChange} />
   
 </div>
 <Button content={{title:"Add",icon:<UserAddOutlined className='icon_btn' />,event:AddClient}}/>

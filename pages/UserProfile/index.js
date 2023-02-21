@@ -25,6 +25,7 @@ const beforeUpload = (file) => {
 const index = () => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
+
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
       setLoading(true);
@@ -50,6 +51,7 @@ const index = () => {
       </div>
     </div>
   );
+ 
   return (
     <Layout title={"UserProfile"}>
       <BorderBox title={"My Profile"}>
