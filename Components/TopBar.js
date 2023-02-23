@@ -15,28 +15,30 @@ import logo from "../public/Images/pmilogo.png"
 const TopBar = () => {
 const[userdrop,setUserdrop]=useState(false)
 const wrapperRef = useRef(null);
+const ref_div = useRef(null);
 
-function useOutsideAlerter(ref) {
-    useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-            setUserdrop(false)
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
+// function useOutsideAlerter(ref) {
+//     useEffect(() => {
+//       /**
+//        * Alert if clicked on outside of element
+//        */
+//       function handleClickOutside(event) {
+//         if (ref.current && !ref.current.contains(event.target)) {
+//             setUserdrop(false)
+//         }
+//       }
+//       // Bind the event listener
+//       document.addEventListener("mousedown", handleClickOutside);
+//       return () => {
+//         // Unbind the event listener on clean up
+//         document.removeEventListener("mousedown", handleClickOutside);
+//       };
+//     }, [ref]);
+//   }
 
 
-useOutsideAlerter(wrapperRef);
+// useOutsideAlerter(wrapperRef);
+// useOutsideAlerter(ref_div);
 const dropDown_show=()=>{
     if(userdrop == false){
        
@@ -59,7 +61,7 @@ const dropDown_show=()=>{
             <span><IoNotificationsOutline className={styles.icon_t} /></span>
             <div className={styles.usen_info_con}>
                 <span><FaUserCircle className={styles.icon_user} /></span>
-                <div className={styles.dopdown_user} id="drop_down_user" ref={wrapperRef} onClick={()=>dropDown_show()}>
+                <div className={styles.dopdown_user} id="drop_down_user" ref={ref_div} onClick={()=>dropDown_show()}>
 
                 <h5>Username </h5><FiChevronDown className={styles.icon_drop} />
                {userdrop?<div className={styles.drop_down} id="drop_down">

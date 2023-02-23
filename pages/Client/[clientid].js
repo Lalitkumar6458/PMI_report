@@ -1,5 +1,5 @@
 import Layout from '@/Components/Layout'
-import React from 'react'
+import React,{useState} from 'react'
 import { useRouter } from 'next/router'
 import { LeftOutlined } from '@ant-design/icons';
 import styles from "../../styles/ClientMobileTable.module.css"
@@ -83,7 +83,17 @@ const data=[
 ]
 
 let newData=data.filter((x) => x.id == query.clientid);
-
+const[clientUpdate,setClientUpdate]=useState({...newData[0]})
+const UpdateClientHandler=(e)=>{
+  const { name, value } = e.target;
+  setClientUpdate({
+    ...clientUpdate,
+    [name]: value,
+  });
+}
+const UpdateBtnhandler=()=>{
+  console.log("clientUpdate",clientUpdate)
+}
   return (
     <Layout title="client">
 
@@ -96,23 +106,23 @@ let newData=data.filter((x) => x.id == query.clientid);
   <div className={styles.client_infobox}>
     <div className={styles.input_client}>
       <label>Name</label>
-      <Input value={newData[0].name} placeholder="Basic usage"  />
+      <Input value={clientUpdate.name} name="name" placeholder="Basic usage" onChange={UpdateClientHandler} />
     </div>
-    <div className={styles.input_client}>
+    <div className={styles.input_client}  >
       <label>Email</label>
-      <Input value={newData[0].email} />
+      <Input value={clientUpdate.email} name="email" onChange={UpdateClientHandler} />
     </div>
-    <div className={styles.input_client}>
+    <div className={styles.input_client} >
       <label>Phone No.</label>
-      <Input value={newData[0].phoneno}  />
+      <Input value={clientUpdate.phoneno} name="phoneno" onChange={UpdateClientHandler}  />
     </div>
     <div className={styles.input_client} style={{height:"113px"}}>
       <label>Address</label>
-      <TextArea className={styles.text_client} showCount value={newData[0].address} maxLength={100} />
+      <TextArea className={styles.text_client} showCount name="address" value={clientUpdate.address} maxLength={100} onChange={UpdateClientHandler} />
 
     </div>
 
-    <Button type='primary' className={styles.updateButton}>Update</Button>
+    <Button type='primary' className={styles.updateButton} onClick={UpdateBtnhandler}>Update</Button>
   </div>
 </div>
     </Layout>

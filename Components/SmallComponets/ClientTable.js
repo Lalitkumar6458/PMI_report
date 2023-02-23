@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {FaEdit} from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { DeleteOutlined } from '@ant-design/icons';
+import styles from "../../styles/Category.module.css"
 
 const originData = [];
 for (let i = 0; i < 100; i++) {
@@ -117,26 +118,41 @@ const ClientTable = () => {
       dataIndex: 'operation',
       render: (_, record) => {
         const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-             <FaEdit className='edit_icon'/>
-          </Typography.Link>
-          
-        ) ;
+        return <div className={styles.buttonbox}>
+          {
+ editable ? (
+  <span>
+    <Typography.Link
+      onClick={() => save(record.key)}
+      style={{
+        marginRight: 8,
+      }}
+    >
+      Save
+    </Typography.Link>
+    <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+      <a>Cancel</a>
+    </Popconfirm>
+  </span>
+) : (
+  <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+     <FaEdit className={styles.icon_edit}/>
+  </Typography.Link>
+  
+) 
+          }
+<span>
+{
+            data.length >= 1 ? (
+              <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+                <a><DeleteOutlined className={styles.icon_del} /></a>
+              </Popconfirm>
+            ) : null
+          }
+</span>
+         
+        </div>
+       
        
       },
     },
@@ -156,6 +172,10 @@ const ClientTable = () => {
       }),
     };
   });
+  const handleDelete = (key) => {
+    const newData = data.filter((item) => item.key !== key);
+    setData(newData);
+  };
   return (
     <Form form={form} component={false}>
       <Table

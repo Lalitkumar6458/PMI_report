@@ -56,6 +56,19 @@ color: #8E8E8E;
 .Client_cont{
     display: block;
 }
+.buttonbox{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.icon_edit{
+    font-size: 1.6rem;
+    color: #081A51;
+}
+.icon_del{
+    font-size: 1.6rem;
+    color: rgb(180, 20, 20);
+}
 @media  (max-width: 767px) {
     .input_box .input_div{
         width: 40%;
