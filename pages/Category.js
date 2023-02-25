@@ -1,13 +1,13 @@
 import Layout from '@/Components/Layout'
 import Table from '@/Components/Table'
-import React,{useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from "../styles/Category.module.css"
 import BorderBox from '@/Components/SmallComponets/BorderBox'
 import { Input,Tooltip,AutoComplete  } from 'antd';
 import Button from '@/Components/SmallComponets/Button'
 import { UserAddOutlined } from '@ant-design/icons';
 import ClientTable from '@/Components/SmallComponets/ClientTable'
-import { saveClient } from '@/Api/Url'
+import { saveClient, getClientDataUrl } from '@/Api/Url'
 import axios from 'axios'
 import EditTable from '@/Components/SmallComponets/EditTable'
 import {HiArrowNarrowDown,HiArrowNarrowUp } from "react-icons/hi";
@@ -61,22 +61,51 @@ const initialState={
 const Category = () => {
   const [smallbox,setSmallbox]=useState(false)
   const [value, setValue] = useState('');
+  const[clientData,setClientData]=useState([])
   const[clientInfo,setClientInfo]=useState(initialState)
 const AddClient=()=>{
   clientInfo["phone"]=value
+  clientInfo["username"]="admin"
   console.log("client info data",clientInfo)
-// axios.post(saveClient,data)
-//       .then((response) => {
-//        console.log(response.json())
-//       })
-//       .catch((error) => {
-//         // dispatch({
-//         //   type: ERROR_FINDING_USER
-//         // })
-//         console.log(error,"error")
-
-//       })
+  axios.post(saveClient, clientInfo)
+      .then((response) => {
+       console.log(response.data)
+        GetclientData()
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error,"error")
+      })
 }
+
+const GetclientData=async()=>{
+
+    await axios
+      .get(getClientDataUrl, { params: { username: 'admin' } }, {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `Bearer test`,
+      })
+      .then((response) => {
+
+        console.log("response data c", response.data.data);
+         setClientData(response.data.data)
+
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error, "error");
+      });
+
+
+  }
+  useEffect(() => {
+    GetclientData()
+  }, [])
 
 
 const options = [
@@ -154,9 +183,9 @@ const handleValueChange=(e)=>{
       <div className={styles.client_table}>
         <div className={styles.Client_cont}>
 
-<ClientTable/>
+              <ClientTable data={clientData}/>
         </div>
-<EditTable/>
+            <EditTable data={clientData} />
       </div>
      </div>
      </div>

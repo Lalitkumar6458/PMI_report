@@ -1,10 +1,10 @@
 import Layout from "@/Components/Layout";
 import BorderBox from "@/Components/SmallComponets/BorderBox";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styles from "@/styles/Userprofile.module.css";
 import { Button, Input, message, Upload } from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import { UserInfoSave } from "@/Api/Url";
+import { UserInfoSave, getUserDataUrl } from "@/Api/Url";
 import axios from "axios";
 
 
@@ -50,10 +50,8 @@ const index = () => {
   const [imageUrl, setImageUrl] = useState();
   const [imageUrllogo, setImagelogo] = useState();
   const [editUserInfo, setEditUserInfo] =useState(false);
-
-  
-
   const [userDetails, setUserDetails] = useState(initialValues)
+
 
   const Changehanlder=(e)=>{
     const {name,value } = e.target;
@@ -63,6 +61,44 @@ const index = () => {
 
     })
   }
+
+  const getUserData = async()=>{
+
+
+    await axios
+      .get(getUserDataUrl,{params:{username:'admin'}}, {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `Bearer test`,
+      })
+      .then((response) => {
+        let userData = response.data.data[0]
+        setImageUrl(userData.user_img)
+        setImagelogo(userData.logo_img)
+       
+        setUserDetails({
+          name: userData.user_name,
+          email: userData.user_email,
+          phone: userData.phone_no,
+          address: userData.address
+
+        })
+
+        console.log("response data c", response.data.data);
+
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error, "error");
+      });
+
+
+  }
+  useEffect(()=>{
+    getUserData()
+  },[])
 
   const handleChange = (info) => {
     getBase64(info.file.originFileObj, (url) => {
@@ -111,7 +147,7 @@ const index = () => {
     //   });
     // }
   };
-  const userDetailsSave=()=>{
+  const userDetailsSave=async()=>{
     const form =new FormData()
     console.log("userDetails", userDetails)
     form.append("name", userDetails.name)
@@ -124,7 +160,7 @@ const index = () => {
 
     
 
-    axios
+    await axios
       .post(UserInfoSave, form, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",

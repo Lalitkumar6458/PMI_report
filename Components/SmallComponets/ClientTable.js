@@ -1,19 +1,11 @@
 import { Form, InputNumber, Popconfirm, Table, Typography,Input } from 'antd';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import {FaEdit} from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { DeleteOutlined } from '@ant-design/icons';
 import styles from "../../styles/Category.module.css"
 
-const originData = [];
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
+
 const EditableCell = ({
   editing,
   dataIndex,
@@ -48,9 +40,10 @@ const EditableCell = ({
     </td>
   );
 };
-const ClientTable = () => {
+const ClientTable = (props) => {
+  console.log("data",props.data)
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [data, setData] = useState();
   const [editingKey, setEditingKey] = useState('');
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
@@ -65,6 +58,10 @@ const ClientTable = () => {
   const cancel = () => {
     setEditingKey('');
   };
+  useEffect(()=>{
+    setData(props.data)
+
+  }, [props.data])
   const save = async (key) => {
     try {
       const row = await form.validateFields();
@@ -90,26 +87,26 @@ const ClientTable = () => {
   const columns = [
     {
       title: 'Client Name',
-      dataIndex: 'name',
+      dataIndex: 'client_name',
       width: '20%',
       editable: true,
     },
     {
       title: 'Email',
-      dataIndex: 'age',
+      dataIndex: 'client_email',
       width: '20%',
       editable: true,
     },
     {
       title: 'Phone No.',
-      dataIndex: 'address',
+      dataIndex: 'client_phone_no',
       width: '20%',
       editable: true,
      
     },
     {
       title: 'Address',
-      dataIndex: 'address',
+      dataIndex: 'client_address',
       width: '30%',
       editable: true,
     },
