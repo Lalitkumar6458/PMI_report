@@ -1,8 +1,9 @@
 import Layout from "@/Components/Layout";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Button, Modal, Input } from "antd";
 import styles from "@/styles/Chemical.module.css";
+import { GetChemicalData, ChemicalSave, Update_chemical, Delete_chemical, SearchGrade_chemical } from "@/Api/Url";
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -18,7 +19,7 @@ import {
 import { MdDelete } from "react-icons/md";
 import Image from "next/image";
 import add_gif from "../public/Images/add_gif.gif";
-import { ChemicalSave } from "@/Api/Url";
+
 import axios from "axios";
 var arrlist = {};
 var table_th = [];
@@ -29,20 +30,44 @@ const Chemical = () => {
   const [modalData, setModalData] = useState({});
   const [chemicalInput, setChemicalInput] = useState({});
   const[gradeName,setGradeName]=useState('')
+  const [searchKeyword, setSearchKeyword] = useState('')
+
 
   const showModal = (data) => {
     console.log("data", data);
     setModalData({ ...data });
-    setChemicalInput({ ...data.Chemical });
-    setGradeName(data.grade)
+    setChemicalInput({ ...data.chemical_name });
+    setGradeName(data.Grade)
     setOpen(true);
     console.log("modalData 345", modalData);
   };
   const hideModal = () => {
     setOpen(false);
   };
-  const Deletegrade = (item_id) => {
-    alert("delete id" + item_id);
+  const Deletegrade = async(item) => {
+    const data={
+      gradeId:item.id,
+      chemical_grade_id: item.chemical_grade
+    }
+    await axios
+      .post(Delete_chemical, data, {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `Bearer test`,
+      })
+      .then((response) => {
+        console.log("response data c", response.data.data);
+        // setAllGradeData(response.data.data)
+        // console.log("AllGradeData", allGradeData[1].chemical_name)
+        getAllChemicalData()
+        setOpen(false);
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error, "error");
+      });
   };
   const initialValues = {
     el_name: "",
@@ -54,7 +79,7 @@ const Chemical = () => {
   const [smallbox, setSmallbox] = useState(false);
 
   const [gradedata, setGradedata] = useState({});
-
+  const [allGradeData, setAllGradeData]=useState([])
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -130,6 +155,7 @@ const Chemical = () => {
       })
       .then((response) => {
         console.log("response data c", response.data);
+        getAllChemicalData()
       })
       .catch((error) => {
         // dispatch({
@@ -138,6 +164,7 @@ const Chemical = () => {
         console.log(error, "error");
       });
   };
+
 
   const Grade_data = [
     {
@@ -162,20 +189,98 @@ const Chemical = () => {
     },
   ];
 
-  const updateChemical = (e) => {  
+  const updateChemical = async (e) => {  
     const { name, value } = e.target;
     setChemicalInput({
       ...chemicalInput,
       [name]: value,
     });
+  
   };
-  const UpdateChemical =()=>{
+  const UpdateChemical =async()=>{
    
     const data={
       grade:gradeName,
+      chemical_grade_id: modalData.chemical_grade,
       chemical:chemicalInput
     }
-    console.log("chemicalInput",chemicalInput,data)
+    console.log("chemicalInput", chemicalInput, data, modalData)
+
+    await axios
+      .post(Update_chemical, data, {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `Bearer test`,
+      })
+      .then((response) => {
+        console.log("response data c", response.data.data);
+        // setAllGradeData(response.data.data)
+        // console.log("AllGradeData", allGradeData[1].chemical_name)
+        getAllChemicalData()
+        setOpen(false);
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error, "error");
+      });
+  }
+  const getAllChemicalData=async()=>{
+    const data_obj={
+      getdata:"allData"
+    }
+   await axios
+      .get(GetChemicalData, data_obj, {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `Bearer test`,
+      })
+      .then((response) => {
+        console.log("response data c", response.data.data);
+        setAllGradeData(response.data.data)
+        console.log("AllGradeData", allGradeData[1].chemical_name)
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error, "error");
+      });
+  }
+  useEffect(() => {
+    getAllChemicalData()
+  }, [])
+  const SearchGradeHandler =async(e)=>{
+    setSearchKeyword(e.target.value)
+        
+    const data={
+      word:e.target.value
+    }
+   
+    console.log("putt", e.target.value)
+    
+    await axios
+      .get(SearchGrade_chemical, {
+        params: {
+          word: e.target.value
+        }
+      }, {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `Bearer test`,
+      })
+      .then((response) => {
+        console.log("response data c", response.data.data);
+        setAllGradeData(response.data.data)
+        // console.log("AllGradeData", allGradeData[1].chemical_name)
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error, "error");
+      });
   }
   return (
     <Layout title="Chemical">
@@ -281,7 +386,7 @@ const Chemical = () => {
               <div className={styles.wrraper_box}>
                 <div className={styles.search_box}>
                   <HiOutlineSearch className={styles.searchicon} />
-                  <input type="text" placeholder="Search Grades chemical..." />
+                  <input type="text" placeholder="Search Grades chemical..." value={searchKeyword} onChange={SearchGradeHandler} />
                 </div>
               </div>
 
@@ -294,16 +399,16 @@ const Chemical = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Grade_data.map((item) => {
+                  {allGradeData.map((item) => {
                     return (
                       <tr key={item.id}>
-                        <td className={styles.grade_td}>Grade:{item.grade}</td>
+                        <td className={styles.grade_td}>Grade:{item.Grade}</td>
                         <td>
                           <div className={styles.divChemical}>
                             <table>
                               <thead>
                                 <tr>
-                                  {Object.keys(item.Chemical).map(
+                                  {Object.keys(item.chemical_name).map(
                                     (each, index) => {
                                       return <th key={index}>{each}</th>;
                                     }
@@ -312,11 +417,11 @@ const Chemical = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  {Object.keys(item.Chemical).map(
+                                  {Object.keys(item.chemical_name).map(
                                     (each, index) => {
                                       return (
                                         <td key={index}>
-                                          {item.Chemical[each]}
+                                          {item.chemical_name[each]}
                                         </td>
                                       );
                                     }
@@ -330,7 +435,7 @@ const Chemical = () => {
                           <button onClick={() => showModal(item)}>
                             Edit <FaEdit className={styles.icon_t} />
                           </button>
-                          <button onClick={() => Deletegrade(item.id)}>
+                          <button onClick={() => Deletegrade(item)}>
                             Delete <MdDelete className={styles.icon_t} />
                           </button>
                         </td>
@@ -342,16 +447,16 @@ const Chemical = () => {
 
               <table className={styles.mobile_table_c}>
                 <tbody>
-                  {Grade_data.map((item) => {
+                  {allGradeData.map((item) => {
                     return (
                       <tr>
                         <td className={styles.td_mobile}>
                           <div className={styles.divChemical}>
-                            <h3>Grade:{item.grade}</h3>
+                            <h3>Grade:{item.Grade}</h3>
                             <table>
                               <thead>
                                 <tr>
-                                  {Object.keys(item.Chemical).map(
+                                  {Object.keys(item.chemical_name).map(
                                     (each, index) => {
                                       return <th key={index}>{each}</th>;
                                     }
@@ -360,11 +465,11 @@ const Chemical = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  {Object.keys(item.Chemical).map(
+                                  {Object.keys(item.chemical_name).map(
                                     (each, index) => {
                                       return (
                                         <td key={index}>
-                                          {item.Chemical[each]}
+                                          {item.chemical_name[each]}
                                         </td>
                                       );
                                     }
@@ -382,7 +487,7 @@ const Chemical = () => {
                               <span>
                                 <MdDelete
                                   className={styles.icon_delete}
-                                  onClick={() => Deletegrade(item.id)}
+                                  onClick={() => Deletegrade(item)}
                                 />
                               </span>
                             </div>
@@ -413,7 +518,7 @@ const Chemical = () => {
         <div className={styles.chemical_update}>
           <div className={styles.chemical_hed}>
             <h2>Chemical Update </h2>
-            <h3>(Grade:{modalData ? modalData.grade : ""})</h3>
+            <h3>(Grade:{modalData ? modalData.Grade : ""})</h3>
           </div>
           <div className={styles.input_box}>
             <div className={styles.grade_box}>

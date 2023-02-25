@@ -4,8 +4,12 @@ import React, { useState } from "react";
 import styles from "@/styles/Userprofile.module.css";
 import { Button, Input, message, Upload } from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import { UserInfoSave } from "@/Api/Url";
+import axios from "axios";
+
 
 const getBase64 = (img, callback) => {
+  console.log("image",img)
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
@@ -21,24 +25,122 @@ const beforeUpload = (file) => {
   }
   return isJpgOrPng && isLt2M;
 };
+const beforeUploadlogo = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
+var initialValues={
+  name:"",
+  email:"",
+  phone:"",
+  address:"",
+  profileImg:"",
+  logoImg:""
 
+}
 const index = () => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
+  const [imageUrllogo, setImagelogo] = useState();
+  const [editUserInfo, setEditUserInfo] =useState(false);
+
+  
+
+  const [userDetails, setUserDetails] = useState(initialValues)
+
+  const Changehanlder=(e)=>{
+    const {name,value } = e.target;
+    setUserDetails({
+      ...userDetails,
+      [name]: value
+
+    })
+  }
 
   const handleChange = (info) => {
-    if (info.file.status === "uploading") {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-    }
+    getBase64(info.file.originFileObj, (url) => {
+      setLoading(false);
+      setImageUrl(url);
+      console.log("url", url)
+     
+    });
+    setUserDetails({
+      ...userDetails,
+      profileImg: info.file.originFileObj
+    })
+    // if (info.file.status === "uploading") {
+    //   setLoading(true);
+    //   return;
+    // }
+    // if (info.file.status === "done") {
+    //   // Get this url from response in real world.
+    //   getBase64(info.file.originFileObj, (url) => {
+    //     setLoading(false);
+    //     setImageUrl(url);
+    //   });
+    // }
   };
+  const handleChangelogo = (info) => {
+
+    console.log(info, "info", info.file.originFileObj)
+    setUserDetails({
+      ...userDetails,
+      logoImg: info.file.originFileObj
+    })
+       getBase64(info.file.originFileObj, (url) => {
+        setLoading(false);
+         setImagelogo(url);
+        console.log("url",url)
+      });
+    // if (info.file.status === "uploading") {
+    //   setLoading(true);
+    //   return;
+    // }
+    // if (info.file.status === "done") {
+    //   // Get this url from response in real world.
+    //   getBase64(info.file.originFileObj, (url) => {
+    //     setLoading(false);
+    //     setImageUrl(url);
+    //   });
+    // }
+  };
+  const userDetailsSave=()=>{
+    const form =new FormData()
+    console.log("userDetails", userDetails)
+    form.append("name", userDetails.name)
+    form.append("email", userDetails.email)
+    form.append("phone",userDetails.phone)
+    form.append("address",userDetails.address)
+    form.append("profileImg",userDetails.profileImg)
+    form.append("logoImg", userDetails.logoImg)
+    // setEditUserInfo(true)
+
+    
+
+    axios
+      .post(UserInfoSave, form, {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `Bearer test`,
+      })
+      .then((response) => {
+        console.log("response data c", response.data);
+      })
+      .catch((error) => {
+        // dispatch({
+        //   type: ERROR_FINDING_USER
+        // })
+        console.log(error, "error");
+      });
+
+  }
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -62,26 +164,26 @@ const index = () => {
               <div className="col-12 col-md-6">
                 <div className={styles.input_box}>
                   <label>Name</label>
-                  <Input placeholder="Enter your company name" />
+                  <Input placeholder="Enter your company name" disabled={editUserInfo} value={userDetails.name} name="name" onChange={Changehanlder} />
                 </div>
               </div>
 
               <div className="col-12 col-md-6">
                 <div className={styles.input_box}>
                   <label>Phone No.</label>
-                  <Input placeholder="Enter your Phone No." />
+                  <Input placeholder="Enter your Phone No." disabled={editUserInfo} value={userDetails.phone} name="phone" onChange={Changehanlder} />
                 </div>
               </div>
               <div className="col-12 col-md-6">
                 <div className={styles.input_box}>
                   <label>Email</label>
-                  <Input placeholder="Enter your Email" />
+                  <Input placeholder="Enter your Email" disabled={editUserInfo} value={userDetails.email} name="email" onChange={Changehanlder} />
                 </div>
               </div>
               <div className="col-12 col-md-6">
                 <div className={styles.input_box}>
                   <label>Address</label>
-                  <Input placeholder="Enter your Address" />
+                  <Input placeholder="Enter your Address" disabled={editUserInfo} value={userDetails.address} name="address" onChange={Changehanlder} />
                 </div>
               </div>
               <div className="col-4 col-md-6">
@@ -89,11 +191,10 @@ const index = () => {
                   <label>Profile Picture</label>
 
                   <Upload
-                    name="avatar"
+                    name="profilePic"
                     listType="picture-circle"
                     className="avatar-uploader"
                     showUploadList={false}
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                     beforeUpload={beforeUpload}
                     onChange={handleChange}
                   >
@@ -116,17 +217,16 @@ const index = () => {
                     <label>Company Logo</label>
 
                     <Upload
-                      name="avatar"
+                      name="companyLogo"
                       listType="picture-card"
                       className="avatar-uploader"
                       showUploadList={false}
-                      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                      beforeUpload={beforeUpload}
-                      onChange={handleChange}
+                    beforeUpload={beforeUploadlogo}
+                      onChange={handleChangelogo}
                     >
-                      {imageUrl ? (
+                    {imageUrllogo ? (
                         <img
-                          src={imageUrl}
+                        src={imageUrllogo}
                           alt="avatar"
                           style={{
                             width: "100%",
@@ -139,7 +239,7 @@ const index = () => {
                   </div>
                 </div>
                 <div className="col-12 d-flex align-items-center justify-content-center">
-                  <Button type="primary" className={styles.Save_details_btn}>Save Details</Button>
+                  <Button type="primary" className={styles.Save_details_btn} onClick={()=>userDetailsSave()}>Save Details</Button>
                 </div>
                 
               </div>
