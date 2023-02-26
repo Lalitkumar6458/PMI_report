@@ -21,6 +21,7 @@ import Image from "next/image";
 import add_gif from "../public/Images/add_gif.gif";
 
 import axios from "axios";
+import BorderBox from "@/Components/SmallComponets/BorderBox";
 var arrlist = {};
 var table_th = [];
 var table_td = [];
@@ -286,20 +287,10 @@ const Chemical = () => {
     <Layout title="Chemical">
       <div className={styles.Chemical_container}>
         <div className={styles.alloys_content}>
-          <h2>Add Chemical</h2>
-          <button
-            className={styles.small_height_b}
-            onClick={() => {
-              smallbox ? setSmallbox(false) : setSmallbox(true);
-            }}
-          >
-            {smallbox ? <HiArrowNarrowUp /> : <HiArrowNarrowDown />}
-          </button>
+          <BorderBox title={"Add Chemical"}>
           <div
             className={
-              smallbox
-                ? `${styles.grade_chemical} row`
-                : `${styles.grade_chemical} row height_set`
+             `${styles.grade_chemical} row`
             }
           >
             <div className={`${styles.input_field} col-12 col-md-6 drop_box`}>
@@ -380,8 +371,9 @@ const Chemical = () => {
               )}
             </div>
           </div>
+          </BorderBox>
+          <BorderBox title={"Chemical Compositions"}>
           <div className={styles.table_grades}>
-            <h2>Chemical Compositions</h2>
             <div className={styles.chemical_comp}>
               <div className={styles.wrraper_box}>
                 <div className={styles.search_box}>
@@ -500,6 +492,8 @@ const Chemical = () => {
               </table>
             </div>
           </div>
+            </BorderBox>
+          
         </div>
       </div>
       <Modal

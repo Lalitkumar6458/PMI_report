@@ -1,0 +1,121 @@
+.report_con{
+width: 100%;
+padding: 3% 3%;
+}
+.report_con h1{
+    color: brown;
+}
+.inputBox{
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+.inputBox .Seletcbox,.datePicker{
+    width: 100%;
+}
+.inputBox label{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 19px;
+    
+    color: #000000;
+    margin-bottom: 3px;
+}
+.inputBox input,.Seletcbox,.datePicker{
+    border: 1px solid var(--dark-blue);
+}
+.Seletcbox{
+    border-radius: 5px;
+}
+.GradeChemical{
+    position: relative;
+    background: #F6F8FF;
+border: 1px solid #30D987;
+border-radius: 8px;
+padding: 10px;
+}
+.GradeChemical .GradeBox{
+    position: absolute;
+    background-color: #fff;
+    top: -10px;
+    left: 10px;
+    
+}
+.chemicalTable table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+.chemicalTable table th,.chemicalTable table td{
+    border: 1px solid var(--dark-blue);
+    font-size: 1.4rem;
+    padding: 3px 10px;
+}
+.AddButon{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+}
+.AddButon button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: var(--dark-blue);
+    font-size: 1.4rem;
+}
+.report_sizeqty{
+    border: 1px solid var(--dark-blue);
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+.tableContent {
+    margin-top: 10px;
+    width: 100%;
+    overflow:auto;
+}
+.tableContent table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.tableContent table thead{
+    background-color: #17296B;
+    color: #fff;
+}
+.tableContent table tbody tr:nth-child(odd){
+    background-color: #d5d5e7;
+}
+/* .tableContent table th,.tableContent table td{
+border: 1px solid var(--dark-blue);
+font-size: 1.5rem;
+padding: 3px 10px;
+
+} */
+.buttons_eddit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.icon_delete{
+font-size: 1.6rem;
+cursor: pointer;
+color: rgb(219, 10, 10);
+}
+.buttons_eddit .icon_edit{
+    font-size: 1.6rem;
+    cursor: pointer;
+color: rgb(12, 45, 134);
+
+}
+.ButtonSave_sent{
+    display: flex;
+    align-items: center;
+    justify-content:flex-end;
+    margin-top: 30px;
+    gap: 20px;
+}

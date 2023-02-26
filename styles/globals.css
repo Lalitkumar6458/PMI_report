@@ -72,7 +72,7 @@ html{
 }
 .Borbox_con{
   width: 100%;
-  padding: 3% 4%;
+margin-top: 20px;
 }
 .Border_box{
   position: relative;
@@ -158,6 +158,29 @@ align-items: center;
 .logo_upload .ant-upload {
   width: 240px !important;
   border-color: #081A51 !important;
+}
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-value-wrap {
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.editable-row:hover .editable-cell-value-wrap {
+  padding: 4px 11px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+}
+
+.reporttable .ant-table-content table thead tr th,.reporttable .ant-table-content table tr td{
+  padding: 0px;
+}
+.reporttable .ant-table-content table thead th{
+  background-color: #17296B !important;
+  color: #fff!important; 
+  padding: 5px !important;
 }
 @keyframes sh5 {
  0%   {background-position: 0    0,100% 0   ,100% 100%,0 100%}

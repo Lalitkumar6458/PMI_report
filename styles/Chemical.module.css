@@ -8,10 +8,10 @@
 }
 .alloys_content,.table_grades{
     background: #FFFFFF;
-border: 1px solid #0A194E;
+
 border-radius: 8px;
 position: relative;
-height: 200px;
+
 }
 .alloys_content h2{
 background: var(--btn-bgColor);
@@ -35,7 +35,7 @@ font-family: var(--font-poppins);
 }
 .grade_chemical .input_field{
 border-right: 1px solid ;
-padding: 30px 20px;
+padding: 7px 20px;
 }
 .grade_chemical .input_field label{
     font-family: 'Poppins';
@@ -111,7 +111,6 @@ margin-left: auto;
     font-family: var(--font-poppins);
 }
 .table_grades{
-    margin-top: 30px;
     height: auto;
     position: relative;
 }

@@ -1,0 +1,17 @@
+
+.reportBtn{
+    background-color: var(--dark-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 2rem;
+    height: 40px;
+}
+.reportButon{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+   padding-top: 10px;
+   padding-right: 20px;
+}
