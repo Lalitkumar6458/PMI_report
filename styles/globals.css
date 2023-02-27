@@ -188,6 +188,14 @@ align-items: center;
  66%  {background-position: 100% 0,100% 100%,0    100%,0 0   ;width:60px;height: 60px}
  100% {background-position: 100% 0,100% 100%,0    100%,0 0   }
 }
+.ant-dropdown-menu-title-content{
+  white-space: nowrap !important;
+  font-size: 1.7rem;
+}
+.ant-dropdown-menu-item:hover{
+  background-color: #17296B !important;
+  color: #FFFFFF !important;
+}
 
 @media  (max-width:920px) {
   .container_main {
@@ -211,6 +219,15 @@ align-items: center;
   }
   .container_main .side_bar{
    display: none;
+  }
+  .ant-drawer-content-wrapper{
+    height: 193px !important;
+  }
+  .ant-drawer-content{
+    background:#0A194E!important;
+    pointer-events: auto;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
   }
 .mobile_tabs{
   position: fixed;
@@ -239,7 +256,7 @@ ul{
 }
 .Borbox_con {
   width: 100%;
-  padding: 9% 4%;
+  padding: 2% 0%;
 }
 .mobile_tabs ul li a{
   text-decoration: none;
@@ -279,6 +296,9 @@ overflow: auto;
 }
 .container_main .right_side_section{
   overflow: auto;
+}
+.grade_report{
+  gap: 22px;
 }
 
 }

@@ -119,3 +119,49 @@ color: rgb(12, 45, 134);
     margin-top: 30px;
     gap: 20px;
 }
+.saveButton{
+    background: #1C1F37;
+    border-radius: 3.72414px;
+   border: none;
+   padding: 10px 10px;
+   font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 2rem;
+line-height: 20px;
+/* identical to box height */
+
+
+color: #FFFFFF;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+
+}
+.drawer_button{
+    
+}
+.btndrawer{
+    background: #D9D9D9;
+border-radius: 3px;
+color: #0A194E;
+border: none;
+font-size: 2.5rem;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+line-height: 28px;
+
+color: #0A194E;
+
+flex-basis: 50%;
+white-space: nowrap;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 30px;
+margin-top: 20px;
+padding: 10px;
+}

@@ -2,6 +2,11 @@ import Layout from "@/Components/Layout";
 import React, { useState } from "react";
 import BorderBox from "@/Components/SmallComponets/BorderBox";
 import styles from "../styles/ReportPage.module.css";
+import pdficon from "../public/Images/pdficon.png"
+import printicon from "../public/Images/printicon.png"
+import excelicon from "../public/Images/excelicon.png"
+import wordicon from "../public/Images/wordicon.png"
+import Image from "next/image";
 import {
   FileAddOutlined,
   PlusCircleOutlined,
@@ -11,6 +16,7 @@ import {
   FilePdfOutlined,
   FileExcelOutlined,
   PrinterOutlined,
+  SaveOutlined
 } from "@ant-design/icons";
 import {
   Select,
@@ -21,6 +27,7 @@ import {
   message,
   Space,
   Tooltip,
+ Drawer, Radio,
 } from "antd";
 import ReportTable from "@/Components/Reportcomponents/ReportTable";
 
@@ -28,6 +35,17 @@ import { FaEdit } from "react-icons/fa";
 
 import { MdDelete } from "react-icons/md";
 const Report = () => {
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState('bottom');
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+  const onChangeDrawer = (e) => {
+    setPlacement(e.target.value);
+  };
   const onChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -239,7 +257,7 @@ const Report = () => {
 
           <div className={styles.reportChemical}>
             <BorderBox title={"Alloys Contnets "}>
-              <div className="row">
+              <div className="row grade_report">
                 <div className="col-12 col-md-3">
                   <div className={styles.inputBox}>
                     <label>Specified Goods</label>
@@ -427,9 +445,43 @@ const Report = () => {
                   Save Report
                 </Dropdown.Button>
               </span>
+
+              <button className={styles.saveButton} onClick={showDrawer}>Save <SaveOutlined /></button>
             </div>
           </div>
         </div>
+        <Drawer
+        placement={placement}
+        closable={false}
+        onClose={onClose}
+        open={open}
+        key={placement}
+      >
+      <div className={styles.drawer_button}>
+        <div className="row" >
+          <div className="col-6">
+          <button className={styles.btndrawer}>PDF <Image src={pdficon} alt=""/></button>
+          </div>
+          <div className="col-6">
+        <button className={styles.btndrawer}>Print <Image src={printicon} alt=""/></button>
+            
+            </div>
+            <div className="col-6">
+        <button className={styles.btndrawer}>Excel <Image src={excelicon} alt=""/></button>
+            
+            </div>
+            <div className="col-6">
+        <button className={styles.btndrawer}>MS Word <Image src={wordicon} alt=""/></button>
+            
+            </div>
+        </div>
+        
+
+        
+
+
+      </div>
+      </Drawer>
       </Layout>
     </>
   );
