@@ -6,6 +6,8 @@ import pdficon from "../public/Images/pdficon.png"
 import printicon from "../public/Images/printicon.png"
 import excelicon from "../public/Images/excelicon.png"
 import wordicon from "../public/Images/wordicon.png"
+import wapp from "../public/Images/wappicon.png"
+import email from "../public/Images/email.png"
 import Image from "next/image";
 import {
   FileAddOutlined,
@@ -16,7 +18,8 @@ import {
   FilePdfOutlined,
   FileExcelOutlined,
   PrinterOutlined,
-  SaveOutlined
+  SaveOutlined,
+  SendOutlined
 } from "@ant-design/icons";
 import {
   Select,
@@ -30,18 +33,27 @@ import {
  Drawer, Radio,
 } from "antd";
 import ReportTable from "@/Components/Reportcomponents/ReportTable";
-
 import { FaEdit } from "react-icons/fa";
-
 import { MdDelete } from "react-icons/md";
+import Reportmobilelist from "@/Components/Reportcomponents/Reportmobilelist";
 const Report = () => {
   const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [tableview, setTableview] = useState(false);
+
+
   const [placement, setPlacement] = useState('bottom');
   const showDrawer = () => {
     setOpen(true);
   };
+  const showDrawer1 = () => {
+    setOpen1(true);
+  };
   const onClose = () => {
     setOpen(false);
+  };
+  const onClose1 = () => {
+    setOpen1(false);
   };
   const onChangeDrawer = (e) => {
     setPlacement(e.target.value);
@@ -56,39 +68,12 @@ const Report = () => {
   const onChangedate = (date, dateString) => {
     console.log(date, dateString);
   };
-  const handleButtonClick = (e) => {
-    message.info("Click on left button.");
-    console.log("click left button", e);
-  };
+
   const handleMenuClick = (e) => {
     message.info("Click on menu item.");
     console.log("click", e);
   };
-  const items1 = [
-    {
-      label: "1st menu item",
-      key: "1",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "2nd menu item",
-      key: "2",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "3rd menu item",
-      key: "3",
-      icon: <UserOutlined />,
-      danger: true,
-    },
-    {
-      label: "4rd menu item",
-      key: "4",
-      icon: <UserOutlined />,
-      danger: true,
-      disabled: true,
-    },
-  ];
+
 
   const items = [
     {
@@ -116,7 +101,12 @@ const Report = () => {
     items,
     onClick: handleMenuClick,
   };
-
+const Table_view=()=>{
+  setTableview(true)
+}
+const Table_view1=()=>{
+  setTableview(false)
+}
   return (
     <>
       <Layout title="Report">
@@ -330,6 +320,10 @@ const Report = () => {
               </div>
             </BorderBox>
             <div className={styles.report_sizeqty}>
+              <div className={styles.tableView}>
+               <button className={tableview?"":`${styles.active}`} onClick={()=>Table_view1()}>view1</button>
+               <button className={tableview?`${styles.active}`:""} onClick={()=>Table_view()}>view2</button>
+              </div>
               <div className="row">
                 <div className="col-4">
                   <div className={styles.inputBox}>
@@ -432,11 +426,15 @@ const Report = () => {
                     </tr>
                   </tbody>
                 </table> */}
-                <ReportTable />
+                {
+                  tableview?<ReportTable />:<Reportmobilelist/>
+                
+                }
+                
               </div>
             </div>
             <div className={styles.ButtonSave_sent}>
-              <span>
+              <span className={styles.save_btndrop} >
                 <Dropdown.Button
                   menu={menuProps}
                   placement="bottom"
@@ -445,7 +443,7 @@ const Report = () => {
                   Save Report
                 </Dropdown.Button>
               </span>
-
+              <button className={styles.saveButton} onClick={showDrawer1}>Send<SendOutlined /></button>
               <button className={styles.saveButton} onClick={showDrawer}>Save <SaveOutlined /></button>
             </div>
           </div>
@@ -474,6 +472,32 @@ const Report = () => {
         <button className={styles.btndrawer}>MS Word <Image src={wordicon} alt=""/></button>
             
             </div>
+        </div>
+        
+
+        
+
+
+      </div>
+      </Drawer>
+
+      <Drawer
+        placement={placement}
+        closable={false}
+        onClose={onClose1}
+        open={open1}
+        key={placement}
+      >
+      <div className={styles.drawer_button}>
+        <div className="row" >
+          <div className="col-6">
+          <button className={styles.btndrawer}>Whatsapp <Image src={wapp} alt=""/></button>
+          </div>
+          <div className="col-6">
+        <button className={styles.btndrawer}>Email <Image src={email} alt=""/></button>
+            
+            </div>
+           
         </div>
         
 
