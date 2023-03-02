@@ -491,7 +491,7 @@ const Table_view1=()=>{
       <div className={styles.drawer_button}>
         <div className="row" >
           <div className="col-6">
-          <button className={styles.btndrawer}>Whatsapp <Image src={wapp} alt=""/></button>
+          <button className={`${styles.btndrawer} ${styles.whatsapp}`}>Whatsapp <Image src={wapp} alt=""/></button>
           </div>
           <div className="col-6">
         <button className={styles.btndrawer}>Email <Image src={email} alt=""/></button>
