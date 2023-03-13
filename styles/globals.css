@@ -207,6 +207,16 @@ align-items: center;
   html{
     font-size: 60.50%;
   }
+  .Border_box h2 {
+    position: absolute;
+    background-color: #081A51;
+    color: #30D987;
+    padding: 5px 10px;
+    border-radius: 5px;
+    top: -13px;
+    left: 10px;
+    font-size: 1.2rem;
+}
   .height_set{
     height: 34px !important;
     transition: all 3s ease-in-out;

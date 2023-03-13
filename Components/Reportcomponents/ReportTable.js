@@ -36,6 +36,7 @@ const EditableCell = ({
       [dataIndex]: record[dataIndex],
     });
   };
+  
   const save = async () => {
     try {
       const values = await form.validateFields();
@@ -79,110 +80,38 @@ const EditableCell = ({
   }
   return <td {...restProps}>{childNode}</td>;
 };
-const ReportTable = () => {
+var AllData=[]
+const ReportTable = (props) => {
 
-    
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-     srno:1,
-     qty:"3pc",
-     size:"Circle 30mmX200mm",
-     Ni: "57.00",
-     Cr: "1.0*",
-     Mo: "21.00",
-     Mn:"34",
-     Co:"23",
-     Ti:"0.34",
-     Fe: "19.00",
-     remark:"Ok",
-    },
-    {
-        key: '1',
-       srno:2,
-       qty:"3pc",
-       size:"Circle 30mmX200mm",
-       Ni: "57.00",
-       Cr: "1.0*",
-       Mo: "21.00",
-       Mn:"34",
-       Co:"23",
-       Ti:"0.34",
-       Fe: "19.00",
-       remark:"Ok",
+var tabledaa=props.data
+AllData=props.data
+const [dataSource, setDataSource] = useState([
   
-      },
-  ]);
+]);
+
+
   const [count, setCount] = useState(2);
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
   };
+  let columdata=[]
+  tabledaa[0]?Object.keys(tabledaa[0]).map((item)=>{
+    console.log("key",item)
+    if(item==="id"||item==="key"){
+
+    }else{
+      columdata.push({
+        title:item,
+        dataIndex:item,
+        editable: true,
+      })
+    }
+   
+  }):null
+  console.log("columdata",columdata)
   const defaultColumns = [
-    {
-      title: 'SR No.',
-      dataIndex: 'srno',
-      width: '7%',
-      editable: true,
-    },
-    {
-      title: 'Qty',
-      dataIndex: 'qty',
-      width: '5%',
-      editable: true,
-    },
-
-    {
-      title: 'Size',
-      dataIndex: 'size',
-      width: '40%',
-      editable: true,
-    },
-    {
-        title: 'Ni',
-        dataIndex: 'Ni',
-        editable: true,
-
-        
-
-      },
-
-      {
-        title: 'Cr',
-        dataIndex: 'Cr',
-        editable: true,
-      },
-      {
-        title: 'Mo',
-        dataIndex: 'Mo',
-        editable: true,
-      },
-      {
-        title: 'Mn',
-        dataIndex: 'Mn',
-        editable: true,
-      },
-      {
-        title: 'Co',
-        dataIndex: 'Co',
-        editable: true,
-      },
-      {
-        title: 'Ti',
-        dataIndex: 'Ti',
-        editable: true,
-      },
-      {
-        title: 'Fe',
-        dataIndex: 'Fe',
-        editable: true,
-      },
-      {
-        title: 'Remark',
-        dataIndex: 'remark',
-        editable: true,
-      },
-
+   ...columdata,
     {
       title: 'Action',
       dataIndex: 'operation',
@@ -199,6 +128,10 @@ const ReportTable = () => {
         ) : null,
     },
   ];
+  useEffect(()=>{
+    setDataSource(tabledaa)
+    console.log("table data",tabledaa,dataSource)
+  },[tabledaa])
   const handleAdd = () => {
     const newData = {
       key: count,
@@ -252,6 +185,8 @@ const ReportTable = () => {
       >
         Add a row
       </Button> */}
+
+      
       <Table
         components={components}
         rowClassName={() => 'editable-row'}
@@ -264,3 +199,5 @@ const ReportTable = () => {
   );
 };
 export default ReportTable;
+
+

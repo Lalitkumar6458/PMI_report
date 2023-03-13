@@ -44,7 +44,7 @@ const ReportEdit = () => {
             <div className="col-12">
             <div className={css.inputBox}>
                   <label>Size(descriptions)</label>
-                  <TextArea rows={4} style={{border:"1px solid"}} />
+                  <TextArea rows={3} style={{border:"1px solid"}} />
                 </div>
             
             </div>
