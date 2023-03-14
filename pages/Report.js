@@ -125,23 +125,20 @@ return newobj
  })
  console.log("size qty values",objSizeQty)
    }
-
+   const childRef = useRef();
    const AddreportItem=()=>{
-
      const data_get={
-      key:count,
-     srno:count,
+       key:count,
+       srno:count,
        ...objSizeQty,
        ...getRandom(gradeDataC[0]),
        remark:"Ok"
       }
       allData.push(data_get)
       console.log("data",allData)
+      childRef.current.handleAdd(data_get)
     setAddeddata(
-      [
-        ...addeddata,
-        data_get
-      ]
+      allData
     )
    
     count++
@@ -149,7 +146,7 @@ console.log("data added data",addeddata)
    }
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
-
+ 
 
   const [placement, setPlacement] = useState('bottom');
   const showDrawer = () => {
@@ -483,42 +480,17 @@ const Table_view1=()=>{
                 </div>
               </div>
             </BorderBox>
-            <div className={styles.report_sizeqty}>
-              <div className={styles.tableView}>
+            <div className={styles.table_con_view}>
+            <div className={styles.tableView}>
                <button className={tableview?"":`${styles.active}`} onClick={()=>Table_view1()}>view1</button>
                <button className={tableview?`${styles.active}`:""} onClick={()=>Table_view()}>view2</button>
               </div>
-              <div className="row">
-                <div className="col-4">
-                  <div className={styles.inputBox}>
-                    <label>Quantity</label>
-                    <Input placeholder="Enter Qty..." onChange={onSizeQtyHandler} value={objSizeQty.qty} name="qty" />
-                  </div>
-                </div>
-                <div className="col-4">
-                  <div className={styles.inputBox}>
-                    <label>Size(Description)</label>
-                    <Input placeholder="Enter Size..." onChange={onSizeQtyHandler} value={objSizeQty.size} name="size" />
-                  </div>
-                </div>
-                <div className="col-2 d-flex">
-                  <div className={styles.AddButon}>
-                    <Button type="primary" onClick={AddreportItem}>
-                      <PlusCircleOutlined />
-                      ADD
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className={`${styles.tableContent} reporttable`}>
-             
-                {
-                  tableview?<ReportTable data={allData}/>:<Reportmobilelist/>
+            {
+                tableview?<ReportTable data={addeddata} ref={childRef} />:<Reportmobilelist/>
                 
-                }
-                
-              </div>
+            }
             </div>
+           
             <div className={styles.ButtonSave_sent}>
               <span className={styles.save_btndrop} >
                 <Dropdown.Button

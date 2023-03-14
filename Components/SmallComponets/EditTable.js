@@ -4,8 +4,8 @@ import { DoubleRightOutlined} from '@ant-design/icons';
 import {FaUserCircle} from "react-icons/fa";
 import Link from 'next/link';
 import Router from 'next/router';
-const EditTable = () => {
-       
+const EditTable = (props) => {
+       console.log("data category",props.data)
   const data=[
     {
       id:1,
@@ -80,6 +80,8 @@ const EditTable = () => {
   ]
 
   const CLientInfoHandler=(id)=>{
+
+
     Router.push("/Client/"+id)
   }
   return (
@@ -88,15 +90,16 @@ const EditTable = () => {
 
         <div className={styles.table_box}>
           <div className={styles.table_data}>
-            {data.map((item)=>{
+            {props.data.map((item)=>{
               return(
                
-                 <div className={styles.row_data} key={item.id} onClick={()=>CLientInfoHandler(item.id)}>
+                 <div className={styles.row_data} key={item.user_info_id
+                 } onClick={()=>CLientInfoHandler(item.user_info_id)}>
                 <div className={styles.content}>
                   <span><FaUserCircle className={styles.icon_user}/></span>
                   <div className={styles.name_email}>
-                  <span>{item.name}</span>
-                  <span>{item.email}</span>
+                  <span>{item.client_name}</span>
+                  <span>{item.client_email}</span>
                   </div>
                 </div>
                 <span><DoubleRightOutlined className={styles.icons_client} /></span>
