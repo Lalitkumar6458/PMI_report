@@ -88,7 +88,8 @@ const ReportTable = (props,ref) => {
 var tabledaa=props.data
 AllData=props.data
 console.log("table data",tabledaa)
-const [dataSource, setDataSource] = useState([
+var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
+const [dataSource, setDataSource] = useState([...getOldData
 ]);
 const [tableview, setTableview] = useState(false);
 
@@ -207,6 +208,7 @@ const [tableview, setTableview] = useState(false);
     };
   });
   const[addeddata,setAddeddata] =useState([])
+  const[countadd,setCountAdd] =useState(1)
 
   const[objSizeQty,setObjSizeQty]=useState({
    size:"",
@@ -249,21 +251,22 @@ setObjSizeQty({
 })
 console.log("size qty values",objSizeQty)
   }
-  var count_add=1
   const AddreportItem=()=>{
-
-
-
+    var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
     const data_get={
-      key:count_add,
-      srno:count_add,
+      key:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
+      srno:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
       ...objSizeQty,
       ...getRandom(gradeDataC[0]),
       remark:"Ok"
      }
 console.log("data data_get",data_get)
-    setDataSource([...dataSource, data_get]);
-    count_add++
+    setDataSource([...getOldData, data_get]);
+   
+  
+    localStorage.setItem("reportAddedData",JSON.stringify([...getOldData,data_get]))
+    setCountAdd(countadd+1)
+
   }
 
 

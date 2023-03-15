@@ -10,7 +10,8 @@ import {
   } from "antd";
 const Reportmobilelist = () => {
     const [tableview, setTableview] = useState(false)
-    const[addedData,setAddedData]=useState([])
+    var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
+    const[addedData,setAddedData]=useState([...getOldData])
     const Data=[
         {
             id:1,
@@ -91,21 +92,24 @@ const Reportmobilelist = () => {
     }
    
     const AddreportItem=()=>{
+      var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
 
+      console.log(getOldData.length,"getOldData[01]")
+      
        
       const data_get={
-        key:countadd,
-        srno:countadd,
+        key:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
+        srno:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
         ...objSizeQty,
         ...getRandom(gradeDataC[0]),
         remark:"Ok"
        }
-       setAddeddata([
-        ...addeddata,
+       setAddedData([
+        ...getOldData,
         data_get
     ])
-  
-    
+
+    localStorage.setItem("reportAddedData",JSON.stringify([...getOldData,data_get]))
     setCountAdd(countadd+1)
    
   console.log("data added data",addeddata)
@@ -153,7 +157,7 @@ const Reportmobilelist = () => {
 <div className={css.tableBody}>
 
     {
-        addeddata.map((item)=>{
+        addedData.map((item)=>{
             return(
                 <div className={css.tableRow} key={item.id} onClick={()=>report_grade_edit(item)}>
                 <span className={css.sr_no_text}>{item.srno}</span>
