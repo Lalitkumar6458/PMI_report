@@ -1,12 +1,59 @@
 import Layout from "@/Components/Layout";
-import React from "react";
+import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import css from "../styles/ReportPage.module.css";
 import { LeftOutlined } from "@ant-design/icons";
-import Router from "next/router";
+import Router,{useRouter} from "next/router";
 import { Button, Input } from 'antd';
 const ReportEdit = () => {
   const { TextArea } = Input;
+  const router=useRouter()
+const{query}=router
+var getData=JSON.parse(query.data)
+
+var pDetails={
+
+}
+var cDetails={
+
+}
+for(let i in getData.data){
+     if(i=="srno"||i=="qty"||i=="remark"||i=="size"||i=="key"){
+      pDetails[i]=getData.data[i]
+      
+     }else{
+      cDetails[i]=getData.data[i]
+     }
+}
+const[ChemicalDetails,setChemicalDetails]=useState({
+...cDetails
+})
+
+const[prodDetails,setProdDetails]=useState({
+ ...pDetails
+})
+const changeHandler =(e)=>{
+const{name,value}=e.target
+setProdDetails({
+  ...prodDetails,
+  [name]:value
+}
+
+  
+)
+console.log(prodDetails,"prodDetails")
+
+}
+const changeChemical=(e)=>{
+  const{name,value}=e.target
+  setChemicalDetails({
+    ...ChemicalDetails,
+    [name]:value
+  })
+}
+const UpdateGradepro=()=>{
+  console.log("updated value",ChemicalDetails,prodDetails)
+}
   return (
     <>
       <Layout title="ReportEdit">
@@ -32,32 +79,32 @@ const ReportEdit = () => {
             <div className="col-4">
             <div className={css.inputBox}>
                   <label>Sr No. </label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="Basic usage" value={prodDetails.srno} name="srno" onChange={changeHandler} />
                 </div>
             </div>
             <div className="col-7">
             <div className={css.inputBox}>
                   <label>Quantity</label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="Basic usage" value={prodDetails.qty} name="qty" onChange={changeHandler}  />
                 </div>
             </div>
             <div className="col-12">
             <div className={css.inputBox}>
                   <label>Size(descriptions)</label>
-                  <TextArea rows={3} style={{border:"1px solid"}} />
+                  <TextArea rows={3} style={{border:"1px solid"}} value={prodDetails.size} name="size" onChange={changeHandler} />
                 </div>
             
             </div>
             <div className="col-6">
             <div className={css.inputBox}>
                   <label>Heat No.</label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="Basic usage" value={prodDetails.heatNo} name="heatNo" onChange={changeHandler}/>
                 </div>
             </div>
             <div className="col-5">
             <div className={css.inputBox}>
                   <label>Remark</label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="Basic usage" value={prodDetails.remark} name="remark" onChange={changeHandler} />
                 </div>
             </div>
 
@@ -73,40 +120,22 @@ const ReportEdit = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>MN(%)</td>
-                  <td> <Input placeholder="Basic usage" value={1.52} className={css.Input_field} /></td>
-                  <td>2.00Max</td>
-                </tr>
-                <tr>
-                  <td>NI</td>
-                  <td> <Input placeholder="Basic usage" value={10.81} className={css.Input_field} /></td>
-                  <td>10-14</td>
-                </tr>
-                <tr>
-                  <td>Cr</td>
-                  <td> <Input placeholder="Basic usage" value={16.44} className={css.Input_field} /></td>
-                  <td>16-18</td>
-                </tr>
-                <tr>
-                  <td>Mo</td>
-                  <td> <Input placeholder="Basic usage" value={2.07} className={css.Input_field} /></td>
-                  <td>2-3</td>
-                </tr>
-                <tr>
-                  <td>Cu</td>
-                  <td> <Input placeholder="Basic usage" value={"-"} className={css.Input_field} /></td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>Fe</td>
-                  <td> <Input placeholder="Basic usage" value={"BAL"} className={css.Input_field} /></td>
-                  <td>BAL</td>
-                </tr>
+                {
+                Object.keys(ChemicalDetails).map((key,i)=>{
+                  return(
+                    <tr key={i}>
+                    <td>{key}</td>
+                    <td> <Input placeholder="Basic usage" value={ChemicalDetails[key]} name={key} onChange={changeChemical} className={css.Input_field} /></td>
+                    <td>{getData.gradeDataC[0][key]||"-"}</td>
+                  </tr>
+                  )
+                })
+                }
+                
               </tbody>
             </table>
 
-            <Button className={css.Update_chemical}>
+            <Button className={css.Update_chemical} onClick={()=>UpdateGradepro()}>
               Update
             </Button>
           </div>

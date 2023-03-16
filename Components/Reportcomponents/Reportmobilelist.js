@@ -30,10 +30,7 @@ const Reportmobilelist = () => {
             
         }
     ]
-    const report_grade_edit=(data)=>{
-        console.log("report_grade_edit",data)
-        // Router.push("/ReportEdit")
-    }
+
     const[addeddata,setAddeddata] =useState([])
     const[countadd,setCountAdd] =useState(1)
 
@@ -53,7 +50,19 @@ const Reportmobilelist = () => {
        pb:'58'
      }
    ]
-  
+   const report_grade_edit=(data)=>{
+    console.log("report_grade_edit",data)
+    var obj={
+      gradeDataC,
+      data
+    }
+    // Router.push("/ReportEdit")
+    var url="/ReportEdit"
+    Router.push({
+      pathname:url,
+      query: { data: JSON.stringify(obj)}
+  },url)
+}
     function getRandom(obj){
      console.log("obj",obj)
      var newobj={}

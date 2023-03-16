@@ -8,12 +8,14 @@ import { Button, Input } from 'antd';
 import axios from "axios";
 
 const ClientInfo = () => {
+
 const router=useRouter()
 const{query}=router
 const { TextArea } = Input;
 const[clientData,setClientData]=useState([])
 
 const GetclientData=async()=>{
+ 
 
   await axios
     .get(getClientDataUrl, { params: { username: 'admin' } }, {
@@ -127,6 +129,7 @@ const UpdateClientHandler=(e)=>{
 const UpdateBtnhandler=()=>{
   console.log("clientUpdate",clientUpdate)
 }
+
   return (
     <Layout title="client">
 
