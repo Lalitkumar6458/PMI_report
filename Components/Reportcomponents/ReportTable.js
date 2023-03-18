@@ -40,13 +40,28 @@ const EditableCell = ({
   };
   
   const save = async () => {
+    console.log("edit colum")
     try {
       const values = await form.validateFields();
+      console.log("values", values, record);
       toggleEdit();
       handleSave({
         ...record,
         ...values,
       });
+       var olData = JSON.parse(localStorage.getItem("reportAddedData")).filter(
+         (x) => x.key !== record.key
+       );
+       var newData = {
+         ...record,
+         ...values,
+       };
+       console.log(olData, "local", newData);
+
+       localStorage.setItem(
+         "reportAddedData",
+         JSON.stringify([...olData, newData])
+       );
     } catch (errInfo) {
       console.log('Save failed:', errInfo);
     }
@@ -98,6 +113,15 @@ const [tableview, setTableview] = useState(false);
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
+     var olData = JSON.parse(localStorage.getItem("reportAddedData")).filter(
+       (x) => x.key !== key
+     );
+
+
+     localStorage.setItem(
+       "reportAddedData",
+       JSON.stringify([...olData])
+     );
   };
   const gradeDataC=[
     {

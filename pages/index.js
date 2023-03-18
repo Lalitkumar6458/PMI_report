@@ -7,11 +7,21 @@ import { FileAddOutlined } from '@ant-design/icons';
 import { Button, Divider, Radio, Space } from 'antd';
 import { useState } from 'react';
 import Router from "next/router";
+import Login from "@/Components/Authentication/Login";
+import Signup from "@/Components/Authentication/Signup";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  return <Layout title="Dashboard">
+  console.log("gayr", typeof localStorage.getItem("flag"));
+  var fleg = localStorage.getItem("flag")=== "true"?true:false||false;
+  const [loginStatus, setLoginStatus] = useState(fleg);
+
+  return(
+    <>
+  {
+      loginStatus?(
+ <Layout title="Dashboard">
 
     <div className={styles.dashboard_con}>
        
@@ -22,5 +32,15 @@ export default function Home() {
        </div>
 
     </div>
-  </Layout>;
+  </Layout>
+      ):<Login/>
+    }
+
+    </>
+  
+    
+  )
+  
+  
+ 
 }

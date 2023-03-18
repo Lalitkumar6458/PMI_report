@@ -4,7 +4,8 @@ import {FaEdit} from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { DeleteOutlined } from '@ant-design/icons';
 import styles from "../../styles/Category.module.css"
-
+import { UpdateClient, DeleteClient } from "@/Api/Url";
+import axios from 'axios';
 
 const EditableCell = ({
   editing,
@@ -67,6 +68,23 @@ const ClientTable = (props) => {
       const row = await form.validateFields();
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
+const obj = {
+  id: key,
+  client_name: row.client_name,
+  client_address: row.client_address,
+  client_phone_no: row.client_phone_no,
+  client_email: row.client_email,
+  user_info_id:newData[index].user_info_id
+};
+      await axios
+        .post(UpdateClient, obj)
+        .then((response) => {
+          console.log("success", response);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+           
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -169,9 +187,23 @@ const ClientTable = (props) => {
       }),
     };
   });
-  const handleDelete = (key) => {
+  const handleDelete = async(key) => {
     const newData = data.filter((item) => item.key !== key);
+      const newData1 = [...data];
+      const index = newData1.findIndex((item) => key === item.key);
     setData(newData);
+    const obj = {
+      id: key,
+      user_info_id: newData1[index].user_info_id,
+    };
+     await axios
+       .delete(DeleteClient, { params: obj })
+       .then((response) => {
+         console.log("success", response);
+       })
+       .catch((err) => {
+         console.log("err", err);
+       });
   };
   return (
     <Form form={form} component={false}>

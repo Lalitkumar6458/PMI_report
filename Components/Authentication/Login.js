@@ -1,0 +1,181 @@
+import React, { useState } from "react";
+import axios from "axios";
+import Link from "next/link";
+import {
+  InfoCircleOutlined,
+  UserOutlined,
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+} from "@ant-design/icons";
+import css from "../../styles/login.module.css"
+import { Input, Tooltip, Button, notification, message } from "antd";
+import Signup from "./Signup";
+import { Login_User } from "@/Api/Url";
+import Router from "next/router";
+
+// import { login_url } from "./Url";
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [Loading, setIsLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [usernameCheck, setUsernameCheck] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState(false);
+
+  const [api, contextHolder] = notification.useNotification();
+  const [messageApi, contexttHolder] = message.useMessage();
+  const[loginSignup ,setLoginSignup]=useState(false)
+  const info = () => {
+    messageApi.info("Login Successfully...!");
+  };
+  const openNotification = (placement, title, text, type) => {
+    api[type]({
+      message: text,
+      description: title,
+      placement,
+    });
+  };
+  const Loginhandler = () => {
+
+    const options = {
+      method: "POST",
+      url: "",
+      params: {
+        username: username,
+        password: password,
+      },
+      headers: {
+        "content-type": "application/json",
+      },
+      data: [
+        {
+          username: username,
+          password: password,
+        },
+      ],
+    };
+
+    if (username != "" && password != "") {
+    setIsLoading(true);
+
+      const data = {
+        email: username,
+        password: password,
+      };
+      axios.post(Login_User, data)
+        .then(function (response) {
+            console.log("User created",response)
+          setIsLoading(false);
+          if (response.data == "Invalid credentials") {
+            openNotification(
+              "bottomRight",
+              "Invalid credentials !",
+              "Username or password not valid",
+              "error"
+            );
+            setUsernameCheck(false);
+            setPasswordCheck(false);
+          } else if (response.status = 202) {
+            localStorage.setItem("username", response.data.username);
+            localStorage.setItem("email", response.data.email);
+
+            info();
+            localStorage.setItem("flag", true);
+            Router.push("/");
+
+            // setLoginSignup(!loginSignup);
+    
+
+            // navigate("/Search_fragrance");
+            // window.location.reload(false);
+          } else {
+          }
+        })
+        .catch(function (error) {
+          setIsLoading(false);
+          console.error(error);
+          openNotification("bottomRight", error.message, "Error", "error");
+        });
+    } else {
+      if (username == "") {
+        setUsernameCheck(true);
+        setPasswordCheck(false);
+      } else if (password == "") {
+        setPasswordCheck(true);
+        setUsernameCheck(false);
+      } else {
+        setUsernameCheck(false);
+        setPasswordCheck(false);
+      }
+    }
+  };
+  const signupLogin =()=>{
+setLoginSignup(!loginSignup);
+  }
+  return (
+    <>
+      {loginSignup ? (
+        <Signup eventlick={signupLogin} />
+      ) : (
+        <div className={css.login_page}>
+          {contextHolder}
+          {contexttHolder}
+          <div className={css.login_con}>
+            <h1>Login</h1>
+            <div className={css.Input_field_signup}>
+              <label>Username</label>
+              <Input
+                placeholder="Enter your username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                value={username}
+                status={usernameCheck ? "error" : ""}
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                suffix={
+                  <Tooltip title="Type your Username">
+                    <InfoCircleOutlined
+                      style={{
+                        color: "rgba(0,0,0,.45)",
+                      }}
+                    />
+                  </Tooltip>
+                }
+              />
+            </div>
+            <div className={css.Input_field_signup}>
+              <label>Password</label>
+
+              <Input.Password
+                placeholder="Enter password"
+                status={passwordCheck ? "error" : null}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
+                iconRender={(visible) =>
+                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                }
+              />
+            </div>
+            <Button type="primary" onClick={Loginhandler} loading={Loading}>
+              Login
+            </Button>
+            <div className={css.login_btn}>
+              <span>
+                Don't have an account?{" "}
+                <div
+                  onClick={() => signupLogin()}
+                  style={{ cursor: "pointer", display: "inline-block",color:"blue"}}
+                >
+                  Signup Here
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Login;

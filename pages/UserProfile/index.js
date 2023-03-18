@@ -63,29 +63,39 @@ const index = () => {
   }
 
   const getUserData = async()=>{
+console.log(getUserDataUrl, "getUserDataUrl");
 
 
     await axios
-      .get(getUserDataUrl,{params:{username:'admin'}}, {
-        "Content-Type": "application/json",
-        Connection: "Keep-Alive",
-        Authorization: `Bearer test`,
-      })
+      .get(
+        getUserDataUrl,
+        {
+          params: {
+            username: localStorage.getItem("username"),
+            email: localStorage.getItem("email"),
+            origin: getUserDataUrl.split("/")[2],
+          },
+        },
+        {
+          "Content-Type": "application/json",
+          Connection: "Keep-Alive",
+          Authorization: `Bearer test`,
+        }
+      )
       .then((response) => {
-        let userData = response.data.data[0]
-        setImageUrl(userData.user_img)
-        setImagelogo(userData.logo_img)
-       
+        let userData = response.data.data[0];
+        console.log(response, "profile");
+        setImageUrl(userData.user_img);
+        setImagelogo(userData.logo_img);
+
         setUserDetails({
           name: userData.user_name,
           email: userData.user_email,
           phone: userData.phone_no,
-          address: userData.address
-
-        })
+          address: userData.address,
+        });
 
         console.log("response data c", response.data.data);
-
       })
       .catch((error) => {
         // dispatch({
@@ -151,11 +161,11 @@ const index = () => {
     const form =new FormData()
     console.log("userDetails", userDetails)
     form.append("name", userDetails.name)
-    form.append("email", userDetails.email)
-    form.append("phone",userDetails.phone)
+    form.append("user_email", userDetails.email)
+    form.append("phone_no",userDetails.phone)
     form.append("address",userDetails.address)
-    form.append("profileImg",userDetails.profileImg)
-    form.append("logoImg", userDetails.logoImg)
+    form.append("user_img",userDetails.profileImg)
+    form.append("logo_img", userDetails.logoImg)
     // setEditUserInfo(true)
 
     
@@ -167,7 +177,7 @@ const index = () => {
         Authorization: `Bearer test`,
       })
       .then((response) => {
-        console.log("response data c", response.data);
+        console.log("response data c", response);
       })
       .catch((error) => {
         // dispatch({

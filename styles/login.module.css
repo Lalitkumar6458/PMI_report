@@ -1,0 +1,36 @@
+.login_page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--dark-blue);
+}
+.login_con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+    /* height: 50vh; */
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: #fff;
+    border-radius: 20px;
+}
+.Input_field_signup{
+    width: 100%;
+}
+.login_btn span{
+    font-size: 1.6rem;
+}
+.Input_field_signup label{
+    font-size: 1.6rem;
+}
+@media  (max-width: 576px) {
+    .login_con{
+        width: 300px;
+    }
+}

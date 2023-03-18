@@ -52,7 +52,28 @@ const changeChemical=(e)=>{
   })
 }
 const UpdateGradepro=()=>{
-  console.log("updated value",ChemicalDetails,prodDetails)
+  
+  var olData = JSON.parse(localStorage.getItem("reportAddedData")).filter(
+    (x) => x.key !== prodDetails
+  .key);
+  var newData = {
+    ...ChemicalDetails,
+    ...prodDetails,
+  };
+  
+
+    localStorage.setItem("reportAddedData",JSON.stringify([...olData,newData]))
+
+    
+
+}
+
+const DeleteReportRow=(key)=>{
+ var olData = JSON.parse(localStorage.getItem("reportAddedData")).filter(
+   (x) => x.key !== key
+ );
+ localStorage.setItem("reportAddedData", JSON.stringify([...olData]));
+Router.push("/Report")
 }
   return (
     <>
@@ -69,7 +90,7 @@ const UpdateGradepro=()=>{
               <span>Chemical Composition</span>
               <span>(Grade:316L)</span>
             </div>
-            <span>
+            <span onClick={()=>DeleteReportRow(prodDetails.key)}>
               {" "}
               <MdDelete className={css.icon_delete} />
             </span>

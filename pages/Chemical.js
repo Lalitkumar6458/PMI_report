@@ -46,10 +46,12 @@ const Chemical = () => {
     setOpen(false);
   };
   const Deletegrade = async(item) => {
-    const data={
-      gradeId:item.id,
-      chemical_grade_id: item.chemical_grade
-    }
+    const data = {
+      gradeId: item.id,
+      chemical_grade_id: item.chemical_grade,
+      username: localStorage.getItem("username"),
+      email: localStorage.getItem("email"),
+    };
     await axios
       .post(Delete_chemical, data, {
         "Content-Type": "application/json",
@@ -70,6 +72,7 @@ const Chemical = () => {
         console.log(error, "error");
       });
   };
+  
   const initialValues = {
     el_name: "",
     percent: "",
@@ -135,6 +138,7 @@ const Chemical = () => {
       body: {
         grade_name: grade,
         chemical: arrlist,
+        email: localStorage.getItem("email"),
       },
     };
     // fetch(ChemicalSave,JSON.stringify({
@@ -146,6 +150,8 @@ const Chemical = () => {
     const data_obj = JSON.stringify({
       grade_name: grade,
       chemical_name: arrlist,
+      username: localStorage.getItem("username"),
+      email: localStorage.getItem("email"),
     });
 
     axios
@@ -200,11 +206,12 @@ const Chemical = () => {
   };
   const UpdateChemical =async()=>{
    
-    const data={
-      grade:gradeName,
+    const data = {
+      grade: gradeName,
       chemical_grade_id: modalData.chemical_grade,
-      chemical:chemicalInput
-    }
+      chemical: chemicalInput,
+      email: localStorage.getItem("email"),
+    };
     console.log("chemicalInput", chemicalInput, data, modalData)
 
     await axios
@@ -228,14 +235,16 @@ const Chemical = () => {
       });
   }
   const getAllChemicalData=async()=>{
-    const data_obj={
-      getdata:"allData"
-    }
-   await axios
-      .get(GetChemicalData, data_obj, {
+    const data_obj = {
+      getdata: "allData",
+      username: localStorage.getItem("username"),
+      email: localStorage.getItem("email"),
+    };
+   await axios.get(GetChemicalData,{params:data_obj}, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,
+
       })
       .then((response) => {
         console.log("response data c", response.data.data);
@@ -262,18 +271,23 @@ const Chemical = () => {
     console.log("putt", e.target.value)
     
     await axios
-      .get(SearchGrade_chemical, {
-        params: {
-          word: e.target.value
+      .get(
+        SearchGrade_chemical,
+        {
+          params: {
+            word: e.target.value,
+            username: localStorage.getItem("username"),
+          },
+        },
+        {
+          "Content-Type": "application/json",
+          Connection: "Keep-Alive",
+          Authorization: `Bearer test`,
         }
-      }, {
-        "Content-Type": "application/json",
-        Connection: "Keep-Alive",
-        Authorization: `Bearer test`,
-      })
+      )
       .then((response) => {
         console.log("response data c", response.data.data);
-        setAllGradeData(response.data.data)
+        setAllGradeData(response.data.data);
         // console.log("AllGradeData", allGradeData[1].chemical_name)
       })
       .catch((error) => {

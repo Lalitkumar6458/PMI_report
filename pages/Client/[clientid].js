@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react'
 import { useRouter } from 'next/router'
 import { LeftOutlined } from '@ant-design/icons';
 import styles from "../../styles/ClientMobileTable.module.css"
-import { getClientDataUrl } from '@/Api/Url';
+import { getClientDataUrl, UpdateClient } from '@/Api/Url';
 import { Button, Input } from 'antd';
 import axios from "axios";
 
@@ -18,15 +18,18 @@ const GetclientData=async()=>{
  
 
   await axios
-    .get(getClientDataUrl, { params: { username: 'admin' } }, {
-      "Content-Type": "application/json",
-      Connection: "Keep-Alive",
-      Authorization: `Bearer test`,
-    })
+    .get(
+      getClientDataUrl,
+      { params: { username: "admin" } },
+      {
+        "Content-Type": "application/json",
+        Connection: "Keep-Alive",
+        Authorization: `admin`,
+      }
+    )
     .then((response) => {
-
-       setClientData(response.data.data)
-
+      setClientData(response.data.data);
+      console.log(response.data.data, "response.data.data");
     })
     .catch((error) => {
       // dispatch({
@@ -114,7 +117,7 @@ const data=[
   }
 ]
 
-let newData=clientData.filter((x) => x.user_info_id == query.clientid);
+let newData = data.filter((x) => x.id == 1);
 console.log("newData",newData)
 const[clientUpdate,setClientUpdate]=useState({...newData[0]})
 console.log("client update",clientUpdate)
@@ -126,8 +129,24 @@ const UpdateClientHandler=(e)=>{
   });
 }
 
-const UpdateBtnhandler=()=>{
+const UpdateBtnhandler=async()=>{
   console.log("clientUpdate",clientUpdate)
+//   const obj = {
+//   id: key,
+//   client_name: row.client_name,
+//   client_address: row.client_address,
+//   client_phone: row.client_phone_no,
+//   client_email: row.client_email,
+//   user_info_id:newData[index].user_info_id
+// };
+//       await axios
+//         .post(UpdateClient, obj)
+//         .then((response) => {
+//           console.log("success", response);
+//         })
+//         .catch((err) => {
+//           console.log("err", err);
+//         });
 }
 
   return (
