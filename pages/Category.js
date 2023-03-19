@@ -124,9 +124,7 @@ const handleValueChange=(e)=>{
     [e.target.name]:e.target.value
   })
 }
-if(!session){
-  Router.replace('/login')
-  }else{
+
     return (
       <Layout title="Category">
        <div className={styles.Category_con}>
@@ -195,6 +193,23 @@ if(!session){
     )
   }
   
-}
+
 
 export default Category
+
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}

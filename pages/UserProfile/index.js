@@ -6,6 +6,8 @@ import { Button, Input, message, Upload } from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import { UserInfoSave, getUserDataUrl } from "@/Api/Url";
 import axios from "axios";
+import { getSession, useSession, signOut } from "next-auth/react"
+
 
 
 const getBase64 = (img, callback) => {
@@ -298,3 +300,21 @@ console.log(getUserDataUrl, "getUserDataUrl");
 };
 
 export default index;
+
+
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}

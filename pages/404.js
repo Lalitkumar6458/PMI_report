@@ -1,7 +1,13 @@
 import { Button, Result } from 'antd';
 import Link from 'next/link';
 import Layout from '@/Components/Layout';
+import { getSession, useSession, signOut } from "next-auth/react"
+
 export default function Custom404() {
+
+
+
+ 
     return <Layout title="404">  <Result
     status="404"
     title="404"
@@ -11,3 +17,6 @@ export default function Custom404() {
     
   
   }
+
+
+  

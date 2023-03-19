@@ -20,21 +20,21 @@ import add_gif from "../public/Images/add_gif.gif";
 
 import axios from "axios";
 import BorderBox from "@/Components/SmallComponets/BorderBox";
-import { useSession} from "next-auth/react"
+import { useSession,getSession} from "next-auth/react"
 
 var arrlist = {};
 var table_th = [];
 var table_td = [];
 // var modalData;
 const Chemical = () => {
-    const { data: session } = useSession()
+    const {session ,status} = useSession()
   const [open, setOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [chemicalInput, setChemicalInput] = useState({});
   const[gradeName,setGradeName]=useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
 
-
+console.log(status,"session status")
   const showModal = (data) => {
     console.log("data", data);
     setModalData({ ...data });
@@ -240,9 +240,9 @@ const Chemical = () => {
         console.log(error, "error");
       });
   }
-  if(!session){
-    Router.replace('/login')
-    }
+  // if(status !== "authenticated" ){
+  //   Router.replace('/login')
+  //   }
   return (
     <Layout title="Chemical">
       <div className={styles.Chemical_container}>
@@ -517,3 +517,20 @@ const Chemical = () => {
 };
 
 export default Chemical;
+
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}

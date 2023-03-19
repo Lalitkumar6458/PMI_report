@@ -151,9 +151,7 @@ const UpdateBtnhandler=async()=>{
 //           console.log("err", err);
 //         });
 }
-if(!session){
-  Router.replace('/login')
-  }
+
   return (
     <Layout title="client">
 
@@ -191,3 +189,20 @@ if(!session){
 }
 
 export default ClientInfo
+
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}

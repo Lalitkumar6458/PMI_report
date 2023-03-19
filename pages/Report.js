@@ -247,9 +247,7 @@ const Table_view=()=>{
 const Table_view1=()=>{
   setTableview(false)
 }
-if(!session){
-  Router.replace('/login')
-  }
+
 
 
   return (
@@ -577,3 +575,19 @@ if(!session){
 };
 
 export default Report;
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}

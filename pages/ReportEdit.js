@@ -79,9 +79,7 @@ const DeleteReportRow=(key)=>{
  localStorage.setItem("reportAddedData", JSON.stringify([...olData]));
 Router.push("/Report")
 }
-if(!session){
-  Router.replace('/login')
-  }
+
   return (
     <>
       <Layout title="ReportEdit">
@@ -174,3 +172,19 @@ if(!session){
 };
 
 export default ReportEdit;
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}
