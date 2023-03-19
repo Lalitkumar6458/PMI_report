@@ -1,21 +1,18 @@
 import Layout from "@/Components/Layout";
 import React, { useState,useEffect } from "react";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Button, Modal, Input } from "antd";
 import styles from "@/styles/Chemical.module.css";
 import Router from "next/router";
 import { GetChemicalData, ChemicalSave, Update_chemical, Delete_chemical, SearchGrade_chemical } from "@/Api/Url";
 import {
-  FaAngleLeft,
-  FaAngleRight,
+
   FaPlusCircle,
   FaEdit,
 } from "react-icons/fa";
 import {
   HiOutlineSaveAs,
   HiOutlineSearch,
-  HiArrowNarrowDown,
-  HiArrowNarrowUp,
+
 } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import Image from "next/image";
@@ -23,7 +20,7 @@ import add_gif from "../public/Images/add_gif.gif";
 
 import axios from "axios";
 import BorderBox from "@/Components/SmallComponets/BorderBox";
-import { getSession, useSession, signOut } from "next-auth/react"
+import { useSession} from "next-auth/react"
 
 var arrlist = {};
 var table_th = [];
@@ -84,7 +81,6 @@ const Chemical = () => {
   const [values, setValues] = useState(initialValues);
   const [grade, setGrade] = useState("");
   const [checkempty, setCheckempty] = useState(true);
-  const [smallbox, setSmallbox] = useState(false);
 
   const [gradedata, setGradedata] = useState({});
   const [allGradeData, setAllGradeData]=useState([])
@@ -127,30 +123,8 @@ const Chemical = () => {
     }
   };
   const saveGrade = () => {
-    var saveData = [grade, arrlist];
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "JWT fefege...",
-    };
-    var data = {
-      grade_name: grade,
-      chemical: arrlist,
-    };
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: {
-        grade_name: grade,
-        chemical: arrlist,
-        email: localStorage.getItem("email"),
-      },
-    };
-    // fetch(ChemicalSave,JSON.stringify({
-    //   grade_name:grade,
-    //   chemical:arrlist
-    // }))
-    //     .then(response => console.log(response.json(),"data"))
-    //     .then(data => console.log(data));
+  
+ 
     const data_obj = JSON.stringify({
       grade_name: grade,
       chemical_name: arrlist,
@@ -169,37 +143,10 @@ const Chemical = () => {
         getAllChemicalData()
       })
       .catch((error) => {
-        // dispatch({
-        //   type: ERROR_FINDING_USER
-        // })
+      
         console.log(error, "error");
       });
   };
-
-
-  const Grade_data = [
-    {
-      id: 1,
-      grade: "304L",
-      Chemical: {
-        Ni: "57.00",
-        Cr: "1.0*",
-        Mo: "21.00",
-        Fe: "19.00",
-      },
-    },
-    {
-      id: 2,
-      grade: "316L",
-      Chemical: {
-        Ni: "57.00",
-        Cr: "1.0*",
-        Mo: "21.00",
-        Fe: "19.00",
-      },
-    },
-  ];
-
   const updateChemical = async (e) => {  
     const { name, value } = e.target;
     setChemicalInput({
@@ -225,16 +172,12 @@ const Chemical = () => {
         Authorization: `Bearer test`,
       })
       .then((response) => {
-        console.log("response data c", response.data.data);
-        // setAllGradeData(response.data.data)
-        // console.log("AllGradeData", allGradeData[1].chemical_name)
+        
         getAllChemicalData()
         setOpen(false);
       })
       .catch((error) => {
-        // dispatch({
-        //   type: ERROR_FINDING_USER
-        // })
+      
         console.log(error, "error");
       });
   }
@@ -268,11 +211,9 @@ const Chemical = () => {
   const SearchGradeHandler =async(e)=>{
     setSearchKeyword(e.target.value)
         
-    const data={
-      word:e.target.value
-    }
+    
    
-    console.log("putt", e.target.value)
+   
     
     await axios
       .get(
@@ -292,12 +233,10 @@ const Chemical = () => {
       .then((response) => {
         console.log("response data c", response.data.data);
         setAllGradeData(response.data.data);
-        // console.log("AllGradeData", allGradeData[1].chemical_name)
+   
       })
       .catch((error) => {
-        // dispatch({
-        //   type: ERROR_FINDING_USER
-        // })
+        
         console.log(error, "error");
       });
   }

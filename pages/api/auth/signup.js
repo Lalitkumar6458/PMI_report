@@ -4,7 +4,7 @@ export default async function handler(req, res){
   
     // only post method is accepted
     if(req.method === 'POST'){
-console.log(res.body,"response")
+
         // if(!req.body) return res.status(404).json({ error: "Don't have form data...!"});
         // const { username, email, password } = req.body;
 

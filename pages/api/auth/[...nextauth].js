@@ -23,6 +23,7 @@ export const authOptions = {
   })
     // ...add more providers here
   ],
+  secret: "XH6bp/TkLvnUkQiPDEZNyHc0CV+VV5RL/n+HdVHoHN0=",
   session: {
     strategy: 'jwt',
 }

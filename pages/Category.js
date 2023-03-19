@@ -2,7 +2,6 @@ import Layout from '@/Components/Layout'
 import Table from '@/Components/Table'
 import React, { useState, useEffect } from 'react'
 import styles from "../styles/Category.module.css"
-import BorderBox from '@/Components/SmallComponets/BorderBox'
 import { Input,Tooltip,AutoComplete  } from 'antd';
 import Button from '@/Components/SmallComponets/Button'
 import { UserAddOutlined } from '@ant-design/icons';
@@ -75,9 +74,7 @@ const AddClient=()=>{
         GetclientData()
       })
       .catch((error) => {
-        // dispatch({
-        //   type: ERROR_FINDING_USER
-        // })
+      
         console.log(error,"error")
       })
 }
