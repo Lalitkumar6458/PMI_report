@@ -2,8 +2,7 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials';
 // import axios from "axios";
-import { Login_User } from "@/Api/Url";
-const axios = require('axios');
+
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [

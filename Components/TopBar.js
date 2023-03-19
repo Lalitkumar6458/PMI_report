@@ -22,43 +22,15 @@ const ref_div = useRef(null);
 const { data: session } = useSession()
 var username = localStorage.getItem("username");
 console.log("useSession()",useSession())
-// function useOutsideAlerter(ref) {
-//     useEffect(() => {
-//       /**
-//        * Alert if clicked on outside of element
-//        */
-//       function handleClickOutside(event) {
-//         if (ref.current && !ref.current.contains(event.target)) {
-//             setUserdrop(false)
-//         }
-//       }
-//       // Bind the event listener
-//       document.addEventListener("mousedown", handleClickOutside);
-//       return () => {
-//         // Unbind the event listener on clean up
-//         document.removeEventListener("mousedown", handleClickOutside);
-//       };
-//     }, [ref]);
-//   }
 
 
-// useOutsideAlerter(wrapperRef);
-// useOutsideAlerter(ref_div);
+
 const Logouthandler =async()=>{
     var data={
 username:localStorage.getItem('username'),
     }
     signOut()
-// await axios.post(Logout_User,data).then((res)=>{
-// console.log(res);
-// if(res.status===204){
-// localStorage.setItem("flag",false)
-// Router.push("/")
 
-// }
-// }).catch((err)=>{
-
-// });
 }
 const dropDown_show=()=>{
     setUserdrop(!userdrop); 
