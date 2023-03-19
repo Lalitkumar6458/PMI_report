@@ -38,10 +38,15 @@ import {
 import ReportTable from "@/Components/Reportcomponents/ReportTable";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Router from "next/router";
 import Reportmobilelist from "@/Components/Reportcomponents/Reportmobilelist";
+import { getSession, useSession, signOut } from "next-auth/react"
+
 let allData=[]
 var count=1
 const Report = () => {
+  const { data: session } = useSession()
+
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
@@ -242,7 +247,9 @@ const Table_view=()=>{
 const Table_view1=()=>{
   setTableview(false)
 }
-
+if(!session){
+  Router.replace('/login')
+  }
 
 
   return (

@@ -1,13 +1,16 @@
 import Layout from '@/Components/Layout'
 import React,{useState,useEffect} from 'react'
-import { useRouter } from 'next/router'
+import Router,{useRouter } from 'next/router'
 import { LeftOutlined } from '@ant-design/icons';
 import styles from "../../styles/ClientMobileTable.module.css"
 import { getClientDataUrl, UpdateClient } from '@/Api/Url';
 import { Button, Input } from 'antd';
 import axios from "axios";
+import { getSession, useSession, signOut } from "next-auth/react"
+
 
 const ClientInfo = () => {
+  const { data: session } = useSession()
 
 const router=useRouter()
 const{query}=router
@@ -148,7 +151,9 @@ const UpdateBtnhandler=async()=>{
 //           console.log("err", err);
 //         });
 }
-
+if(!session){
+  Router.replace('/login')
+  }
   return (
     <Layout title="client">
 

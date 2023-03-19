@@ -11,7 +11,8 @@ import { saveClient, getClientDataUrl } from '@/Api/Url'
 import axios from 'axios'
 import EditTable from '@/Components/SmallComponets/EditTable'
 import {HiArrowNarrowDown,HiArrowNarrowUp } from "react-icons/hi";
-
+import { getSession, useSession, signOut } from "next-auth/react"
+import Router from 'next/router'
 
 
 
@@ -59,6 +60,7 @@ const initialState={
   address:""
 }
 const Category = () => {
+  const { data: session } = useSession()
   const [smallbox,setSmallbox]=useState(false)
   const [value, setValue] = useState('');
   const[clientData,setClientData]=useState([])
@@ -125,72 +127,77 @@ const handleValueChange=(e)=>{
     [e.target.name]:e.target.value
   })
 }
-  return (
-    <Layout title="Category">
-     <div className={styles.Category_con}>
-      
- <div className={smallbox?'Border_box height_down':'Border_box'}>
-  <h2>Add Client</h2>
-  <button className="small_height_b" onClick={()=>{smallbox?setSmallbox(false):setSmallbox(true)}}>{smallbox?<HiArrowNarrowDown/>:<HiArrowNarrowUp/>}</button>
-
-  <div className={styles.input_box} style={{display:smallbox?"none":""}}>
-<div className={styles.input_div}>
-  <label>Name</label>
-  <Input placeholder="Enter Client Name.." name="name" value={clientInfo.name} onChange={handleValueChange} />
+if(!session){
+  Router.replace('/login')
+  }else{
+    return (
+      <Layout title="Category">
+       <div className={styles.Category_con}>
+        
+   <div className={smallbox?'Border_box height_down':'Border_box'}>
+    <h2>Add Client</h2>
+    <button className="small_height_b" onClick={()=>{smallbox?setSmallbox(false):setSmallbox(true)}}>{smallbox?<HiArrowNarrowDown/>:<HiArrowNarrowUp/>}</button>
   
-</div>
-<div className={styles.input_div}>
-  <label>Email</label>
-  <Input placeholder="Enter Email.." name="email" value={clientInfo.email} onChange={handleValueChange} />
-  
-</div>
-<div className={styles.input_div}>
-  <label>Phone No.</label>
-  <NumericInput
-      style={{
-       
-      }}
-      value={value}
-      onChange={setValue}
-    />
-  
-</div> 
-<div className={styles.input_div}>
-  <label>Address</label>
-  <Input placeholder="Enter Address.."  name="address" value={clientInfo.address} onChange={handleValueChange} />
-  
-</div>
-<Button content={{title:"Add",icon:<UserAddOutlined className='icon_btn' />,event:AddClient}}/>
+    <div className={styles.input_box} style={{display:smallbox?"none":""}}>
+  <div className={styles.input_div}>
+    <label>Name</label>
+    <Input placeholder="Enter Client Name.." name="name" value={clientInfo.name} onChange={handleValueChange} />
+    
   </div>
- </div>
-     <div className={styles.Client_allData}>
-      <div className={styles.search_box}>
-      <AutoComplete
-    style={{
-      width: 200,
-    border:"1px solid #081A51",
-    borderRadius:"5px",
-    popupClassName:"Search_input"
-    }}
-    options={options}
-    placeholder="Search Grade Chemical.."
-    filterOption={(inputValue, option) =>
-      option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-    }
-  />
-      </div>
-
-      <div className={styles.client_table}>
-        <div className={styles.Client_cont}>
-
-              <ClientTable data={clientData}/>
+  <div className={styles.input_div}>
+    <label>Email</label>
+    <Input placeholder="Enter Email.." name="email" value={clientInfo.email} onChange={handleValueChange} />
+    
+  </div>
+  <div className={styles.input_div}>
+    <label>Phone No.</label>
+    <NumericInput
+        style={{
+         
+        }}
+        value={value}
+        onChange={setValue}
+      />
+    
+  </div> 
+  <div className={styles.input_div}>
+    <label>Address</label>
+    <Input placeholder="Enter Address.."  name="address" value={clientInfo.address} onChange={handleValueChange} />
+    
+  </div>
+  <Button content={{title:"Add",icon:<UserAddOutlined className='icon_btn' />,event:AddClient}}/>
+    </div>
+   </div>
+       <div className={styles.Client_allData}>
+        <div className={styles.search_box}>
+        <AutoComplete
+      style={{
+        width: 200,
+      border:"1px solid #081A51",
+      borderRadius:"5px",
+      popupClassName:"Search_input"
+      }}
+      options={options}
+      placeholder="Search Grade Chemical.."
+      filterOption={(inputValue, option) =>
+        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+      }
+    />
         </div>
-            <EditTable data={clientData} />
-      </div>
-     </div>
-     </div>
-    </Layout>
-  )
+  
+        <div className={styles.client_table}>
+          <div className={styles.Client_cont}>
+  
+                <ClientTable data={clientData}/>
+          </div>
+              <EditTable data={clientData} />
+        </div>
+       </div>
+       </div>
+      </Layout>
+    )
+  }
+  
 }
 
 export default Category

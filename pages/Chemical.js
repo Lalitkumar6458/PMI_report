@@ -3,6 +3,7 @@ import React, { useState,useEffect } from "react";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Button, Modal, Input } from "antd";
 import styles from "@/styles/Chemical.module.css";
+import Router from "next/router";
 import { GetChemicalData, ChemicalSave, Update_chemical, Delete_chemical, SearchGrade_chemical } from "@/Api/Url";
 import {
   FaAngleLeft,
@@ -22,11 +23,14 @@ import add_gif from "../public/Images/add_gif.gif";
 
 import axios from "axios";
 import BorderBox from "@/Components/SmallComponets/BorderBox";
+import { getSession, useSession, signOut } from "next-auth/react"
+
 var arrlist = {};
 var table_th = [];
 var table_td = [];
 // var modalData;
 const Chemical = () => {
+    const { data: session } = useSession()
   const [open, setOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [chemicalInput, setChemicalInput] = useState({});
@@ -297,6 +301,9 @@ const Chemical = () => {
         console.log(error, "error");
       });
   }
+  if(!session){
+    Router.replace('/login')
+    }
   return (
     <Layout title="Chemical">
       <div className={styles.Chemical_container}>

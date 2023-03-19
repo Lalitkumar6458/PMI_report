@@ -9,17 +9,19 @@ import Link from 'next/link';
 import logo from "../public/Images/pmilogo.png"
 import { Logout_User } from '@/Api/Url';
 import axios from 'axios';
-
+import { Avatar, Space } from 'antd';
+import { getSession, useSession, signOut } from "next-auth/react"
 import Router from 'next/router';
+import { UserOutlined } from '@ant-design/icons';
 
 
 const TopBar = () => {
 const[userdrop,setUserdrop]=useState(false)
 const wrapperRef = useRef(null);
 const ref_div = useRef(null);
-
+const { data: session } = useSession()
 var username = localStorage.getItem("username");
-
+console.log("useSession()",useSession())
 // function useOutsideAlerter(ref) {
 //     useEffect(() => {
 //       /**
@@ -46,16 +48,17 @@ const Logouthandler =async()=>{
     var data={
 username:localStorage.getItem('username'),
     }
-await axios.post(Logout_User,data).then((res)=>{
-console.log(res);
-if(res.status===204){
-localStorage.setItem("flag",false)
-Router.push("/")
+    signOut()
+// await axios.post(Logout_User,data).then((res)=>{
+// console.log(res);
+// if(res.status===204){
+// localStorage.setItem("flag",false)
+// Router.push("/")
 
-}
-}).catch((err)=>{
+// }
+// }).catch((err)=>{
 
-});
+// });
 }
 const dropDown_show=()=>{
     setUserdrop(!userdrop); 
@@ -74,16 +77,17 @@ const dropDown_show=()=>{
             <IoNotificationsOutline className={styles.icon_t} />
           </span>
           <div className={styles.usen_info_con}>
-            <span>
-              <FaUserCircle className={styles.icon_user} />
-            </span>
+            {
+              session?.user.image?<Avatar src={<img src={session?.user.image}  unoptimized={true} width={20} height={20} alt="avatar" />}  />: <Avatar icon={<UserOutlined />} />
+            }
+         
             <div
               className={styles.dopdown_user}
               id="drop_down_user"
               ref={ref_div}
               onClick={() => dropDown_show()}
             >
-              <h5>{username}</h5>
+              <h5>{session?.user.name}</h5>
               <FiChevronDown className={styles.icon_drop} />
               {userdrop ? (
                 <div className={styles.drop_down} id="drop_down">
@@ -123,16 +127,17 @@ const dropDown_show=()=>{
             <FiSearch className={styles.icon_t} />{" "}
           </span>
           <div className={styles.usen_info_con}>
-            <span>
-              <FaUserCircle className={styles.icon_user} />
-            </span>
+          {
+              session?.user.image?<Avatar src={<img src={session?.user.image}  unoptimized={true} width={20} height={20} alt="avatar" />}  />: <Avatar icon={<UserOutlined />} />
+            }
+         
             <div
               className={styles.dopdown_user}
               id="drop_down_user"
               ref={wrapperRef}
               onClick={() => dropDown_show()}
             >
-              <h5>{username} </h5>
+              <h5>{session?.user.name}</h5>  
               <FiChevronDown className={styles.icon_drop} />
               {userdrop ? (
                 <div className={styles.drop_down} id="drop_down">

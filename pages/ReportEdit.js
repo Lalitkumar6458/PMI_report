@@ -5,7 +5,11 @@ import css from "../styles/ReportPage.module.css";
 import { LeftOutlined } from "@ant-design/icons";
 import Router,{useRouter} from "next/router";
 import { Button, Input } from 'antd';
+import { getSession, useSession, signOut } from "next-auth/react"
+
 const ReportEdit = () => {
+  const { data: session } = useSession()
+
   const { TextArea } = Input;
   const router=useRouter()
 const{query}=router
@@ -75,6 +79,9 @@ const DeleteReportRow=(key)=>{
  localStorage.setItem("reportAddedData", JSON.stringify([...olData]));
 Router.push("/Report")
 }
+if(!session){
+  Router.replace('/login')
+  }
   return (
     <>
       <Layout title="ReportEdit">

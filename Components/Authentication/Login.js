@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { signIn, signOut } from "next-auth/react"
 import {
   InfoCircleOutlined,
   UserOutlined,
@@ -11,10 +12,13 @@ import css from "../../styles/login.module.css"
 import { Input, Tooltip, Button, notification, message } from "antd";
 import Signup from "./Signup";
 import { Login_User } from "@/Api/Url";
-import Router from "next/router";
+
+import imgG from "../../public/Images/google.svg"
+import Image from "next/image";
+import { useRouter } from 'next/router'
 
 // import { login_url } from "./Url";
-const Login = () => {
+const Login_com = () => {
   const [username, setUsername] = useState("");
   const [Loading, setIsLoading] = useState(false);
   const [password, setPassword] = useState("");
@@ -27,6 +31,7 @@ const Login = () => {
   const info = () => {
     messageApi.info("Login Successfully...!");
   };
+  const router = useRouter()
   const openNotification = (placement, title, text, type) => {
     api[type]({
       message: text,
@@ -34,7 +39,25 @@ const Login = () => {
       placement,
     });
   };
-  const Loginhandler = () => {
+  const loginStatus=async (data)=>{
+    const status =  await signIn('credentials', {
+      redirect: false,
+      name:data.name,
+      email:data.email,
+      password: data.password,
+      callbackUrl: "/"
+  })
+  console.log(status,"status")
+  if(status.ok) router.replace(status.url)
+  }
+  const Loginhandler = async() => {
+
+
+
+
+
+
+  // // if(status.ok) router.push(status.url)
 
     const options = {
       method: "POST",
@@ -75,12 +98,17 @@ const Login = () => {
             setUsernameCheck(false);
             setPasswordCheck(false);
           } else if (response.status = 202) {
-            localStorage.setItem("username", response.data.username);
-            localStorage.setItem("email", response.data.email);
-
-            info();
-            localStorage.setItem("flag", true);
-            Router.push("/");
+const data={
+  name:response.data.username,
+  email:response.data.email,
+  password: password,
+}
+            loginStatus(
+data
+            )
+    
+            // info();
+            // Router.push("/");
 
             // setLoginSignup(!loginSignup);
     
@@ -111,6 +139,12 @@ const Login = () => {
   const signupLogin =()=>{
 setLoginSignup(!loginSignup);
   }
+
+   // Google Handler function
+   async function handleGoogleSignin(){
+    
+    signIn('google', { callbackUrl : "http://localhost:3000"})
+}
   return (
     <>
       {loginSignup ? (
@@ -160,15 +194,20 @@ setLoginSignup(!loginSignup);
             <Button type="primary" onClick={Loginhandler} loading={Loading}>
               Login
             </Button>
+            <div className={css.LoginGoogle}>
+            <button type='button'  onClick={handleGoogleSignin}  className={css.button_custom}>
+                        Sign In with Google <Image src={imgG} width="20" height={20} />
+              </button>
+            </div>
             <div className={css.login_btn}>
               <span>
                 Don't have an account?{" "}
-                <div
-                  onClick={() => signupLogin()}
+                <Link href="/Singup"
+                  
                   style={{ cursor: "pointer", display: "inline-block",color:"blue"}}
                 >
                   Signup Here
-                </div>
+                </Link>
               </span>
             </div>
           </div>
@@ -178,4 +217,4 @@ setLoginSignup(!loginSignup);
   );
 };
 
-export default Login;
+export default Login_com;

@@ -12,6 +12,7 @@ import Link from "next/link";
 import { SignUp_User } from "@/Api/Url";
 
 import { Input, Tooltip, Button, notification, message } from "antd";
+import Router from "next/router";
 // import { useNavigate, Link } from "react-router-dom";
 // import { Signup_url } from "./Url";
 
@@ -80,9 +81,10 @@ const Signup = (props) => {
             } else {
               info();
               localStorage.setItem("flag", true);
-clickevent()
+
 
               //   navigate("/");
+              Router.push("/login")
             }
           })
           .catch(function (error) {
@@ -130,6 +132,19 @@ clickevent()
       }
     }
   };
+//   async function onSubmit(values){
+//     const options = {
+//         method: "POST",
+//         headers : { 'Content-Type': 'application/json'},
+//         body: JSON.stringify(values)
+//     }
+
+//     await fetch('http://localhost:3000/api/auth/signup', options)
+//         .then(res => res.json())
+//         .then((data) => {
+//             if(data) router.push('http://localhost:3000')
+//         })
+// }
   return (
     <div className={css.login_page}>
       {contextHolder}
@@ -213,12 +228,12 @@ clickevent()
         <div className={css.login_btn}>
           <span>
             Already have an account?{" "}
-            <div
-              onClick={() => clickevent()}
+            <Link href="/login"
+              
               style={{ cursor: "pointer", display: "inline-block", color:"blue" }}
             >
               Login Here
-            </div>
+            </Link>
           </span>
         </div>
       </div>

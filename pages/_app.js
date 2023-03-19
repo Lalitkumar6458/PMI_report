@@ -6,6 +6,7 @@ import loader from "../public/Images/loader_gif.gif"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'smart-webcomponents-react/source/styles/smart.default.css';
 import Loader from '@/Components/SmallComponets/Loader'
+import { SessionProvider } from 'next-auth/react'
 export default function App({ Component, pageProps }) {
 
 
@@ -28,8 +29,10 @@ useEffect(()=>{
   {loading?<div className='loader'>
     <Loader/>
   </div>:
-  
-  <Component {...pageProps} />
+     <SessionProvider session={pageProps.session}>
+
+       <Component {...pageProps} />
+     </SessionProvider>
 
   
 }
