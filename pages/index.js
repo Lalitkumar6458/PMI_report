@@ -45,11 +45,8 @@ console.log("error",e)
     </>
 
   )
-  
-  
- 
-}
 
+}
 // Guest
 function Guest(){
   return (
