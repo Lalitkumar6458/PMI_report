@@ -2,7 +2,7 @@ import Layout from '@/Components/Layout'
 import Table from '@/Components/Table'
 import React, { useState, useEffect } from 'react'
 import styles from "../styles/Category.module.css"
-import { Input,Tooltip,AutoComplete  } from 'antd';
+import { Input,Tooltip,AutoComplete,message } from 'antd';
 import Button from '@/Components/SmallComponets/Button'
 import { UserAddOutlined } from '@ant-design/icons';
 import ClientTable from '@/Components/SmallComponets/ClientTable'
@@ -59,21 +59,36 @@ const initialState={
   address:""
 }
 const Category = () => {
+  const [messageApi, contextHolder] = message.useMessage()
   const { data: session } = useSession()
   const [smallbox,setSmallbox]=useState(false)
   const [value, setValue] = useState('');
   const[clientData,setClientData]=useState([])
   const[clientInfo,setClientInfo]=useState(initialState)
+  function messageAlert(type,content){
+    const key = 'updatable';
+
+ messageApi.open({
+      key,
+      type,
+      content,
+    })
+  }
 const AddClient=()=>{
+  messageAlert('loading','Adding your Client...')
   clientInfo["phone"]=value
-  clientInfo["username"]="admin"
+  clientInfo["username"]=session.user.name
+  clientInfo["email"]=session.user.email
   console.log("client info data",clientInfo)
   axios.post(saveClient, clientInfo)
       .then((response) => {
        console.log(response.data)
+       messageAlert('success','Succesfully Added Client')
+
         GetclientData()
       })
       .catch((error) => {
+        messageAlert('error',error.message)
       
         console.log(error,"error")
       })
@@ -82,7 +97,7 @@ const AddClient=()=>{
 const GetclientData=async()=>{
 
     await axios
-      .get(getClientDataUrl, { params: { username: 'admin' } }, {
+      .get(getClientDataUrl, { params: { username:session.user.name,email:session.user.email } }, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,
@@ -127,6 +142,7 @@ const handleValueChange=(e)=>{
 
     return (
       <Layout title="Category">
+        {contextHolder}
        <div className={styles.Category_con}>
         
    <div className={smallbox?'Border_box height_down':'Border_box'}>
@@ -183,7 +199,7 @@ const handleValueChange=(e)=>{
         <div className={styles.client_table}>
           <div className={styles.Client_cont}>
   
-                <ClientTable data={clientData}/>
+                <ClientTable data={clientData} messageAlert={messageAlert}/>
           </div>
               <EditTable data={clientData} />
         </div>

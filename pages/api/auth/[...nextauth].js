@@ -8,7 +8,8 @@ export const authOptions = {
   providers: [
     GoogleProvider({
         clientId: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_SECRET
+        clientSecret: process.env.GOOGLE_SECRET,
+    
     }),
     CredentialsProvider({
       name : "Credentials",
@@ -20,12 +21,18 @@ export const authOptions = {
           }
           return result
       }
-  })
+  }),
     // ...add more providers here
   ],
   secret: "XH6bp/TkLvnUkQiPDEZNyHc0CV+VV5RL/n+HdVHoHN0=",
   session: {
     strategy: 'jwt',
+},
+
+callbacks:{
+ async loginSucces(){
+  console.log("login succes")
+ }
 }
 }
 export default NextAuth(authOptions)

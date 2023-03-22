@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { signIn, signOut } from "next-auth/react"
+import { getSession,signIn, useSession, signOut } from "next-auth/react"
+
 import {
   InfoCircleOutlined,
   UserOutlined,
@@ -31,6 +32,8 @@ const Login_com = () => {
   const info = () => {
     messageApi.info("Login Successfully...!");
   };
+  const login_Status=useSession()
+  console.log("getSession",getSession(),login_Status)
   const router = useRouter()
   const openNotification = (placement, title, text, type) => {
     api[type]({
@@ -144,6 +147,8 @@ setLoginSignup(!loginSignup);
    async function handleGoogleSignin(){
     
     signIn('google', { callbackUrl : "http://localhost:3000"})
+
+    console.log(login_Status,"login_Status")
 }
   return (
     <>

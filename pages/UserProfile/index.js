@@ -2,7 +2,7 @@ import Layout from "@/Components/Layout";
 import BorderBox from "@/Components/SmallComponets/BorderBox";
 import React, { useState,useEffect } from "react";
 import styles from "@/styles/Userprofile.module.css";
-import { Button, Input, message, Upload } from "antd";
+import { Button, Input, message, Upload} from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import { UserInfoSave, getUserDataUrl } from "@/Api/Url";
 import axios from "axios";
@@ -48,12 +48,22 @@ var initialValues={
 
 }
 const index = () => {
+  const [messageApi, contextHolder] = message.useMessage()
+
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const [imageUrllogo, setImagelogo] = useState();
   const [editUserInfo, setEditUserInfo] =useState(false);
   const [userDetails, setUserDetails] = useState(initialValues)
+  function messageAlert(type,content){
+    const key = 'updatable';
 
+ messageApi.open({
+      key,
+      type,
+      content,
+    })
+  }
 
   const Changehanlder=(e)=>{
     const {name,value } = e.target;
@@ -65,6 +75,8 @@ const index = () => {
   }
 
   const getUserData = async()=>{
+    messageAlert('loading','Geting Your profile Data...')
+
 console.log(getUserDataUrl, "getUserDataUrl");
 
 
@@ -87,6 +99,8 @@ console.log(getUserDataUrl, "getUserDataUrl");
       .then((response) => {
         let userData = response.data.data[0];
         console.log(response, "profile");
+        messageAlert('success','Succesfully Get profile data')
+
         setImageUrl(userData.user_img);
         setImagelogo(userData.logo_img);
 
@@ -103,6 +117,8 @@ console.log(getUserDataUrl, "getUserDataUrl");
         // dispatch({
         //   type: ERROR_FINDING_USER
         // })
+        messageAlert('error',error.message)
+
         console.log(error, "error");
       });
 
@@ -160,6 +176,8 @@ console.log(getUserDataUrl, "getUserDataUrl");
     // }
   };
   const userDetailsSave=async()=>{
+    messageAlert('loading','Saving profile Details...')
+
     const form =new FormData()
     console.log("userDetails", userDetails)
     form.append("name", userDetails.name)
@@ -180,12 +198,16 @@ console.log(getUserDataUrl, "getUserDataUrl");
       })
       .then((response) => {
         console.log("response data c", response);
+        messageAlert('success','Succesfully Saved profile Details')
+
       })
       .catch((error) => {
         // dispatch({
         //   type: ERROR_FINDING_USER
         // })
         console.log(error, "error");
+        messageAlert('error',error.message)
+
       });
 
   }
@@ -204,6 +226,7 @@ console.log(getUserDataUrl, "getUserDataUrl");
  
   return (
     <Layout title={"UserProfile"}>
+      {contextHolder}
       <BorderBox title={"My Profile"}>
         <div className={styles.yor_details_page}>
           <h3 className="text-center" style={{fontSize:"2rem"}}>Your Details</h3>

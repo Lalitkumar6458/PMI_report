@@ -1,6 +1,6 @@
 import Layout from "@/Components/Layout";
 import React, { useState,useEffect } from "react";
-import { Button, Modal, Input } from "antd";
+import { Button, Modal, Input,message  } from "antd";
 import styles from "@/styles/Chemical.module.css";
 import Router from "next/router";
 import { GetChemicalData, ChemicalSave, Update_chemical, Delete_chemical, SearchGrade_chemical } from "@/Api/Url";
@@ -21,12 +21,13 @@ import add_gif from "../public/Images/add_gif.gif";
 import axios from "axios";
 import BorderBox from "@/Components/SmallComponets/BorderBox";
 import { useSession,getSession} from "next-auth/react"
-
+import MessageAlert from "@/Components/SmallComponets/MessageAlert";
 var arrlist = {};
 var table_th = [];
 var table_td = [];
 // var modalData;
 const Chemical = () => {
+  const [messageApi, contextHolder] = message.useMessage()
     const {session ,status} = useSession()
   const [open, setOpen] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -34,6 +35,15 @@ const Chemical = () => {
   const[gradeName,setGradeName]=useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
 
+  function messageAlert(type,content){
+    const key = 'updatable';
+
+ messageApi.open({
+      key,
+      type,
+      content,
+    })
+  }
 console.log(status,"session status")
   const showModal = (data) => {
     console.log("data", data);
@@ -47,11 +57,13 @@ console.log(status,"session status")
     setOpen(false);
   };
   const Deletegrade = async(item) => {
+    messageAlert('loading','Deleting Grade...')
+
     const data = {
       gradeId: item.id,
       chemical_grade_id: item.chemical_grade,
-      username: localStorage.getItem("username"),
-      email: localStorage.getItem("email"),
+      username: session.user.name,
+      email:  session.user.email
     };
     await axios
       .post(Delete_chemical, data, {
@@ -61,6 +73,8 @@ console.log(status,"session status")
       })
       .then((response) => {
         console.log("response data c", response.data.data);
+        messageAlert('success','Succesfully Deleted Grade')
+
         // setAllGradeData(response.data.data)
         // console.log("AllGradeData", allGradeData[1].chemical_name)
         getAllChemicalData()
@@ -70,6 +84,8 @@ console.log(status,"session status")
         // dispatch({
         //   type: ERROR_FINDING_USER
         // })
+        messageAlert('error',error.message)
+
         console.log(error, "error");
       });
   };
@@ -122,14 +138,16 @@ console.log(status,"session status")
       });
     }
   };
+
   const saveGrade = () => {
+    const key = 'updatable';
+    messageAlert('loading','Loading...')
   
- 
     const data_obj = JSON.stringify({
       grade_name: grade,
       chemical_name: arrlist,
-      username: localStorage.getItem("username"),
-      email: localStorage.getItem("email"),
+      username: session.user.name,
+      email:  session.user.email
     });
 
     axios
@@ -140,11 +158,19 @@ console.log(status,"session status")
       })
       .then((response) => {
         console.log("response data c", response.data);
+    messageAlert('success','Succesfully Saved Grade Chemical')
         getAllChemicalData()
       })
       .catch((error) => {
       
         console.log(error, "error");
+        messageAlert('error',error.message)
+        // messageApi.open({
+        //   key,
+        //   type: 'error',
+        //   content: error.message,
+        //   duration: 2,
+        // });
       });
   };
   const updateChemical = async (e) => {  
@@ -156,6 +182,7 @@ console.log(status,"session status")
   
   };
   const UpdateChemical =async()=>{
+    messageAlert('loading','Loading...')
    
     const data = {
       grade: gradeName,
@@ -172,6 +199,7 @@ console.log(status,"session status")
         Authorization: `Bearer test`,
       })
       .then((response) => {
+    messageAlert('success','Succesfully Update Grade Chemical')
         
         getAllChemicalData()
         setOpen(false);
@@ -179,13 +207,17 @@ console.log(status,"session status")
       .catch((error) => {
       
         console.log(error, "error");
+        messageAlert('error',error.message)
+
       });
   }
   const getAllChemicalData=async()=>{
+    messageAlert('loading','Geting grade chemical Data...')
+
     const data_obj = {
       getdata: "allData",
-      username: localStorage.getItem("username"),
-      email: localStorage.getItem("email"),
+      username: session.user.name,
+      email:  session.user.email
     };
    await axios.get(GetChemicalData,{params:data_obj}, {
         "Content-Type": "application/json",
@@ -196,6 +228,8 @@ console.log(status,"session status")
       .then((response) => {
         console.log("response data c", response.data.data);
         setAllGradeData(response.data.data)
+        messageAlert('success','Succesfully Get all Grade Chemical data')
+
         console.log("AllGradeData", allGradeData[1].chemical_name)
       })
       .catch((error) => {
@@ -203,12 +237,16 @@ console.log(status,"session status")
         //   type: ERROR_FINDING_USER
         // })
         console.log(error, "error");
+    messageAlert('error',error.message)
+
       });
   }
   useEffect(() => {
     getAllChemicalData()
   }, [])
   const SearchGradeHandler =async(e)=>{
+    messageAlert('loading','Searching grade...')
+
     setSearchKeyword(e.target.value)
         
     
@@ -221,7 +259,8 @@ console.log(status,"session status")
         {
           params: {
             word: e.target.value,
-            username: localStorage.getItem("username"),
+            username: session.user.name,
+            email:  session.user.email
           },
         },
         {
@@ -232,12 +271,16 @@ console.log(status,"session status")
       )
       .then((response) => {
         console.log("response data c", response.data.data);
+        messageAlert('success','Succesfully Get Search result')
+
         setAllGradeData(response.data.data);
    
       })
       .catch((error) => {
         
         console.log(error, "error");
+    messageAlert('error',error.message)
+
       });
   }
   // if(status !== "authenticated" ){
@@ -245,6 +288,7 @@ console.log(status,"session status")
   //   }
   return (
     <Layout title="Chemical">
+ {contextHolder}
       <div className={styles.Chemical_container}>
         <div className={styles.alloys_content}>
           <BorderBox title={"Add Chemical"}>

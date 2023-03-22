@@ -51,29 +51,19 @@ const Report = () => {
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
  const [items2, setItems2] = useState([{
-  value: "jack",
-  label: "Jack",
-},
-{
-  value: "lucy",
-  label: "Lucy",
-},
-{
-  value: "tom",
-  label: "Tom",
-}]);
+  value: "304X40",
+  label: "304X40",
+}
+]);
 const [modalNo, setModalNo] = useState([{
-  value: "jack",
-  label: "Jack",
+  value: "Hitachi 203X",
+  label: "Hitachi 203X",
 },
 {
-  value: "lucy",
-  label: "Lucy",
-},
-{
-  value: "tom",
-  label: "Tom",
-},]);
+  value: "Nuton 203",
+  label: "Nuton 203",
+}
+]);
    const [name, setName] = useState('');
    const [modalname, setModalName] = useState('');
    const[addeddata,setAddeddata] =useState([])
@@ -177,7 +167,8 @@ console.log("data added data",addeddata)
   };
 
   const onChangedate = (date, dateString) => {
-    console.log(date, dateString);
+    console.log(date, dateString,"date");
+    setDate(date)
   };
 
   const handleMenuClick = (e) => {
@@ -237,6 +228,13 @@ console.log("data added data",addeddata)
       icon: <PrinterOutlined />,
     },
   ];
+
+  var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '/' + dd + '/' + yyyy;
   const menuProps = {
     items,
     onClick: handleMenuClick,
@@ -247,7 +245,30 @@ const Table_view=()=>{
 const Table_view1=()=>{
   setTableview(false)
 }
+console.log("moment()",moment()._locale)
 
+const [agencyName,setAgencyName]=useState("Pooja PMI")
+const [locationName,setLocationName]=useState("Mumbai")
+const [reportNo,setReportNo]=useState(201)
+const [poNo,setPoNo]=useState("X4595d")
+const [date,setDate]=useState()
+const [specifiedGrade,setSpecifiedGrade]=useState([
+{
+  value:"304L",
+  label:"304L"
+}
+])
+
+const partName=[
+  {
+    value:"Styam Steel",
+    label:"Styam Steel"
+  },
+  {
+    value:"VJ Steel And Alloys",
+    label:"VJ Steel And Alloys"
+  }
+]
 
 
   return (
@@ -271,33 +292,20 @@ const Table_view1=()=>{
                         .toLowerCase()
                         .includes(input.toLowerCase())
                     }
-                    options={[
-                      {
-                        value: "jack",
-                        label: "Jack",
-                      },
-                      {
-                        value: "lucy",
-                        label: "Lucy",
-                      },
-                      {
-                        value: "tom",
-                        label: "Tom",
-                      },
-                    ]}
+                    options={partName}
                   />
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label>Agency Name</label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="" value={agencyName} onChange={(e)=>setAgencyName(e.target.value)}/>
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label> PMI Location </label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="Basic usage" value={locationName} onChange={(e)=>setLocationName(e.target.value)} />
                 </div>
               </div>
               <div className="col-6 col-md-3">
@@ -306,21 +314,21 @@ const Table_view1=()=>{
                   <DatePicker
                     onChange={onChangedate}
                     className={styles.datePicker}
-                    defaultValue={moment()}
-                   
-                  />
+                    value={date}
+                    format = {'YYYY/MM/DD'}
+                  />  
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label>PMI Rreport No.</label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="Basic usage" value={reportNo}  onChange={(e)=>setReportNo(e.target.value)} />
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label>Purchase Order</label>
-                  <Input placeholder="Basic usage" />
+                  <Input placeholder="Basic usage" value={poNo}   onChange={(e)=>setPoNo(e.target.value)} />
                 </div>
               </div>
               <div className="col-6 col-md-3">
@@ -436,20 +444,7 @@ const Table_view1=()=>{
                           .toLowerCase()
                           .includes(input.toLowerCase())
                       }
-                      options={[
-                        {
-                          value: "jack",
-                          label: "Jack",
-                        },
-                        {
-                          value: "lucy",
-                          label: "Lucy",
-                        },
-                        {
-                          value: "tom",
-                          label: "Tom",
-                        },
-                      ]}
+                      options={specifiedGrade}
                     />
                   </div>
                 </div>

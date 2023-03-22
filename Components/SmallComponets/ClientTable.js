@@ -6,6 +6,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import styles from "../../styles/Category.module.css"
 import { UpdateClient, DeleteClient } from "@/Api/Url";
 import axios from 'axios';
+import { getSession, useSession, signOut } from "next-auth/react"
 
 const EditableCell = ({
   editing,
@@ -43,6 +44,9 @@ const EditableCell = ({
 };
 const ClientTable = (props) => {
   console.log("data",props.data)
+  var messageAlert=props.messageAlert
+ const{session,status}=useSession()
+
   const [form] = Form.useForm();
   const [data, setData] = useState();
   const [editingKey, setEditingKey] = useState('');
@@ -64,6 +68,7 @@ const ClientTable = (props) => {
 
   }, [props.data])
   const save = async (key) => {
+     messageAlert('loading','Editing Client...')
     try {
       const row = await form.validateFields();
       const newData = [...data];
@@ -74,15 +79,19 @@ const obj = {
   client_address: row.client_address,
   client_phone_no: row.client_phone_no,
   client_email: row.client_email,
-  user_info_id:newData[index].user_info_id
+  user_info_id:newData[index].user_info_id,
+  email:session.user.email
 };
       await axios
         .post(UpdateClient, obj)
         .then((response) => {
           console.log("success", response);
+           messageAlert('success','Succesfully Updated Client')
         })
-        .catch((err) => {
-          console.log("err", err);
+        .catch((error) => {
+          console.log("error", error);
+        messageAlert('error',error.message)
+
         });
            
       if (index > -1) {
@@ -188,21 +197,28 @@ const obj = {
     };
   });
   const handleDelete = async(key) => {
+  messageAlert('loading','Deleting Client...')
+
     const newData = data.filter((item) => item.key !== key);
       const newData1 = [...data];
       const index = newData1.findIndex((item) => key === item.key);
     setData(newData);
     const obj = {
       id: key,
+      email:session.user.email,
       user_info_id: newData1[index].user_info_id,
     };
      await axios
        .delete(DeleteClient, { params: obj })
        .then((response) => {
          console.log("success", response);
+       messageAlert('success','Succesfully Delete Client')
+
        })
-       .catch((err) => {
-         console.log("err", err);
+       .catch((error) => {
+         console.log("error", error);
+        messageAlert('error',error.message)
+
        });
   };
   return (

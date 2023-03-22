@@ -21,6 +21,9 @@ html{
   margin: 0;
   box-sizing: border-box;
 }
+body{
+  overflow: hidden;
+}
 .container_main{
   display: grid;
   grid-template-columns: 17% auto;
@@ -44,6 +47,8 @@ html{
 }
 .page_container{
   margin-top: 45px;
+  overflow-y: auto;
+  height: 100%;
 }
 .loader{
   width: 100%;
@@ -323,3 +328,4 @@ overflow: auto;
     border-color: #081A51 !important;
 }
 }
+
