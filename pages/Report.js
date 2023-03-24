@@ -172,8 +172,12 @@ console.log("data added data",addeddata)
   };
 
   const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e);
+    Router.push("/ReportPdf")
+    // message.info("Click on menu item.");
+    console.log("click", e.keyPath[0]);
+    if( e.keyPath[0]=== 1){
+Router.push("/ReportPdf")
+    }
   };
  
 
@@ -211,6 +215,9 @@ console.log("data added data",addeddata)
       label: "PDF",
       key: "1",
       icon: <FilePdfOutlined />,
+      onclick_handler:function(){
+        alert("click")
+      }
     },
     {
       label: "MS WORD DOC",
@@ -516,7 +523,7 @@ const partName=[
       <div className={styles.drawer_button}>
         <div className="row" >
           <div className="col-6">
-          <button className={styles.btndrawer}>PDF <Image src={pdficon} alt=""/></button>
+          <button className={styles.btndrawer} onClick={()=>{Router.push("/ReportPdf")}}>PDF <Image src={pdficon} alt=""/></button>
           </div>
           <div className="col-6">
         <button className={styles.btndrawer}>Print <Image src={printicon} alt=""/></button>

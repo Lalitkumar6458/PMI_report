@@ -4,7 +4,7 @@ const Loader = () => {
   return (
 
     <div>
-        <div class="shapes-5"></div>
+        <div className="shapes-5"></div>
     </div>
 
    
