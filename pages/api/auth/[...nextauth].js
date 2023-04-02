@@ -14,6 +14,7 @@ export const authOptions = {
     CredentialsProvider({
       name : "Credentials",
       async authorize(credentials, req){
+        console.log("credentials",credentials)
           var result ={
            id:1,
            name:credentials.name,

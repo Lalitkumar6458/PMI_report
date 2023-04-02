@@ -26,25 +26,27 @@ var arrlist = {};
 var table_th = [];
 var table_td = [];
 // var modalData;
+
 const Chemical = () => {
   const [messageApi, contextHolder] = message.useMessage()
-    const {session ,status} = useSession()
+    const {session ,status,data} = useSession()
   const [open, setOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [chemicalInput, setChemicalInput] = useState({});
   const[gradeName,setGradeName]=useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
-
   function messageAlert(type,content){
     const key = 'updatable';
-
+   
+    console.warn("session",userInfo)
  messageApi.open({
       key,
       type,
       content,
     })
   }
-console.log(status,"session status")
+  const userInfo=data.user
+console.log(userInfo,"session status")
   const showModal = (data) => {
     console.log("data", data);
     setModalData({ ...data });
@@ -62,8 +64,8 @@ console.log(status,"session status")
     const data = {
       gradeId: item.id,
       chemical_grade_id: item.chemical_grade,
-      username: session.user.name,
-      email:  session.user.email
+      username: userInfo.name,
+      email:  userInfo.email
     };
     await axios
       .post(Delete_chemical, data, {
@@ -146,8 +148,8 @@ console.log(status,"session status")
     const data_obj = JSON.stringify({
       grade_name: grade,
       chemical_name: arrlist,
-      username: session.user.name,
-      email:  session.user.email
+      username:userInfo.name,
+      email: userInfo.email
     });
 
     axios
@@ -216,8 +218,8 @@ console.log(status,"session status")
 
     const data_obj = {
       getdata: "allData",
-      username: session.user.name,
-      email:  session.user.email
+      username: userInfo.name,
+      email:  userInfo.email
     };
    await axios.get(GetChemicalData,{params:data_obj}, {
         "Content-Type": "application/json",
@@ -259,8 +261,8 @@ console.log(status,"session status")
         {
           params: {
             word: e.target.value,
-            username: session.user.name,
-            email:  session.user.email
+            username: userInfo.name,
+            email:  userInfo.email
           },
         },
         {
@@ -286,6 +288,7 @@ console.log(status,"session status")
   // if(status !== "authenticated" ){
   //   Router.replace('/login')
   //   }
+  console.log("useSession lalit ",useSession())
   return (
     <Layout title="Chemical">
  {contextHolder}

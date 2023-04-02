@@ -46,7 +46,7 @@ let allData=[]
 var count=1
 const Report = () => {
   const { data: session } = useSession()
-
+  const[allReportdata,setAllReportData]=useState({})
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
@@ -141,7 +141,7 @@ console.log("data added data",addeddata)
    }
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
- 
+ const[partyname,setPartyName]=useState("")
 
   const [placement, setPlacement] = useState('bottom');
   const showDrawer = () => {
@@ -161,6 +161,8 @@ console.log("data added data",addeddata)
   };
   const onChange = (value) => {
     console.log(`selected ${value}`);
+    alert("value"+value)
+
   };
   const onSearch = (value) => {
     console.log("search:", value);
@@ -172,12 +174,28 @@ console.log("data added data",addeddata)
   };
 
   const handleMenuClick = (e) => {
-    Router.push("/ReportPdf")
+
+
+const reportAddedData=JSON.parse(localStorage.getItem("reportAddedData"))
+const DataReport={
+  partyname,agencyName,locationName,reportNo,poNo,date,instrumentValue,modalNovalue,Gradename,gradeDataC,reportAddedData
+}
+   console.log("DataReport",DataReport,reportAddedData)
+ 
     // message.info("Click on menu item.");
-    console.log("click", e.keyPath[0]);
-    if( e.keyPath[0]=== 1){
-Router.push("/ReportPdf")
-    }
+//     console.log("click", e.keyPath[0]);
+//     if( e.keyPath[0]=== 1){
+// Router.push("/ReportPdf")
+//     }
+localStorage.setItem("ReportAllDAta",JSON.stringify(DataReport))
+setAllReportData({...DataReport})
+
+console.log("alll data",allReportdata)
+var url="/ReportPdf"
+Router.push({pathname:url,
+  query: { data: JSON.stringify(DataReport)}
+},url)
+  //  Router.push("/ReportPdf")
   };
  
 
@@ -265,6 +283,12 @@ const [specifiedGrade,setSpecifiedGrade]=useState([
   label:"304L"
 }
 ])
+const[modalNovalue,setModalNoValue]=useState("")
+const[Gradename,setGradeName]=useState("")
+
+const[instrumentValue,setInstrumentValue]=useState("")
+
+
 
 const partName=[
   {
@@ -277,6 +301,11 @@ const partName=[
   }
 ]
 
+const CreatePdf=()=>{
+alert("hell"+partyname)
+
+  // Router.push("/ReportPdf")
+}
 
   return (
     <>
@@ -292,7 +321,7 @@ const partName=[
                     showSearch
                     placeholder="Select a Party"
                     optionFilterProp="children"
-                    onChange={onChange}
+                    onChange={(value)=>setPartyName(value)}
                     onSearch={onSearch}
                     filterOption={(input, option) =>
                       (option?.label ?? "")
@@ -300,6 +329,7 @@ const partName=[
                         .includes(input.toLowerCase())
                     }
                     options={partName}
+                    value={partyname}
                   />
                 </div>
               </div>
@@ -346,7 +376,8 @@ const partName=[
                     showSearch
                     placeholder="Select a Instrument Id "
                     optionFilterProp="children"
-                    onChange={onChange}
+                    onChange={(value)=>setInstrumentValue(value)}
+                    value={instrumentValue}
                     onSearch={onSearch}
                     filterOption={(input, option) =>
                       (option?.label ?? "")
@@ -392,8 +423,9 @@ const partName=[
                     showSearch
                     placeholder="Select a Modal No."
                     optionFilterProp="children"
-                    onChange={onChange}
+                    onChange={(value)=>setModalNoValue(value)}
                     onSearch={onSearch}
+                    value={modalNovalue}
                     filterOption={(input, option) =>
                       (option?.label ?? "")
                         .toLowerCase()
@@ -444,7 +476,7 @@ const partName=[
                       showSearch
                       placeholder="Enter Grade name"
                       optionFilterProp="children"
-                      onChange={onChange}
+                      onChange={(value)=>setGradeName(value)}
                       onSearch={onSearch}
                       filterOption={(input, option) =>
                         (option?.label ?? "")
@@ -452,6 +484,7 @@ const partName=[
                           .includes(input.toLowerCase())
                       }
                       options={specifiedGrade}
+                      value={Gradename}
                     />
                   </div>
                 </div>
@@ -523,7 +556,7 @@ const partName=[
       <div className={styles.drawer_button}>
         <div className="row" >
           <div className="col-6">
-          <button className={styles.btndrawer} onClick={()=>{Router.push("/ReportPdf")}}>PDF <Image src={pdficon} alt=""/></button>
+          <button className={styles.btndrawer} onClick={()=>CreatePdf()}>PDF <Image src={pdficon} alt=""/></button>
           </div>
           <div className="col-6">
         <button className={styles.btndrawer}>Print <Image src={printicon} alt=""/></button>

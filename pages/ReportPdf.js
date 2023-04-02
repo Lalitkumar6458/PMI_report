@@ -1,11 +1,18 @@
 import React from 'react'
 import MyDocument from '@/Components/ReportPdf/ReportPdfFormat'
-import { PDFViewer,PDFDownloadLink } from '@react-pdf/renderer';
+import {PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
+import { DownloadOutlined } from '@ant-design/icons';
+
 const ReportPdf = () => {
+
+         var data=JSON.parse(localStorage.getItem("ReportAllDAta"))
+
+        var date=data.date.split("T")[0].replaceAll("-","_")
+        var gradeName=data.Gradename
   const styles = {
     container: {
       width: '100%',
-      height: '100%',
+      height: '100vh',
      
     },
     viewer: {
@@ -16,30 +23,33 @@ const ReportPdf = () => {
         maxHeight: '100%',
       },
     },
+    downloadbtn:{
+      fontSize:"20px",
+      background:"#081A51",
+      color:"#fff",
+      textDecoration:"none",
+      padding:"10px",
+      borderRadius:"5px"
+   
+    }
   };
   return (
     <>
      <div style={styles.container}>
-    <PDFViewer style={styles.viewer}>
+    {/* <PDFViewer style={styles.viewer}>
       <MyDocument />
-    </PDFViewer>
-    {/* <PDFDownloadLink document={<MyDocument/>}>
-    Gerando seu exame...
-    </PDFDownloadLink> */}
-  </div>
-   {/* <PDFViewer style={{width:"100%",height:"100vh"}}>
-   {/* <PDFDownloadLink document={
-   
-   <PDFViewer style={{width:"100%",height:"100vh"}}>
+    </PDFViewer> */}
+      <div className="DownloadButton">
+    <PDFDownloadLink document={<MyDocument/>} style={styles.downloadbtn} fileName={gradeName+"_"+data.partyname+"_"+date}>
+      <div className='btnBox'>
 
-     <MyDocument/>
-   </PDFViewer>
-   
-   } fileName="exame-covid.pdf">
-   Gerando seu exame...
-    </PDFDownloadLink> */}
-    {/* <MyDocument />
-  </PDFViewer> */} 
+    <span>Pdf Download</span>  <DownloadOutlined />
+      </div>
+    </PDFDownloadLink>
+    </div>
+
+  </div>
+
     </>
   )
 }

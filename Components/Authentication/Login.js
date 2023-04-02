@@ -43,6 +43,7 @@ const Login_com = () => {
     });
   };
   const loginStatus=async (data)=>{
+    console.log("data",data)
     const status =  await signIn('credentials', {
       redirect: false,
       name:data.name,
@@ -54,14 +55,7 @@ const Login_com = () => {
   if(status.ok) router.replace(status.url)
   }
   const Loginhandler = async() => {
-
-
-
-
-
-
   // // if(status.ok) router.push(status.url)
-
     const options = {
       method: "POST",
       url: "",
