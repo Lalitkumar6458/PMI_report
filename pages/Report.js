@@ -556,7 +556,7 @@ alert("hell"+partyname)
       <div className={styles.drawer_button}>
         <div className="row" >
           <div className="col-6">
-          <button className={styles.btndrawer} onClick={()=>CreatePdf()}>PDF <Image src={pdficon} alt=""/></button>
+          <button className={styles.btndrawer} onClick={()=> handleMenuClick()}>PDF <Image src={pdficon} alt=""/></button>
           </div>
           <div className="col-6">
         <button className={styles.btndrawer}>Print <Image src={printicon} alt=""/></button>
