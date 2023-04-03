@@ -215,6 +215,20 @@ align-items: center;
   gap: 10px;
 
 }
+.PdfViewer{
+  display: block;
+}
+.DownloadButton{
+  display: none;
+
+}
+.PdfViewer{
+  width: 100%;
+  height: 100vh;
+}
+.textArea_input:focus{
+outline: none;
+}
 @media  (max-width:920px) {
   .container_main {
     grid-template-columns: 29% auto;
@@ -224,6 +238,12 @@ align-items: center;
 @media  (max-width: 768px) {
   html{
     font-size: 60.50%;
+  }
+  .PdfViewer{
+    display: none;
+  }
+  .DownloadButton{
+    display: flex;
   }
   .Border_box h2 {
     position: absolute;

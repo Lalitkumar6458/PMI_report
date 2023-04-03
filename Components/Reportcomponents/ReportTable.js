@@ -81,13 +81,16 @@ const EditableCell = ({
           },
         ]}
       >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        {dataIndex=="size"?<textarea className='textArea_input' ref={inputRef} rows="3" style={{width:"100%"}} onPressEnter={save} onBlur={save} />: <Input ref={inputRef}  onPressEnter={save} onBlur={save} />
+        }
+       
       </Form.Item>
     ) : (
       <div
         className="editable-cell-value-wrap"
         style={{
           paddingRight: 24,
+          width:dataIndex=="size"?"200px":"auto"
         }}
         onClick={toggleEdit}
       >
@@ -158,9 +161,10 @@ const [tableview, setTableview] = useState(false);
       dataIndex:'qty',
       editable: true,
     },{
-      title:"Size",
+      title:"Size( Descriptions )",
       dataIndex:'size',
       editable: true,
+  
     },
    ...columdata,
    ,{

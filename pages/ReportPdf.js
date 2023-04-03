@@ -36,9 +36,12 @@ const ReportPdf = () => {
   return (
     <>
      <div style={styles.container}>
-    {/* <PDFViewer style={styles.viewer}>
+      <div className='PdfViewer'>
+      <PDFViewer style={styles.viewer}>
       <MyDocument />
-    </PDFViewer> */}
+    </PDFViewer>
+      </div>
+   
       <div className="DownloadButton">
     <PDFDownloadLink document={<MyDocument/>} style={styles.downloadbtn} fileName={gradeName+"_"+data.partyname+"_"+date}>
       <div className='btnBox'>
