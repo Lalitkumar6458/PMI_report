@@ -63,7 +63,7 @@ borderStyle:"solid",
     }
 
 })
-const Formate3 = () => {
+const Formate3 = ({data}) => {
   return (
    <>
    <View style={css.mainFormateCon}>
@@ -90,10 +90,10 @@ const Formate3 = () => {
 
         </View>
         <View style={css.box1}>
-        <Text style={css.textinfo}>LMT 2874/22-234</Text>
-<Text style={css.textinfo}>23-12-2023</Text>
+        <Text style={css.textinfo}>{data.reportNo}</Text>
+<Text style={css.textinfo}>{data.date}</Text>
 
-<Text style={css.textinfo}>-</Text>
+<Text style={css.textinfo}>{data.poNo}</Text>
 
 <Text style={css.textinfo} >-</Text>
 <Text  style={[css.textinfo,{borderBottomWidth:0}]}>-</Text>
@@ -108,13 +108,13 @@ const Formate3 = () => {
 <Text style={[css.textinfo,{borderBottomWidth:0}]}>PMI Location</Text>
             </View>
             <View style={css.box1}>
-            <Text style={css.textinfo}>J H Metal</Text>
+            <Text style={css.textinfo}>{data.partyname}</Text>
 <Text style={css.textinfo}>-</Text>
 
 <Text style={css.textinfo}>SS Sheet & Pipe</Text>
 
-<Text style={css.textinfo}> SS 304& 316Ti</Text>
-<Text style={[css.textinfo,{borderBottomWidth:0}]}>Mumbai 400008</Text>
+<Text style={css.textinfo}>{data.Gradename}</Text>
+<Text style={[css.textinfo,{borderBottomWidth:0}]}>{data.locationName}</Text>
             </View>
     </View>
    </View>

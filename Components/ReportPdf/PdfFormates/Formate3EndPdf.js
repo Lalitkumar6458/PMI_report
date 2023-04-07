@@ -76,7 +76,7 @@ gap:2,
 
 
 })
-const Formate3EndPdf = () => {
+const Formate3EndPdf = ({data}) => {
 
     const NotesText=[{
         id:1,
@@ -94,8 +94,8 @@ const Formate3EndPdf = () => {
 <View style={css.noteAndOther}>
 <View style={css.modalandInstrument}>
 <View style={css.modalAndsrno}>
-<Text style={css.textEnd}>MODEL N0:-X-MET8000</Text>
-<Text  style={css.textEnd}>INSTRUMENT TYPE/ID:-X-MET8000</Text>
+<Text style={css.textEnd}>MODEL N0:{data.modalNovalue}</Text>
+<Text  style={css.textEnd}>INSTRUMENT TYPE/ID:{data.instrumentValue}</Text>
 <Text style={[css.textEnd,{borderBottomWidth:0}]}>SR.NO.811298</Text>
 
 </View>

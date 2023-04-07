@@ -206,6 +206,7 @@ align-items: center;
  display: flex;
  align-items: center;
  justify-content: center;
+ flex-direction: column;
  height: 100vh;
 
 }
@@ -254,6 +255,9 @@ outline: none;
   }
   .DownloadButton{
     display: flex;
+  }
+  .DownloadButton .active{
+    border: 2px solid var(--dark-blue);
   }
   .Border_box h2 {
     position: absolute;

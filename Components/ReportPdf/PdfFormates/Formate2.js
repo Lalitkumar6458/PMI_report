@@ -36,22 +36,21 @@ const css = StyleSheet.create({
   }
 
 });
-const Formate2 = () => {
+const Formate2 = ({data}) => {
+  console.log("data",data)
   return (
     <>
       <View style={css.formate2Con}>
         <View style={css.Col_6}>
-          <Text style={css.text_1}>PMI REPORT NO:-MPT-00749997.</Text>
-          <Text style={css.text_1}>DATE:-25/01/2023</Text>
-          <Text style={[css.text_1,css.GradeName]}>SPECIFIED GRADE:- SS 316/316L</Text>
-      
-
+          <Text style={css.text_1}>PMI REPORT NO:{data.reportNo}</Text>
+          <Text style={css.text_1}>DATE:-{data.date}</Text>
+          <Text style={[css.text_1,css.GradeName]}>SPECIFIED GRADE:-{data.Gradename}</Text>
         </View>
         <View style={css.Col_6}>
-          <Text  style={css.text_1}>M/S:- UNNATI METALS & ALLOYS </Text>
+          <Text  style={css.text_1}>M/S:- {data.partyname} </Text>
        
-            <Text  style={css.text_1}>LOCATION:-MUMBAI </Text>
-            <Text  style={css.text_1}>PO NO: VMC/005R1/22-23.DT-01.01.23 </Text>
+            <Text  style={css.text_1}>LOCATION:{data.locationName.toUpperCase()} </Text>
+            <Text  style={css.text_1}>PO NO: {data.poNo} </Text>
          
           <Text style={css.text_1_last} >CLIENT NAME:-</Text>
         </View>

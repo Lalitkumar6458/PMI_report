@@ -90,7 +90,7 @@ StyleSheet.create({
 
 
 // Create Document Component
-const MyDocument = () => {
+const MyDocument = ({formateNo}) => {
   // const router=useRouter()
   // const{query}=router
   // var getData=JSON.parse(query.data)
@@ -177,14 +177,34 @@ console.log("ReportData",ReportData,"getData")
 </View>
 <View style={styles.testHeading}><Text>TEST REPORT</Text></View>
 <View style={styles.reportDetailbox}>
-  <Formate3/>
-{/* <View style={styles.heading_box}> <Text >POSITIVE MATERIAL IDENTIFICTION REPORT</Text></View> */}
-{/* <AlloysPart data={ReportData}/> */}
-{/* <Formate2 /> */}
-<CustomTablePDF fields={columns} data={ReportData.reportAddedData} />
-{/* <ReportEnd data={ReportData}/> */}
-{/* <Formate2EndPdf/> */}
-<Formate3EndPdf/>
+
+{
+  formateNo===1?(<View>
+    <View style={styles.heading_box}> <Text >POSITIVE MATERIAL IDENTIFICTION REPORT</Text></View>
+    <AlloysPart data={ReportData}/>
+    <CustomTablePDF fields={columns} data={ReportData.reportAddedData} />
+    <ReportEnd data={ReportData}/>
+    </View>):null
+}
+
+  {
+     formateNo===2?(<View>
+      <View style={styles.heading_box}> <Text >POSITIVE MATERIAL IDENTIFICTION REPORT</Text></View> 
+      <Formate2 data={ReportData} />
+      <CustomTablePDF fields={columns} data={ReportData.reportAddedData} />
+       <Formate2EndPdf data={ReportData} />
+      </View>):null
+
+  }
+{
+  formateNo===3?(<View>
+    <Formate3 data={ReportData}/>
+    <CustomTablePDF fields={columns} data={ReportData.reportAddedData} />
+    <Formate3EndPdf data={ReportData}/>
+    </View>):null
+}
+
+
 </View>
 
 
