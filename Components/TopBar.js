@@ -13,6 +13,7 @@ import { Avatar, Space } from 'antd';
 import { getSession, useSession, signOut } from "next-auth/react"
 import Router from 'next/router';
 import { UserOutlined } from '@ant-design/icons';
+import UserAvatar from './SmallComponets/Avatar';
 
 
 const TopBar = () => {
@@ -50,7 +51,9 @@ const dropDown_show=()=>{
           </span>
           <div className={styles.usen_info_con}>
             {
-              session?.user.image?<Avatar src={<img src={session?.user.image}  unoptimized={true} width={20} height={20} alt="avatar" />}  />: <Avatar icon={<UserOutlined />} />
+
+<UserAvatar name={session?.user.name} imageSrc={session?.user.image} size={20}/>
+              // session?.user.image?<Avatar src={<img src={session?.user.image}  unoptimized={true} width={20} height={20} alt="avatar" />}  />: <Avatar icon={<UserOutlined />} />
             }
          
             <div
@@ -99,9 +102,8 @@ const dropDown_show=()=>{
             <FiSearch className={styles.icon_t} />{" "}
           </span>
           <div className={styles.usen_info_con}>
-          {
-              session?.user.image?<Avatar src={<img src={session?.user.image}  unoptimized={true} width={20} height={20} alt="avatar" />}  />: <Avatar icon={<UserOutlined />} />
-            }
+          <UserAvatar name={session?.user.name} imageSrc={session?.user.image} size={20}/>
+
          
             <div
               className={styles.dopdown_user}

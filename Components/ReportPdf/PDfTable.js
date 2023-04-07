@@ -23,6 +23,7 @@ const data23 = [
           borderRightWidth: 0,
           borderBottomWidth: 0,
           borderColor:"#000",
+         
 
         },
         tableRow: {

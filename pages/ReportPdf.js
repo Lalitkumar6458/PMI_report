@@ -1,6 +1,6 @@
 import React from 'react'
 import MyDocument from '@/Components/ReportPdf/ReportPdfFormat'
-import {PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
+import {PDFViewer,BlobProvider , PDFDownloadLink } from '@react-pdf/renderer';
 import { DownloadOutlined } from '@ant-design/icons';
 
 const ReportPdf = () => {
@@ -36,19 +36,24 @@ const ReportPdf = () => {
   return (
     <>
      <div style={styles.container}>
-      <div className='PdfViewer'>
-      <PDFViewer style={styles.viewer}>
-      <MyDocument />
-    </PDFViewer>
-      </div>
-   
+  
       <div className="DownloadButton">
-    <PDFDownloadLink document={<MyDocument/>} style={styles.downloadbtn} fileName={gradeName+"_"+data.partyname+"_"+date}>
-      <div className='btnBox'>
 
-    <span>Pdf Download</span>  <DownloadOutlined />
+
+
+
+        
+      <div className=''>
+      <BlobProvider document={<MyDocument/>} style={styles.viewer} fileName="my-document.pdf">
+      {({ url, loading, error }) => (
+        loading ? 'Loading document...' :
+        error ? 'Error loading document :(' :
+        <a href={url} className="btnBox" target="_blank">Download PDF <DownloadOutlined /> </a>
+      )}
+    </BlobProvider>
+ 
       </div>
-    </PDFDownloadLink>
+
     </div>
 
   </div>

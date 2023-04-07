@@ -83,6 +83,7 @@ headerBg: {
 table: {
     display: "table",
     width: "100%",
+    
    
 },
 tableRow: {

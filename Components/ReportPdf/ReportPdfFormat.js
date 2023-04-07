@@ -6,13 +6,18 @@ import SizeTable from './SizeTable';
 import CustomTablePDF from './CustomTable';
 import Router,{useRouter} from "next/router";
 import ReportEnd from './ReportEnd';
+import Formate2 from './PdfFormates/formate2';
+import Formate2EndPdf from './PdfFormates/Formate2EndPdf';
+import Formate3 from './PdfFormates/Formate3';
+import Formate3EndPdf from './PdfFormates/Formate3EndPdf';
 // Create styles
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
     backgroundColor: '#fff',
     padding:"10px 10px",
-    width:"100%"
+    width:"100%",
+    position:"relative"
   },
   section: {
     margin: 10,
@@ -56,8 +61,24 @@ padding:"5px",
 display:"flex",
 gap:"5px"
 
+  },
+  testHeading:{
+    width:"100%",
+    textAlign:"center",
+    fontSize:13,
+    borderTopWidth:1,
+    borderColor:"#000",
+    borderStyle:"solid"
   }
 
+});
+
+StyleSheet.create({
+  '@global': {
+    body: {
+      fontFamily: 'Arial',
+    },
+  },
 });
 
 
@@ -154,11 +175,16 @@ console.log("ReportData",ReportData,"getData")
 <View style={styles.blank_space}>
 
 </View>
+<View style={styles.testHeading}><Text>TEST REPORT</Text></View>
 <View style={styles.reportDetailbox}>
-<View style={styles.heading_box}> <Text >POSITIVE MATERIAL IDENTIFICTION REPORT</Text></View>
-<AlloysPart data={ReportData}/>
+  <Formate3/>
+{/* <View style={styles.heading_box}> <Text >POSITIVE MATERIAL IDENTIFICTION REPORT</Text></View> */}
+{/* <AlloysPart data={ReportData}/> */}
+{/* <Formate2 /> */}
 <CustomTablePDF fields={columns} data={ReportData.reportAddedData} />
-<ReportEnd data={ReportData}/>
+{/* <ReportEnd data={ReportData}/> */}
+{/* <Formate2EndPdf/> */}
+<Formate3EndPdf/>
 </View>
 
 

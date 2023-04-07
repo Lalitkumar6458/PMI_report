@@ -169,6 +169,7 @@ console.log("data added data",addeddata)
   };
 
   const onChangedate = (date, dateString) => {
+    console.log(moment,)
     console.log(date, dateString,"date");
     setDate(date)
   };
@@ -351,8 +352,9 @@ alert("hell"+partyname)
                   <DatePicker
                     onChange={onChangedate}
                     className={styles.datePicker}
+                   
                     value={date}
-                    format = {'YYYY/MM/DD'}
+                    format="YYYY-MM-DD"
                   />  
                 </div>
               </div>
