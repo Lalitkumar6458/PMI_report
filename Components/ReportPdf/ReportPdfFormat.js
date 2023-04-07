@@ -6,7 +6,7 @@ import SizeTable from './SizeTable';
 import CustomTablePDF from './CustomTable';
 import Router,{useRouter} from "next/router";
 import ReportEnd from './ReportEnd';
-import Formate2 from './PdfFormates/formate2';
+import Formate2 from './PdfFormates/Formate2';
 import Formate2EndPdf from './PdfFormates/Formate2EndPdf';
 import Formate3 from './PdfFormates/Formate3';
 import Formate3EndPdf from './PdfFormates/Formate3EndPdf';
@@ -186,6 +186,7 @@ console.log("ReportData",ReportData,"getData")
 {/* <Formate2EndPdf/> */}
 <Formate3EndPdf/>
 </View>
+
 
 
       </View>
