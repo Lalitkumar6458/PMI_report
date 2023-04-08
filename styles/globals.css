@@ -355,6 +355,8 @@ font-size: 23px;
 .page_container {
   height: 88vh;
 overflow: auto;
+margin-top: 70px;
+padding-bottom: 70px;
 }
 .container_main .right_side_section{
   overflow: auto;
@@ -381,4 +383,27 @@ overflow: auto;
   height:30px !important;
   width: 30px !important;
 
+}
+.ant-tabs-nav,.ant-tabs-content-holder{
+    background: #FFFFFF !important;
+box-shadow: 2px 2px 8px rgba(51, 51, 51, 0.1) !important;
+border-radius: 4px 4px 0px 0px !important;
+}
+
+.ant-tabs-tab-active{
+  background: rgba(51, 51, 51, 0.05) !important;
+border-radius: 4px 4px 0px 0px !important;
+color: #000000 !important;
+border-color: #081A51 !important  ;
+
+}
+.ant-tabs{
+     height: 70vh !important;
+     gap: 10px;
+}
+.ant-tabs .ant-tabs-tab:hover {
+    color: #000 !important;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #000 !important;
 }

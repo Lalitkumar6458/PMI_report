@@ -1,0 +1,26 @@
+.Settings_page{
+    width: 100%;
+    padding: 20px 30px;
+}
+.Settings_bredcrum{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 30px;
+/* or 214% */
+color: rgba(51, 51, 51, 0.5);
+}
+.Settings_page h3{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 30px;
+/* or 125% */
+
+
+color: #333333;
+
+}
+ 

@@ -60,12 +60,13 @@ console.log(userInfo,"session status")
   };
   const Deletegrade = async(item) => {
     messageAlert('loading','Deleting Grade...')
-
+console.log("userInfo", userInfo,item);
     const data = {
       gradeId: item.id,
-      chemical_grade_id: item.chemical_grade,
+      user_info: item.user_info,
+      chemical_grade_id: item.chemical_grade_id,
       username: userInfo.name,
-      email:  userInfo.email
+      email: userInfo.email,
     };
     await axios
       .post(Delete_chemical, data, {
@@ -185,12 +186,12 @@ console.log(userInfo,"session status")
   };
   const UpdateChemical =async()=>{
     messageAlert('loading','Loading...')
-   
     const data = {
       grade: gradeName,
-      chemical_grade_id: modalData.chemical_grade,
+      chemical_grade_id: modalData.chemical_grade_id,
       chemical: chemicalInput,
-      email: localStorage.getItem("email"),
+      username: userInfo.name,
+      email: userInfo.email,
     };
     console.log("chemicalInput", chemicalInput, data, modalData)
 
@@ -447,6 +448,7 @@ console.log(userInfo,"session status")
               <table className={styles.mobile_table_c}>
                 <tbody>
                   {allGradeData.map((item) => {
+                    console.log("item",item)
                     return (
                       <tr>
                         <td className={styles.td_mobile}>

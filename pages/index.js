@@ -17,27 +17,27 @@ export default function Home() {
     signOut()
   }
   console.log(useSession().status,"session")
-  useEffect(()=>{
-    async function sendLoginStatus(){
+//   useEffect(()=>{
+//     async function sendLoginStatus(){
       
-      if(status === "authenticated"){
-        const obj ={
-          username:session.user.name,
-          email:session.user.email,
-          img:session.user.image
-        }
-        console.log("obj",obj)
-        await axios.post(Google_login_User,obj).then((res)=>{
-console.log(res,"response")
-        }).catch((e)=>{
-console.log("error",e)
-        })    
-  }else{
+//       if(status === "authenticated"){
+//         const obj ={
+//           username:session.user.name,
+//           email:session.user.email,
+//           img:session.user.image
+//         }
+//         console.log("obj",obj)
+//         await axios.post(Google_login_User,obj).then((res)=>{
+// console.log(res,"response")
+//         }).catch((e)=>{
+// console.log("error",e)
+//         })    
+//   }else{
   
-  }
-    }
-    sendLoginStatus()
-  },[])
+//   }
+//     }
+//     sendLoginStatus()
+//   },[])
 
   return(
     <>

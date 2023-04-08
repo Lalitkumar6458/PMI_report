@@ -78,7 +78,7 @@ const AddClient=()=>{
   messageAlert('loading','Adding your Client...')
   clientInfo["phone"]=value
   clientInfo["username"]=session.user.name
-  clientInfo["email"]=session.user.email
+  clientInfo["Useremail"]=session.user.email
   console.log("client info data",clientInfo)
   axios.post(saveClient, clientInfo)
       .then((response) => {
@@ -104,7 +104,7 @@ const GetclientData=async()=>{
       })
       .then((response) => {
 
-        console.log("response data c", response.data.data);
+        console.log("response data c", response.data);
          setClientData(response.data.data)
 
       })
