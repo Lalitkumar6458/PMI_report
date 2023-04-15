@@ -194,18 +194,26 @@ setLoginSignup(!loginSignup);
               Login
             </Button>
             <div className={css.LoginGoogle}>
-            <button type='button'  onClick={handleGoogleSignin}  className={css.button_custom}>
-                        Sign In with Google <Image src={imgG} width="20" height={20} />
+              <button
+                type="button"
+                onClick={handleGoogleSignin}
+                className={css.button_custom}
+              >
+                <Image src={imgG} width="20" height={20} /> Sign In with Google
               </button>
             </div>
             <div className={css.login_btn}>
               <span>
                 Don't have an account?{" "}
-                <Link href="/Singup"
-                  
-                  style={{ cursor: "pointer", display: "inline-block",color:"blue"}}
+                <Link
+                  href="/Singup"
+                  style={{
+                    cursor: "pointer",
+                    display: "inline-block",
+                    color: "blue",
+                  }}
                 >
-                  Signup Here
+                Signup Here
                 </Link>
               </span>
             </div>

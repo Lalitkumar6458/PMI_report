@@ -9,6 +9,8 @@ import {
    
   } from "antd";
 const Reportmobilelist = () => {
+const { TextArea } = Input;
+
     const [tableview, setTableview] = useState(false)
     var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
     const[addedData,setAddedData]=useState([...getOldData])
@@ -37,7 +39,8 @@ const Reportmobilelist = () => {
 
     const[objSizeQty,setObjSizeQty]=useState({
      size:"",
-     qty:""
+     qty:"",
+     heatno:""
     })
     const gradeDataC=[
      {
@@ -126,71 +129,90 @@ const Reportmobilelist = () => {
     
   return (
     <>
-    <div className={css.report_sizeqty}>
-              {/* <div className={css.tableView}>
+      <div className={css.report_sizeqty}>
+        {/* <div className={css.tableView}>
                <button className={tableview?"":`${css.active}`} onClick={()=>Table_view1()}>view1</button>
                <button className={tableview?`${css.active}`:""} onClick={()=>Table_view()}>view2</button>
               </div> */}
-              <div className="row">
-                <div className="col-4">
-                  <div className={css.inputBox}>
-                    <label>Quantity</label>
-                    <Input placeholder="Enter Qty..." onChange={onSizeQtyHandler} value={objSizeQty.qty} name="qty" />
-                  </div>
-                </div>
-                <div className="col-4">
-                  <div className={css.inputBox}>
-                    <label>Size(Description)</label>
-                    <Input placeholder="Enter Size..." onChange={onSizeQtyHandler} value={objSizeQty.size} name="size" />
-                  </div>
-                </div>
-                <div className="col-2 d-flex">
-                  <div className={css.AddButon}>
-                    <Button type="primary" onClick={AddreportItem}>
-                      <PlusCircleOutlined />
-                      ADD
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className={`${css.tableContent} reporttable`}>
-             
-              <div className={css.ReportMobileTable}>
-
-<div className={css.table_head}>
-    <span className={css.sr_no} >SR No.</span>
-    <span className={css.size_h} >Size(Description)</span>
-    <span className={css.remark}>Remark</span>
-    <span className={css.btn_right}></span>
-</div>
-<div className={css.tableBody}>
-
-    {
-        addedData.map((item)=>{
-            return(
-                <div className={css.tableRow} key={item.id} onClick={()=>report_grade_edit(item)}>
-                <span className={css.sr_no_text}>{item.srno}</span>
-                <div className={css.sizeBox}>
-                    <span className={css.qty_class}>Qty: {item.qty}</span>
-                    <span className={css.size}>{item.size}</span>
-                </div>
-                <span  className={css.remark_ok}>{item.remark}</span>
-            <span className={css.btn_right}><DoubleRightOutlined className={css.icons_client} /></span>
-    
-               </div>
-            )
-        })
-    }
- 
-</div>
-</div>
-              </div>
+        <div className="row">
+          <div className="col-4 col-md-3">
+            <div className={css.inputBox}>
+              <label>Quantity</label>
+              <Input
+                placeholder="Enter Qty..."
+                onChange={onSizeQtyHandler}
+                value={objSizeQty.qty}
+                name="qty"
+              />
             </div>
-
-    
+          </div>
+          <div className="col-8 col-md-4">
+            <div className={css.inputBox}>
+              <label>Size(Description)</label>
+              <TextArea
+                className={css.TextArea}
+                placeholder="Enter Size..."
+                onChange={onSizeQtyHandler}
+                value={objSizeQty.size}
+                name="size"
+                allowClear
+              />
+            </div>
+          </div>
+          <div className="col-8 col-md-3">
+            <div className={css.inputBox}>
+              <label>Heat\LOT No.</label>
+              <Input
+                placeholder="Enter Size..."
+                onChange={onSizeQtyHandler}
+                value={objSizeQty.heatno}
+                name="heatno"
+              />
+            </div>
+          </div>
+          <div className="col-4 col-md-2 d-flex">
+            <div className={css.AddButon}>
+              <Button type="primary" onClick={AddreportItem}>
+                <PlusCircleOutlined />
+                ADD
+              </Button>
+            </div>
+          </div>
+        </div>
+        <div className={`${css.tableContent} reporttable`}>
+          <div className={css.ReportMobileTable}>
+            <div className={css.table_head}>
+              <span className={css.sr_no}>SR No.</span>
+              <span className={css.size_h}>Size(Description)</span>
+              <span className={css.remark}>Remark</span>
+              <span className={css.btn_right}></span>
+            </div>
+            <div className={css.tableBody}>
+              {addedData.map((item) => {
+                return (
+                  <div
+                    className={css.tableRow}
+                    key={item.id}
+                    onClick={() => report_grade_edit(item)}
+                  >
+                    <span className={css.sr_no_text}>{item.srno}</span>
+                    <div className={css.sizeBox}>
+                      <span className={css.qty_class}>Qty: {item.qty}</span>
+                      <span className={css.size}>{item.size}</span>
+                    </div>
+                    <span className={css.remark_ok}>{item.remark}</span>
+                    <span className={css.btn_right}>
+                      <DoubleRightOutlined className={css.icons_client} />
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
     </>
-   
-  )
+  );
 }
 
 export default Reportmobilelist
