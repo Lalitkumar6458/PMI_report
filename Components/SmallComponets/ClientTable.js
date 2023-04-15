@@ -67,6 +67,9 @@ const ClientTable = (props) => {
     setData(props.data)
 
   }, [props.data])
+  const userInfo = useSession();
+console.log("session clint", useSession());
+
   const save = async (key) => {
      messageAlert('loading','Editing Client...')
     try {
@@ -79,14 +82,27 @@ const obj = {
   client_address: row.client_address,
   client_phone_no: row.client_phone_no,
   client_email: row.client_email,
-  user_info_id:newData[index].user_info_id,
-  email:session.user.email
+  user_info_id: newData[index].user_info_id,
+  email: userInfo.data.user.email,
 };
       await axios
         .post(UpdateClient, obj)
         .then((response) => {
           console.log("success", response);
            messageAlert('success','Succesfully Updated Client')
+              if (index > -1) {
+                const item = newData[index];
+                newData.splice(index, 1, {
+                  ...item,
+                  ...row,
+                });
+                setData(newData);
+                setEditingKey("");
+              } else {
+                newData.push(row);
+                setData(newData);
+                setEditingKey("");
+              }
         })
         .catch((error) => {
           console.log("error", error);
@@ -94,19 +110,7 @@ const obj = {
 
         });
            
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
+   
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
     }
@@ -198,14 +202,13 @@ const obj = {
   });
   const handleDelete = async(key) => {
   messageAlert('loading','Deleting Client...')
-
-    const newData = data.filter((item) => item.key !== key);
-      const newData1 = [...data];
-      const index = newData1.findIndex((item) => key === item.key);
-    setData(newData);
+const newData = data.filter((item) => item.key !== key);
+const newData1 = [...data];
+        const index = newData1.findIndex((item) => key === item.key);
+   
     const obj = {
       id: key,
-      email:session.user.email,
+      email: userInfo.data.user.email,
       user_info_id: newData1[index].user_info_id,
     };
      await axios
@@ -213,6 +216,7 @@ const obj = {
        .then((response) => {
          console.log("success", response);
        messageAlert('success','Succesfully Delete Client')
+       setData(newData);
 
        })
        .catch((error) => {

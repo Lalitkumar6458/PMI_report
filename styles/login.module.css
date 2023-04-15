@@ -31,7 +31,7 @@
 }
 @media  (max-width: 576px) {
     .login_con{
-        width: 300px;
+        width: 90%;
     }
 }
 .authContainer{
@@ -45,4 +45,22 @@
 .bg_img{
     width: 100%;
     height: 100%;
+}
+.button_custom{
+   display: inline-block;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button_custom:hover {
+   background-color: #f1f1f1;
+  border: 1px solid #cccccc;
 }

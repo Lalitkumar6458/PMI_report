@@ -7,7 +7,7 @@ padding: 3% 3%;
 }
 .inputBox{
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
 }
 .inputBox .Seletcbox,.datePicker{
@@ -23,11 +23,17 @@ padding: 3% 3%;
     color: #000000;
     margin-bottom: 3px;
 }
-.inputBox input,.Seletcbox,.datePicker{
+.TextArea{
+    border: 1px solid var(--dark-blue) !important;
+}
+.inputBox input,.Seletcbox,.datePicker,.TextArea{
     border: 1px solid var(--dark-blue);
 }
 .Seletcbox{
     border-radius: 5px;
+}
+.TextArea{
+    height: 30px !important;
 }
 .GradeChemical{
     position: relative;
@@ -276,19 +282,19 @@ margin-top: 5px;
 }
 .tableView button{
     border: none;
-    padding: 3px;
+    padding: 3px 5px;
     margin-right: 5px;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     border-radius: 5px;
-    color: #1C1F37;
+    color: #1C1F37 !important;
     border: 1px solid;
 }
 .tableView .active{
     background-color: #1C1F37;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
 }
 .reportEdit_con{
     margin-top: 10px;
@@ -413,6 +419,9 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     .formate_three{
         margin-top: 15px;
     }
+    .TextArea{
+    height: auto !important;
+}
 }
 
 .formate_box{

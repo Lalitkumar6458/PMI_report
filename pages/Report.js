@@ -10,6 +10,7 @@ import wapp from "../public/Images/wappicon.png"
 import email from "../public/Images/email.png"
 import Image from "next/image";
 import moment from 'moment';
+import { getReportData } from "@/Api/Url";
 import {
   FileAddOutlined,
   PlusCircleOutlined,
@@ -36,114 +37,115 @@ import {
  Drawer, Radio,
 } from "antd";
 import ReportTable from "@/Components/Reportcomponents/ReportTable";
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { BsTable, BsMenuButtonWide } from "react-icons/bs";
 import Router from "next/router";
 import Reportmobilelist from "@/Components/Reportcomponents/Reportmobilelist";
 import { getSession, useSession, signOut } from "next-auth/react"
+import axios from "axios";
 
 let allData=[]
 var count=1
-const Report = () => {
-  const { data: session } = useSession()
-  const[allReportdata,setAllReportData]=useState({})
+const Report = ({ reportData }) => {
+  const { data: session } = useSession();
+  const [allReportdata, setAllReportData] = useState({});
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
- const [items2, setItems2] = useState([{
-  value: "304X40",
-  label: "304X40",
-}
-]);
-const [modalNo, setModalNo] = useState([{
-  value: "Hitachi 203X",
-  label: "Hitachi 203X",
-},
-{
-  value: "Nuton 203",
-  label: "Nuton 203",
-}
-]);
-   const [name, setName] = useState('');
-   const [modalname, setModalName] = useState('');
-   const[addeddata,setAddeddata] =useState([])
-
-   const[objSizeQty,setObjSizeQty]=useState({
-    size:"",
-    qty:""
-   })
-   const gradeDataC=[
+  console.log("reportData", reportData);
+  const [items2, setItems2] = useState([
     {
-      ni:"11-14",
-      mn:"2max",
-      cr:"0.3",
-      mo:"23",
-      co:"56",
-      fe:"12",
-      pb:'58'
-    }
-  ]
+      value: "304X40",
+      label: "304X40",
+    },
+  ]);
+  const [modalNo, setModalNo] = useState([
+    {
+      value: "Hitachi 203X",
+      label: "Hitachi 203X",
+    },
+    {
+      value: "Nuton 203",
+      label: "Nuton 203",
+    },
+  ]);
+  const [name, setName] = useState("");
+  const [modalname, setModalName] = useState("");
+  const [addeddata, setAddeddata] = useState([]);
 
-   function getRandom(obj){
-    console.log("obj",obj)
-    var newobj={}
-for(let i in obj){
-if(obj[i].includes("-")){
-var arr=obj[i].split("-")
-newobj[i]= randomRange(arr[0],arr[1]) 
-}else if(obj[i].includes("max") || obj[i].includes("Max")){
-  if(obj[i].includes("Max")){
-newobj[i]= randomRange(0,obj[i].split("-")[0] )
-}else{
-newobj[i]= randomRange(0,obj[i].split("-")[0])
-}
-}else{
-  newobj[i]= randomRange(0,obj[i])
-}
-}
-console.log("nen object",newobj)
-function randomRange(min, max) {
-  min=parseFloat(min)
-  max=parseFloat(max)
-let cal = Math.random() * (max - min) + min;
- return parseFloat(cal.toFixed(2));
-}
-return newobj
-  }
- 
-   const onSizeQtyHandler=(e)=>{
- const{name,value}=e.target
+  const [objSizeQty, setObjSizeQty] = useState({
+    size: "",
+    qty: "",
+  });
+  const gradeDataC = [
+    {
+      ni: "11-14",
+      mn: "2max",
+      cr: "0.3",
+      mo: "23",
+      co: "56",
+      fe: "12",
+      pb: "58",
+    },
+  ];
 
- setObjSizeQty({
-  ...objSizeQty,
-  [name]:value
- })
- console.log("size qty values",objSizeQty)
-   }
-   const childRef = useRef();
-   const AddreportItem=()=>{
-     const data_get={
-       key:count,
-       srno:count,
-       ...objSizeQty,
-       ...getRandom(gradeDataC[0]),
-       remark:"Ok"
+  function getRandom(obj) {
+    console.log("obj", obj);
+    var newobj = {};
+    for (let i in obj) {
+      if (obj[i].includes("-")) {
+        var arr = obj[i].split("-");
+        newobj[i] = randomRange(arr[0], arr[1]);
+      } else if (obj[i].includes("max") || obj[i].includes("Max")) {
+        if (obj[i].includes("Max")) {
+          newobj[i] = randomRange(0, obj[i].split("-")[0]);
+        } else {
+          newobj[i] = randomRange(0, obj[i].split("-")[0]);
+        }
+      } else {
+        newobj[i] = randomRange(0, obj[i]);
       }
-      allData.push(data_get)
-      console.log("data",allData)
-      childRef.current.handleAdd(data_get)
-    setAddeddata(
-      allData
-    )
-   
-    count++
-console.log("data added data",addeddata)
-   }
+    }
+    console.log("nen object", newobj);
+    function randomRange(min, max) {
+      min = parseFloat(min);
+      max = parseFloat(max);
+      let cal = Math.random() * (max - min) + min;
+      return parseFloat(cal.toFixed(2));
+    }
+    return newobj;
+  }
+
+  const onSizeQtyHandler = (e) => {
+    const { name, value } = e.target;
+
+    setObjSizeQty({
+      ...objSizeQty,
+      [name]: value,
+    });
+    console.log("size qty values", objSizeQty);
+  };
+  const childRef = useRef();
+  const AddreportItem = () => {
+    const data_get = {
+      key: count,
+      srno: count,
+      ...objSizeQty,
+      ...getRandom(gradeDataC[0]),
+      remark: "Ok",
+    };
+    allData.push(data_get);
+    console.log("data", allData);
+    childRef.current.handleAdd(data_get);
+    setAddeddata(allData);
+
+    count++;
+    console.log("data added data", addeddata);
+  };
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
- const[partyname,setPartyName]=useState("")
+  const [partyname, setPartyName] = useState("");
 
-  const [placement, setPlacement] = useState('bottom');
+  const [placement, setPlacement] = useState("bottom");
   const showDrawer = () => {
     setOpen(true);
   };
@@ -161,44 +163,51 @@ console.log("data added data",addeddata)
   };
   const onChange = (value) => {
     console.log(`selected ${value}`);
-    alert("value"+value)
-
+    alert("value" + value);
   };
   const onSearch = (value) => {
     console.log("search:", value);
   };
 
   const onChangedate = (date, dateString) => {
-    console.log(moment,)
-    console.log(date, dateString,"date");
-    setDate(date)
+    console.log(moment);
+    console.log(date, dateString, "date");
+    setDate(date);
   };
 
   const handleMenuClick = (e) => {
+    const reportAddedData = JSON.parse(localStorage.getItem("reportAddedData"));
+    const DataReport = {
+      partyname,
+      agencyName,
+      locationName,
+      reportNo,
+      poNo,
+      date,
+      instrumentValue,
+      modalNovalue,
+      Gradename,
+      gradeDataC,
+      reportAddedData,
+    };
+    console.log("DataReport", DataReport, reportAddedData);
 
-
-const reportAddedData=JSON.parse(localStorage.getItem("reportAddedData"))
-const DataReport={
-  partyname,agencyName,locationName,reportNo,poNo,date,instrumentValue,modalNovalue,Gradename,gradeDataC,reportAddedData
-}
-   console.log("DataReport",DataReport,reportAddedData)
- 
     // message.info("Click on menu item.");
-//     console.log("click", e.keyPath[0]);
-//     if( e.keyPath[0]=== 1){
-// Router.push("/ReportPdf")
-//     }
-localStorage.setItem("ReportAllDAta",JSON.stringify(DataReport))
-setAllReportData({...DataReport})
+    //     console.log("click", e.keyPath[0]);
+    //     if( e.keyPath[0]=== 1){
+    // Router.push("/ReportPdf")
+    //     }
+    localStorage.setItem("ReportAllDAta", JSON.stringify(DataReport));
+    setAllReportData({ ...DataReport });
 
-console.log("alll data",allReportdata)
-var url="/ReportPdf"
-Router.push({pathname:url,
-  query: { data: JSON.stringify(DataReport)}
-},url)
-  //  Router.push("/ReportPdf")
+    console.log("alll data", allReportdata);
+    var url = "/ReportPdf";
+    Router.push(
+      { pathname: url, query: { data: JSON.stringify(DataReport) } },
+      url
+    );
+    //  Router.push("/ReportPdf")
   };
- 
 
   const onNameChange = (event) => {
     setName(event.target.value);
@@ -209,34 +218,40 @@ Router.push({pathname:url,
   let index = 0;
   const addItem = (e) => {
     e.preventDefault();
-    setItems2([...items2,{
-      value: name,
-      label: name,
-    } || `New item ${index++}`]);
-    setName('');
+    setItems2([
+      ...items2,
+      {
+        value: name,
+        label: name,
+      } || `New item ${index++}`,
+    ]);
+    setName("");
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
-  }
+  };
   const addmodalNo = (e) => {
     e.preventDefault();
-    setModalNo([...modalNo,{
-      value: modalname,
-      label: modalname,
-    } || `New item ${index++}`]);
-    setModalName('');
+    setModalNo([
+      ...modalNo,
+      {
+        value: modalname,
+        label: modalname,
+      } || `New item ${index++}`,
+    ]);
+    setModalName("");
     setTimeout(() => {
       inputRef1.current?.focus();
     }, 0);
-  }
+  };
   const items = [
     {
       label: "PDF",
       key: "1",
       icon: <FilePdfOutlined />,
-      onclick_handler:function(){
-        alert("click")
-      }
+      onclick_handler: function () {
+        alert("click");
+      },
     },
     {
       label: "MS WORD DOC",
@@ -256,57 +271,53 @@ Router.push({pathname:url,
   ];
 
   var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
 
-today = mm + '/' + dd + '/' + yyyy;
+  today = mm + "/" + dd + "/" + yyyy;
   const menuProps = {
     items,
     onClick: handleMenuClick,
   };
-const Table_view=()=>{
-  setTableview(true)
-}
-const Table_view1=()=>{
-  setTableview(false)
-}
-console.log("moment()",moment()._locale)
+  const Table_view = () => {
+    setTableview(true);
+  };
+  const Table_view1 = () => {
+    setTableview(false);
+  };
+  console.log("moment()", moment()._locale);
 
-const [agencyName,setAgencyName]=useState("Pooja PMI")
-const [locationName,setLocationName]=useState("Mumbai")
-const [reportNo,setReportNo]=useState(201)
-const [poNo,setPoNo]=useState("X4595d")
-const [date,setDate]=useState()
-const [specifiedGrade,setSpecifiedGrade]=useState([
-{
-  value:"304L",
-  label:"304L"
-}
-])
-const[modalNovalue,setModalNoValue]=useState("")
-const[Gradename,setGradeName]=useState("")
+  const [agencyName, setAgencyName] = useState(reportData.user_info);
+  const [locationName, setLocationName] = useState("Mumbai");
+  const [reportNo, setReportNo] = useState(201);
+  const [poNo, setPoNo] = useState("X4595d");
+  const [date, setDate] = useState();
+  const [specifiedGrade, setSpecifiedGrade] = useState([
+    {
+      value: "304L",
+      label: "304L",
+    },
+  ]);
+  const [modalNovalue, setModalNoValue] = useState("");
+  const [Gradename, setGradeName] = useState("");
 
-const[instrumentValue,setInstrumentValue]=useState("")
+  const [instrumentValue, setInstrumentValue] = useState("");
 
+  const partName = reportData.user_based_client.map((item)=>{
+    return {
+value:item,
+label:item
+    }
+  })
+  
+  
 
+  const CreatePdf = () => {
+    alert("hell" + partyname);
 
-const partName=[
-  {
-    value:"Styam Steel",
-    label:"Styam Steel"
-  },
-  {
-    value:"VJ Steel And Alloys",
-    label:"VJ Steel And Alloys"
-  }
-]
-
-const CreatePdf=()=>{
-alert("hell"+partyname)
-
-  // Router.push("/ReportPdf")
-}
+    // Router.push("/ReportPdf")
+  };
 
   return (
     <>
@@ -322,7 +333,7 @@ alert("hell"+partyname)
                     showSearch
                     placeholder="Select a Party"
                     optionFilterProp="children"
-                    onChange={(value)=>setPartyName(value)}
+                    onChange={(value) => setPartyName(value)}
                     onSearch={onSearch}
                     filterOption={(input, option) =>
                       (option?.label ?? "")
@@ -337,13 +348,21 @@ alert("hell"+partyname)
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label>Agency Name</label>
-                  <Input placeholder="" value={agencyName} onChange={(e)=>setAgencyName(e.target.value)}/>
+                  <Input
+                    placeholder=""
+                    value={agencyName}
+                    onChange={(e) => setAgencyName(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label> PMI Location </label>
-                  <Input placeholder="Basic usage" value={locationName} onChange={(e)=>setLocationName(e.target.value)} />
+                  <Input
+                    placeholder="Basic usage"
+                    value={locationName}
+                    onChange={(e) => setLocationName(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="col-6 col-md-3">
@@ -352,22 +371,29 @@ alert("hell"+partyname)
                   <DatePicker
                     onChange={onChangedate}
                     className={styles.datePicker}
-                   
                     value={date}
                     format="YYYY-MM-DD"
-                  />  
+                  />
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label>PMI Rreport No.</label>
-                  <Input placeholder="Basic usage" value={reportNo}  onChange={(e)=>setReportNo(e.target.value)} />
+                  <Input
+                    placeholder="Basic usage"
+                    value={reportNo}
+                    onChange={(e) => setReportNo(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className={styles.inputBox}>
                   <label>Purchase Order</label>
-                  <Input placeholder="Basic usage" value={poNo}   onChange={(e)=>setPoNo(e.target.value)} />
+                  <Input
+                    placeholder="Basic usage"
+                    value={poNo}
+                    onChange={(e) => setPoNo(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="col-6 col-md-3">
@@ -378,7 +404,7 @@ alert("hell"+partyname)
                     showSearch
                     placeholder="Select a Instrument Id "
                     optionFilterProp="children"
-                    onChange={(value)=>setInstrumentValue(value)}
+                    onChange={(value) => setInstrumentValue(value)}
                     value={instrumentValue}
                     onSearch={onSearch}
                     filterOption={(input, option) =>
@@ -391,26 +417,27 @@ alert("hell"+partyname)
                         {menu}
                         <Divider
                           style={{
-                            margin: '8px 0',
+                            margin: "8px 0",
                           }}
                         />
-                      
-                          <div >
+
+                        <div>
                           <Input
                             placeholder="Please enter item"
                             ref={inputRef}
                             value={name}
                             onChange={onNameChange}
                           />
-                          </div>
-                          <div >
-                          <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
+                        </div>
+                        <div>
+                          <Button
+                            type="text"
+                            icon={<PlusOutlined />}
+                            onClick={addItem}
+                          >
                             Add item
                           </Button>
-                          </div>
-                          
-                          
-                      
+                        </div>
                       </>
                     )}
                     options={items2}
@@ -425,7 +452,7 @@ alert("hell"+partyname)
                     showSearch
                     placeholder="Select a Modal No."
                     optionFilterProp="children"
-                    onChange={(value)=>setModalNoValue(value)}
+                    onChange={(value) => setModalNoValue(value)}
                     onSearch={onSearch}
                     value={modalNovalue}
                     filterOption={(input, option) =>
@@ -438,26 +465,27 @@ alert("hell"+partyname)
                         {menu}
                         <Divider
                           style={{
-                            margin: '8px 0',
+                            margin: "8px 0",
                           }}
                         />
-                      
-                          <div >
+
+                        <div>
                           <Input
                             placeholder="Please enter item"
                             ref={inputRef1}
                             value={modalname}
                             onChange={onModalNameChange}
                           />
-                          </div>
-                          <div >
-                          <Button type="text" icon={<PlusOutlined />} onClick={addmodalNo}>
+                        </div>
+                        <div>
+                          <Button
+                            type="text"
+                            icon={<PlusOutlined />}
+                            onClick={addmodalNo}
+                          >
                             Add item
                           </Button>
-                          </div>
-                          
-                          
-                      
+                        </div>
                       </>
                     )}
                     options={modalNo}
@@ -478,7 +506,7 @@ alert("hell"+partyname)
                       showSearch
                       placeholder="Enter Grade name"
                       optionFilterProp="children"
-                      onChange={(value)=>setGradeName(value)}
+                      onChange={(value) => setGradeName(value)}
                       onSearch={onSearch}
                       filterOption={(input, option) =>
                         (option?.label ?? "")
@@ -499,21 +527,24 @@ alert("hell"+partyname)
                       <table>
                         <thead>
                           <tr>
-                            {
-                              Object.keys(gradeDataC[0]).map((item)=>{
-                                return(<th style={{textTransform:"capitalize"}}>{item}</th>)
-                              })
-                            }
-                           
+                            {Object.keys(gradeDataC[0]).map((item) => {
+                              return (
+                                <th style={{ textTransform: "capitalize" }}>
+                                  {item}
+                                </th>
+                              );
+                            })}
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                          {
-                              Object.keys(gradeDataC[0]).map((item)=>{
-                                return(<td style={{textTransform:"capitalize"}}>{gradeDataC[0][item]}</td>)
-                              })
-                            }
+                            {Object.keys(gradeDataC[0]).map((item) => {
+                              return (
+                                <td style={{ textTransform: "capitalize" }}>
+                                  {gradeDataC[0][item]}
+                                </td>
+                              );
+                            })}
                           </tr>
                         </tbody>
                       </table>
@@ -523,18 +554,29 @@ alert("hell"+partyname)
               </div>
             </BorderBox>
             <div className={styles.table_con_view}>
-            <div className={styles.tableView}>
-               <button className={tableview?"":`${styles.active}`} onClick={()=>Table_view1()}>view1</button>
-               <button className={tableview?`${styles.active}`:""} onClick={()=>Table_view()}>view2</button>
+              <div className={styles.tableView}>
+                <button
+                  className={tableview ? "" : `${styles.active}`}
+                  onClick={() => Table_view1()}
+                >
+                  <BsMenuButtonWide />
+                </button>
+                <button
+                  className={tableview ? `${styles.active}` : ""}
+                  onClick={() => Table_view()}
+                >
+                  <BsTable />
+                </button>
               </div>
-            {
-                tableview?<ReportTable data={addeddata} ref={childRef} />:<Reportmobilelist/>
-                
-            }
+              {tableview ? (
+                <ReportTable data={addeddata} ref={childRef} />
+              ) : (
+                <Reportmobilelist />
+              )}
             </div>
-           
+
             <div className={styles.ButtonSave_sent}>
-              <span className={styles.save_btndrop} >
+              <span className={styles.save_btndrop}>
                 <Dropdown.Button
                   menu={menuProps}
                   placement="bottom"
@@ -543,77 +585,111 @@ alert("hell"+partyname)
                   Save Report
                 </Dropdown.Button>
               </span>
-              <button className={styles.saveButton} onClick={showDrawer1}>Send<SendOutlined /></button>
-              <button className={styles.saveButton} onClick={showDrawer}>Save <SaveOutlined /></button>
+              <button className={styles.saveButton} onClick={showDrawer1}>
+                Send
+                <SendOutlined />
+              </button>
+              <button className={styles.saveButton} onClick={showDrawer}>
+                Save <SaveOutlined />
+              </button>
             </div>
           </div>
         </div>
         <Drawer
-        placement={placement}
-        closable={false}
-        onClose={onClose}
-        open={open}
-        key={placement}
-      >
-      <div className={styles.drawer_button}>
-        <div className="row" >
-          <div className="col-6">
-          <button className={styles.btndrawer} onClick={()=> handleMenuClick()}>PDF <Image src={pdficon} alt=""/></button>
+          placement={placement}
+          closable={false}
+          onClose={onClose}
+          open={open}
+          key={placement}
+        >
+          <div className={styles.drawer_button}>
+            <div className="row">
+              <div className="col-6">
+                <button
+                  className={styles.btndrawer}
+                  onClick={() => handleMenuClick()}
+                >
+                  PDF <Image src={pdficon} alt="" />
+                </button>
+              </div>
+              <div className="col-6">
+                <button className={styles.btndrawer}>
+                  Print <Image src={printicon} alt="" />
+                </button>
+              </div>
+              <div className="col-6">
+                <button className={styles.btndrawer}>
+                  Excel <Image src={excelicon} alt="" />
+                </button>
+              </div>
+              <div className="col-6">
+                <button className={styles.btndrawer}>
+                  MS Word <Image src={wordicon} alt="" />
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="col-6">
-        <button className={styles.btndrawer}>Print <Image src={printicon} alt=""/></button>
-            
+        </Drawer>
+
+        <Drawer
+          placement={placement}
+          closable={false}
+          onClose={onClose1}
+          open={open1}
+          key={placement}
+        >
+          <div className={styles.drawer_button}>
+            <div className="row">
+              <div className="col-6">
+                <button className={`${styles.btndrawer} ${styles.whatsapp}`}>
+                  Whatsapp <Image src={wapp} alt="" />
+                </button>
+              </div>
+              <div className="col-6">
+                <button className={styles.btndrawer}>
+                  Email <Image src={email} alt="" />
+                </button>
+              </div>
             </div>
-            <div className="col-6">
-        <button className={styles.btndrawer}>Excel <Image src={excelicon} alt=""/></button>
-            
-            </div>
-            <div className="col-6">
-        <button className={styles.btndrawer}>MS Word <Image src={wordicon} alt=""/></button>
-            
-            </div>
-        </div>
-        
-
-        
-
-
-      </div>
-      </Drawer>
-
-      <Drawer
-        placement={placement}
-        closable={false}
-        onClose={onClose1}
-        open={open1}
-        key={placement}
-      >
-      <div className={styles.drawer_button}>
-        <div className="row" >
-          <div className="col-6">
-          <button className={`${styles.btndrawer} ${styles.whatsapp}`}>Whatsapp <Image src={wapp} alt=""/></button>
           </div>
-          <div className="col-6">
-        <button className={styles.btndrawer}>Email <Image src={email} alt=""/></button>
-            
-            </div>
-           
-        </div>
-        
-
-        
-
-
-      </div>
-      </Drawer>
+        </Drawer>
       </Layout>
     </>
   );
 };
 
 export default Report;
+// export async function getStaticProps() {
+//   // Call an external API endpoint to get posts.
+//   // You can use any data fetching library
+//   const { session,status,data } = useSession()
+
+//   const res = await fetch(getReportData, { email: data.user.email });
+//   const posts = await res.json();
+
+//   // By returning { props: { posts } }, the Blog component
+//   // will receive `posts` as a prop at build time
+//   console.log("posts", posts);
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// }
 export async function getServerSideProps({ req }){
   const session = await getSession({ req })
+
+   console.log(session, "session");
+
+   let data = {
+     email: session.user.email,
+   };
+
+   const res = await axios.get(getReportData, { params: data });
+console.log("post data", res.data);
+
+
+
 
   if(!session){
     return {
@@ -625,6 +701,6 @@ export async function getServerSideProps({ req }){
   }
 
   return {
-    props: { session }
-  }
+    props: { session,reportData: res.data },
+  };
 }

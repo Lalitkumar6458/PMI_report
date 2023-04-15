@@ -49,6 +49,7 @@ var initialValues={
 }
 const index = () => {
   const [messageApi, contextHolder] = message.useMessage()
+    const { session, status, data } = useSession();
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
@@ -57,6 +58,7 @@ const index = () => {
   const [userDetails, setUserDetails] = useState(initialValues)
   function messageAlert(type,content){
     const key = 'updatable';
+  const userInfo = data.user;
 
  messageApi.open({
       key,
@@ -85,8 +87,8 @@ console.log(getUserDataUrl, "getUserDataUrl");
         getUserDataUrl,
         {
           params: {
-            username: localStorage.getItem("username"),
-            email: localStorage.getItem("email"),
+            username: data.user.name,
+            email: data.user.email,
             origin: getUserDataUrl.split("/")[2],
           },
         },
@@ -99,7 +101,7 @@ console.log(getUserDataUrl, "getUserDataUrl");
       .then((response) => {
         let userData = response.data.data[0];
         console.log(response, "profile");
-        messageAlert('success','Succesfully Get profile data')
+        messageAlert("success", "Succesfully Get profile data");
 
         setImageUrl(userData.user_img);
         setImagelogo(userData.logo_img);
@@ -117,7 +119,7 @@ console.log(getUserDataUrl, "getUserDataUrl");
         // dispatch({
         //   type: ERROR_FINDING_USER
         // })
-        messageAlert('error',error.message)
+        messageAlert("error", error.message);
 
         console.log(error, "error");
       });
