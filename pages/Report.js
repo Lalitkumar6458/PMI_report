@@ -173,13 +173,15 @@ console.log("data added data",addeddata)
     console.log(date, dateString,"date");
     setDate(date)
   };
+  const current = new Date();
+  const dateToday = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()}`;
 
   const handleMenuClick = (e) => {
 
 
 const reportAddedData=JSON.parse(localStorage.getItem("reportAddedData"))
 const DataReport={
-  partyname,agencyName,locationName,reportNo,poNo,date,instrumentValue,modalNovalue,Gradename,gradeDataC,reportAddedData
+  partyname,agencyName,locationName,reportNo,poNo,date:date?date:dateToday,instrumentValue,modalNovalue,Gradename,gradeDataC,reportAddedData
 }
    console.log("DataReport",DataReport,reportAddedData)
  
@@ -354,7 +356,7 @@ alert("hell"+partyname)
                     className={styles.datePicker}
                    
                     value={date}
-                    format="YYYY-MM-DD"
+                    format="DD-MM-YYYY"
                   />  
                 </div>
               </div>

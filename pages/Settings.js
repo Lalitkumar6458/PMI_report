@@ -2,6 +2,7 @@ import Layout from '@/Components/Layout'
 import React from 'react'
 import css from "../styles/Settings.module.css"
 import { Radio, Space, Tabs } from "antd";
+import Profile from '@/Components/Settings/Profile';
 import { useState } from "react";
 const Settings = () => {
     const changeTabPosition = (e) => {
@@ -12,7 +13,8 @@ const Settings = () => {
       {
         key: 1,
         label: "User Profile",
-        children: "User profile",
+        children: <Profile/>,
+
       },
       {
         key: 2,
@@ -40,7 +42,7 @@ const Settings = () => {
             </div>
             <h3>User Profile</h3>
           <div className={css.Settings_Tabs}>
-            <Tabs tabPosition={"left"} items={tabsItem} />
+            <Tabs tabPosition={"top"} items={tabsItem} />
           </div>
         </div>
       </Layout>

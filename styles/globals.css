@@ -407,3 +407,15 @@ border-color: #081A51 !important  ;
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #000 !important;
 }
+.ant-tabs-tab {
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 16px;
+/* or 62% */
+color: #000000;
+}
+.ant-tabs-tabpane{
+  padding: 0;
+}
