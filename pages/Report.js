@@ -282,23 +282,20 @@ const DataReport={
   };
   console.log("moment()", moment()._locale);
 
-  const [agencyName, setAgencyName] = useState(reportData.user_info);
+  const [agencyName, setAgencyName] = useState(reportData?.user_info);
   const [locationName, setLocationName] = useState("Mumbai");
   const [reportNo, setReportNo] = useState(201);
   const [poNo, setPoNo] = useState("X4595d");
   const [date, setDate] = useState();
   const [specifiedGrade, setSpecifiedGrade] = useState([
-    {
-      value: "304L",
-      label: "304L",
-    },
+    ...reportData?.grade_name
   ]);
   const [modalNovalue, setModalNoValue] = useState("");
   const [Gradename, setGradeName] = useState("");
 
   const [instrumentValue, setInstrumentValue] = useState("");
 
-  const partName = reportData.user_based_client.map((item)=>{
+  const partName = reportData?.user_based_client.map((item)=>{
     return {
 value:item,
 label:item
@@ -675,17 +672,14 @@ export async function getServerSideProps({ req }){
 
    console.log(session, "session");
 
-   let data = {
+try{
+  let data = {
      email: session.user.email,
    };
 
    const res = await axios.get(getReportData, { params: data });
 console.log("post data", res.data);
-
-
-
-
-  if(!session){
+ if(!session){
     return {
       redirect : {
         destination: '/login',
@@ -697,4 +691,16 @@ console.log("post data", res.data);
   return {
     props: { session,reportData: res.data },
   };
+}catch(e){
+  console.error("Error in date fetching",e)
+return {
+    props: { session,reportData:{} },
+  };
+}
+ 
+
+
+
+
+ 
 }
