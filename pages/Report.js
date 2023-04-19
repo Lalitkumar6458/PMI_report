@@ -281,21 +281,21 @@ const DataReport={
     setTableview(false);
   };
   console.log("moment()", moment()._locale);
-
+let Specgrade=reportData?.grade_name||[]
   const [agencyName, setAgencyName] = useState(reportData?.user_info);
   const [locationName, setLocationName] = useState("Mumbai");
   const [reportNo, setReportNo] = useState(201);
   const [poNo, setPoNo] = useState("X4595d");
   const [date, setDate] = useState();
   const [specifiedGrade, setSpecifiedGrade] = useState([
-    ...reportData?.grade_name
+    ...Specgrade
   ]);
   const [modalNovalue, setModalNoValue] = useState("");
   const [Gradename, setGradeName] = useState("");
 
   const [instrumentValue, setInstrumentValue] = useState("");
 
-  const partName = reportData?.user_based_client.map((item)=>{
+  const partName = reportData?.user_based_client?.map((item)=>{
     return {
 value:item,
 label:item

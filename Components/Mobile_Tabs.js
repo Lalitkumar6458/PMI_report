@@ -18,7 +18,7 @@ const Mobile_Tabs = () => {
     const menu = [
         {
           id: 1,
-          name: "Dashboard",
+          name: "Home",
           link: "/",
           icon: (
             <MdOutlineSpaceDashboard className="icon_tab" />
@@ -42,8 +42,8 @@ const Mobile_Tabs = () => {
         },
         {
           id: 4,
-          name: "History",
-          link: "/History",
+          name: "Settings",
+          link: "/Settings",
           icon: (
             <MdOutlineAnalytics className="icon_tab" />
           ),

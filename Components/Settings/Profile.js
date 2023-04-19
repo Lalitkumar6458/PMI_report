@@ -14,6 +14,7 @@ const Profile = () => {
         phone:"+91 98775635834",
         company:"SAL Info Tech"
     })
+console.log(session,"session")
 
     const[EditData,setEditData]=useState([
         {

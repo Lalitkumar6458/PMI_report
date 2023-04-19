@@ -4,11 +4,16 @@ import css from "../styles/Settings.module.css"
 import { Radio, Space, Tabs } from "antd";
 import Profile from '@/Components/Settings/Profile';
 import { useState } from "react";
-const Settings = () => {
+import { getSession, useSession, signOut } from "next-auth/react"
+
+
+const Settings = ({session}) => {
+  console.log(session,"settings session")
     const changeTabPosition = (e) => {
       setTabPosition(e.target.value);
     };
 
+    
     const tabsItem = [
       {
         key: 1,
@@ -51,3 +56,21 @@ const Settings = () => {
 }
 
 export default Settings
+
+
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
+}
