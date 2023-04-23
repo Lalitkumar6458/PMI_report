@@ -40,7 +40,7 @@ console.log(session,"session")
         {
             id:4,
             name:"phone",
-            value:UpdateValue.password,
+            value:UpdateValue.phone,
             inputStatus:true
             
 
@@ -124,6 +124,9 @@ changeValueObj(name,true)
         <div className={css.lineheading}>
 
         </div>
+        <div className={css.logout}>
+    <button>Logout <IoLogOutOutline/></button>
+        </div>
         <div className={css.EditBox}>
 
 
@@ -131,8 +134,11 @@ changeValueObj(name,true)
                 EditData.map((item)=>{
                     return(
                         <div className={css.EditRow} key={item.id}>
-                        <label>{item.name}</label>
-                        <input type='text' value={UpdateValue[item.name]} onChange={OnchageInput} name={item.name} disabled={item.inputStatus} />
+                            <div className={`${css.inputlabel} d-flex  flex-column flex-sm-row`}>
+                            <label>{item.name}</label>
+                            <input type='text' value={UpdateValue[item.name]} onChange={OnchageInput} name={item.name} disabled={item.inputStatus} />
+                                </div>
+                      
                         <div className={css.EditButton}>
                           
                            {

@@ -390,6 +390,10 @@ padding-bottom: 70px;
     width: 199px !important;
     border-color: #081A51 !important;
 }
+.ant-tabs-tabpane {
+  padding-bottom: 70px !important;
+}
+
 }
 
 .ant-avatar{

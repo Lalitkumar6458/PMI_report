@@ -137,7 +137,10 @@ border-radius: 6px;
     padding: 10px 5px;
     border-bottom:1px solid rgba(51, 51, 51, 0.1);
 }
- .EditRow label{
+.inputlabel{
+  flex-basis: 80%;
+}
+ .inputlabel label{
     
 font-family: 'Poppins';
 font-style: normal;
@@ -153,7 +156,7 @@ color: #000000;
 
 
  }
- .EditRow input{
+ .inputlabel input{
     flex-basis: 50%;
     font-family: 'Poppins';
 font-style: normal;
@@ -167,10 +170,10 @@ background-color: #c8dcf1;
 border-radius: 7px;
 padding-left: 10px;
  }
-  .EditRow input:disabled{
+  .inputlabel input:disabled{
     background-color:transparent;
   }
-  .EditRow input:focus{
+  .inputlabel input:focus{
     outline: none;
   }
   .Editicon{
@@ -198,6 +201,50 @@ font-size: 16px !important;
   @media (max-width: 576px) {
     .Settings_page{
       width: 100%;
-      padding: 20px 10px;
+      padding: 0px 10px;
   }
+  .profileCamera .logout{
+    display: none;
+  }
+  .profileCamera{
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .Editicon{
+    font-size: 22px;
+  }
+  .inputlabel{
+    flex-basis: 70%;
+  }
+  .CancelIcon,.Updateicon{
+ 
+    height: 30px;
+    width: 27px;
+
+  }
+  .EditButton{
+    align-self: flex-end;
+  }
+  .EditRow{
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    margin-bottom: 8px;
+   
+  }
+  .inputlabel label{
+    padding-left: 10px;
+  }
+  .EditBox{
+    margin-top: 15px;
+  }
+  .ProfileCon{
+    padding: 0px 10px;
+}
+.EditHeading{
+  position: relative;
+}
+.EditHeading .logout{
+  position: absolute;
+  right: 0px;
+  top: 2px;
+}
   }

@@ -12,7 +12,7 @@ import { RiFolderShield2Line } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { useRouter } from "next/router";
-
+import { HomeOutlined } from '@ant-design/icons';
 const Mobile_Tabs = () => {
   const router = useRouter()
     const menu = [
@@ -21,7 +21,7 @@ const Mobile_Tabs = () => {
           name: "Home",
           link: "/",
           icon: (
-            <MdOutlineSpaceDashboard className="icon_tab" />
+            <HomeOutlined  className="icon_tab"  />
           ),
         },
         {
