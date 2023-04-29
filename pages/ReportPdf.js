@@ -14,6 +14,7 @@ import Layout from '@/Components/Layout';
 const ReportPdf = () => {
 const [imagename, setImagename] = useState(formate1);
  const [isModalOpen, setIsModalOpen] = useState(false);
+ const[filename,setFileName]=useState()
 
  const handleOk = () => {
    setIsModalOpen(false);
@@ -60,8 +61,6 @@ const [imagename, setImagename] = useState(formate1);
       setImagename(formate1);
     }
    setIsModalOpen(true);
-
-
   }
   return (
     <>
@@ -69,6 +68,10 @@ const [imagename, setImagename] = useState(formate1);
         <div style={styles.container}>
           <div className="DownloadButton">
             <div className={css.format_row}>
+              <div className={css.FileName}>
+                <label>File Name</label>
+                <input type='text' value={filename} onChange={(e)=>setFileName(e.target.value)} placeholder='Enter File Name...'/>
+              </div>
               <div className="row">
                 <div className="col-6 col-md-4">
                   <div
@@ -78,7 +81,7 @@ const [imagename, setImagename] = useState(formate1);
                     }}
                     onClick={() => FormateSelect(1)}
                   >
-                    <span>1</span>
+                    <span className={css.FormateNum}>1</span>
                     <Image
                       src={formate1}
                       alt="formate"
@@ -94,7 +97,7 @@ const [imagename, setImagename] = useState(formate1);
                     }}
                     onClick={() => FormateSelect(2)}
                   >
-                    <span>2</span>
+                    <span className={css.FormateNum}>2</span>
                     <Image
                       src={formate2}
                       alt="formate"
@@ -111,7 +114,7 @@ const [imagename, setImagename] = useState(formate1);
                     }}
                     onClick={() => FormateSelect(3)}
                   >
-                    <span>3</span>
+                    <span className={css.FormateNum}>3</span>
                     <Image
                       src={formate3}
                       alt="formate"
@@ -124,9 +127,9 @@ const [imagename, setImagename] = useState(formate1);
 
             <div className="mt-4">
               <BlobProvider
-                document={<MyDocument formateNo={formateNo} />}
+                document={<MyDocument formateNo={formateNo}  />}
                 style={styles.viewer}
-                fileName="my-document.pdf"
+                filename="example.pdf"
               >
                 {({ url, loading, error }) =>
                   loading ? (
@@ -134,9 +137,15 @@ const [imagename, setImagename] = useState(formate1);
                   ) : error ? (
                     "Error loading document :("
                   ) : (
-                    <a href={url} className="btnBox" target="_blank">
+
+                    <>
+
+                    {/* <iframe src={url} title="Example PDF" filename="exmple.pdf" width="100%" height="500px"></iframe> */}
+
+                    <a href={url} download={filename} className="btnBox" target="_blank">
                       Download PDF <DownloadOutlined />{" "}
                     </a>
+                    </>
                   )
                 }
               </BlobProvider>

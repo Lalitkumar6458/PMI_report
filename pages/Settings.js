@@ -5,15 +5,16 @@ import { Radio, Space, Tabs } from "antd";
 import Profile from '@/Components/Settings/Profile';
 import { useState } from "react";
 import { getSession, useSession, signOut } from "next-auth/react"
-
+import ReportFormate from '@/Components/Settings/ReportFormate';
 
 const Settings = ({session}) => {
+  const[activetab,setActivetab]=useState("User Profile")
   console.log(session,"settings session")
     const changeTabPosition = (e) => {
       setTabPosition(e.target.value);
     };
 
-    
+   
     const tabsItem = [
       {
         key: 1,
@@ -29,7 +30,7 @@ const Settings = ({session}) => {
       {
         key: 3,
         label: "Report Formate",
-        children: "Report Formate",
+        children: <ReportFormate/>,
       },
       {
         key: 4,
@@ -37,17 +38,17 @@ const Settings = ({session}) => {
         children: "Help",
       },
     ];
+    const tabChangeHandler=(key)=>{
+      setActivetab(tabsItem[key-1]['label'])
+    }
+    
   return (
     <>
       <Layout title="Settings">
         <div className={css.Settings_page}>
-
-            <div className={css.Settings_bredcrum}>
-         <p>Settings/UserProfile</p>
-            </div>
-            <h3>User Profile</h3>
+            <h3>{activetab}</h3>
           <div className={css.Settings_Tabs}>
-            <Tabs tabPosition={"top"} items={tabsItem} />
+            <Tabs tabPosition={"top"} items={tabsItem} onChange={tabChangeHandler} />
           </div>
         </div>
       </Layout>
