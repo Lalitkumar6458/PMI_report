@@ -105,10 +105,14 @@ changeValueObj(name,true)
    <div className={css.ProfileCon}>
     <div className={css.profileCamera}>
         <div className={css.imageUplode}>
-            <div className={css.avtarBox}>KT</div>
+            <div className={css.avtarBox}  style={{textTransform:"uppercase"}}>{
+session.user.name.split(" ")[0][0]+session.user.name.split(" ")[1][0]
+            }
+            
+            </div>
            
-           <div className={css.emailName}>
-            <h4>{session.user.name}</h4>
+           <div className={css.emailName} >
+            <h4 style={{textTransform:"capitalize"}}>{session.user.name}</h4>
             <p>{session.user.email}</p>
         </div>
         </div>

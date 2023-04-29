@@ -281,7 +281,13 @@ const DataReport={
     setTableview(false);
   };
   console.log("moment()", moment()._locale);
-let Specgrade=reportData?.grade_name||[]
+let Specgrade=reportData?.grade_name.map((item,index)=>{
+  return {
+    value:item,
+    key:index,
+    label:item,
+  }
+})||[]
   const [agencyName, setAgencyName] = useState(reportData?.user_info);
   const [locationName, setLocationName] = useState("Mumbai");
   const [reportNo, setReportNo] = useState(201);
@@ -650,23 +656,7 @@ label:item
 };
 
 export default Report;
-// export async function getStaticProps() {
-//   // Call an external API endpoint to get posts.
-//   // You can use any data fetching library
-//   const { session,status,data } = useSession()
 
-//   const res = await fetch(getReportData, { email: data.user.email });
-//   const posts = await res.json();
-
-//   // By returning { props: { posts } }, the Blog component
-//   // will receive `posts` as a prop at build time
-//   console.log("posts", posts);
-//   return {
-//     props: {
-//       posts,
-//     },
-//   };
-// }
 export async function getServerSideProps({ req }){
   const session = await getSession({ req })
 

@@ -62,7 +62,7 @@ const dropDown_show=()=>{
               ref={ref_div}
               onClick={() => dropDown_show()}
             >
-              <h5>{session?.user.name}</h5>
+              <h5 style={{textTransform:"capitalize"}}>{session?.user.name}</h5>
               <FiChevronDown className={styles.icon_drop} />
               {userdrop ? (
                 <div className={styles.drop_down} id="drop_down">
@@ -111,7 +111,7 @@ const dropDown_show=()=>{
               ref={wrapperRef}
               onClick={() => dropDown_show()}
             >
-              <h5>{session?.user.name}</h5>  
+              <h5 style={{textTransform:"capitalize"}}>{session?.user.name}</h5>  
               <FiChevronDown className={styles.icon_drop} />
               {userdrop ? (
                 <div className={styles.drop_down} id="drop_down">
