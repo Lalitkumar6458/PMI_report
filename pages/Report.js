@@ -56,16 +56,19 @@ const Report = ({ reportData }) => {
     {
       value: "304X40",
       label: "304X40",
+      key:1
     },
   ]);
   const [modalNo, setModalNo] = useState([
     {
       value: "Hitachi 203X",
       label: "Hitachi 203X",
+      key:1,
     },
     {
       value: "Nuton 203",
       label: "Nuton 203",
+      key:2,
     },
   ]);
   const [name, setName] = useState("");
@@ -281,7 +284,7 @@ const DataReport={
     setTableview(false);
   };
   console.log("moment()", moment()._locale);
-let Specgrade=reportData?.grade_name.map((item,index)=>{
+let Specgrade=reportData?.grade_name?.map((item,index)=>{
   return {
     value:item,
     key:index,
@@ -304,9 +307,10 @@ let Specgrade=reportData?.grade_name.map((item,index)=>{
   const partName = reportData?.user_based_client?.map((item)=>{
     return {
 value:item,
-label:item
+label:item,
+key:item,
     }
-  })
+  })||[]
   
   
 
@@ -524,9 +528,9 @@ label:item
                       <table>
                         <thead>
                           <tr>
-                            {Object.keys(gradeDataC[0]).map((item) => {
+                            {Object.keys(gradeDataC[0]).map((item,index) => {
                               return (
-                                <th style={{ textTransform: "capitalize" }}>
+                                <th style={{ textTransform: "capitalize" }} key={index}>
                                   {item}
                                 </th>
                               );
@@ -535,9 +539,9 @@ label:item
                         </thead>
                         <tbody>
                           <tr>
-                            {Object.keys(gradeDataC[0]).map((item) => {
+                            {Object.keys(gradeDataC[0]).map((item,index) => {
                               return (
-                                <td style={{ textTransform: "capitalize" }}>
+                                <td style={{ textTransform: "capitalize" }} key={index}>
                                   {gradeDataC[0][item]}
                                 </td>
                               );
