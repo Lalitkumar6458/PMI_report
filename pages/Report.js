@@ -10,7 +10,7 @@ import wapp from "../public/Images/wappicon.png"
 import email from "../public/Images/email.png"
 import Image from "next/image";
 import moment from 'moment';
-import { getReportData } from "@/Api/Url";
+import { getReportData,setInstrumentInfo } from "@/Api/Url";
 import {
   FileAddOutlined,
   PlusCircleOutlined,
@@ -45,13 +45,13 @@ import axios from "axios";
 
 let allData=[]
 var count=1
-const Report = ({ reportData }) => {
-  const { data: session } = useSession();
+const Report = ({ reportData,session }) => {
+ 
   const [allReportdata, setAllReportData] = useState({});
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
-  console.log("reportData", reportData);
+  console.log("reportData", reportData,"session",session);
   const [items2, setItems2] = useState([
     {
       value: "304X40",
@@ -213,7 +213,7 @@ const DataReport={
     setModalName(event.target.value);
   };
   let index = 0;
-  const addItem = (e) => {
+  const addItem = async(e) => {
     e.preventDefault();
     setItems2([
       ...items2,
@@ -226,8 +226,15 @@ const DataReport={
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
+    const objData={
+      instrument_id:name,
+      user_email:session.user.email,
+      model_info:""
+     }
+  let resData= await axios.post(setInstrumentInfo,objData)
+console.log(resData,"resData")
   };
-  const addmodalNo = (e) => {
+  const addmodalNo = async (e) => {
     e.preventDefault();
     setModalNo([
       ...modalNo,
@@ -240,6 +247,13 @@ const DataReport={
     setTimeout(() => {
       inputRef1.current?.focus();
     }, 0);
+     const objData={
+      model_info:modalname,
+      instrument_id:"",
+      user_email:session.user.email
+     }
+  let resData= await axios.post(setInstrumentInfo,objData)
+console.log(resData,"resData")
   };
   const items = [
     {
