@@ -64,7 +64,7 @@ function User({ session, handleSignOut }) {
         <div className={styles.dashboard_con}>
           <div className={styles.DashBoxs}>
             <div className="row">
-              <div class="col-lg-3 col-sm-6 col-6 d-flex">
+              <div className="col-lg-3 col-sm-6 col-6 d-flex">
                 <div className={`${styles.dash_count} ${styles.dash_count}`}>
                   <div className={styles.dash_counts}>
                     <h4>10</h4>

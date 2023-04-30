@@ -437,3 +437,6 @@ color: #000000;
 .ant-tabs-tabpane{
   padding: 0;
 }
+.ant-upload-select{
+  overflow: hidden !important;
+}

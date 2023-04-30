@@ -56,7 +56,7 @@ const Report = ({ reportData,session }) => {
     {
       value: "304X40",
       label: "304X40",
-      key:1
+    
     },
   ]);
   const [modalNo, setModalNo] = useState([
@@ -226,14 +226,18 @@ const DataReport={
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
-    const objData={
-      instrument_id:name,
-      user_email:session.user.email,
-      model_info:""
-     }
-  let resData= await axios.post(setInstrumentInfo,objData)
-console.log(resData,"resData")
-console.log("testing")
+    try{
+      const objData={
+        instrument_id:name,
+        user_email:session.user.email,
+        model_info:""
+       }
+    let resData= await axios.post(setInstrumentInfo,objData)
+  console.log(resData,"resData")
+    }catch(error){
+  console.log("error",error)
+    }
+   
   };
   const addmodalNo = async (e) => {
     e.preventDefault();
@@ -248,13 +252,19 @@ console.log("testing")
     setTimeout(() => {
       inputRef1.current?.focus();
     }, 0);
-     const objData={
-      model_info:modalname,
-      instrument_id:"",
-      user_email:session.user.email
-     }
-  let resData= await axios.post(setInstrumentInfo,objData)
-console.log(resData,"resData")
+    try{
+      const objData={
+        model_info:modalname,
+        instrument_id:"",
+        user_email:session.user.email
+       }
+    let resData= await axios.post(setInstrumentInfo,objData)
+  console.log(resData,"resData")
+    }catch(error){
+  console.log("error",error)
+     
+    }
+     
   };
   const items = [
     {
