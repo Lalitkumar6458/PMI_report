@@ -233,6 +233,7 @@ const DataReport={
      }
   let resData= await axios.post(setInstrumentInfo,objData)
 console.log(resData,"resData")
+console.log("testing")
   };
   const addmodalNo = async (e) => {
     e.preventDefault();
