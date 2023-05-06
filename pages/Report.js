@@ -10,7 +10,7 @@ import wapp from "../public/Images/wappicon.png"
 import email from "../public/Images/email.png"
 import Image from "next/image";
 import moment from 'moment';
-import { getReportData,setInstrumentInfo } from "@/Api/Url";
+import { getReportData,setInstrumentInfo,setModalNumber,getGradeChemical } from "@/Api/Url";
 import {
   FileAddOutlined,
   PlusCircleOutlined,
@@ -52,44 +52,41 @@ const Report = ({ reportData,session }) => {
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
   console.log("reportData", reportData,"session",session);
-  const [items2, setItems2] = useState([
-    {
-      value: "304X40",
-      label: "304X40",
-    
-    },
-  ]);
-  const [modalNo, setModalNo] = useState([
-    {
-      value: "Hitachi 203X",
-      label: "Hitachi 203X",
-      key:1,
-    },
-    {
-      value: "Nuton 203",
-      label: "Nuton 203",
-      key:2,
-    },
-  ]);
+  const [items2, setItems2] = useState(reportData?.instrument_id?.map((item,index)=>{
+    return{
+      value:item,
+      label:item,
+      key:index
+    }
+  }));
+  const [modalNo, setModalNo] = useState(
+    reportData?.model_info?.map((item,index)=>{
+      return{
+        value:item,
+        label:item,
+        key:index
+      }
+    }))
+  
   const [name, setName] = useState("");
   const [modalname, setModalName] = useState("");
   const [addeddata, setAddeddata] = useState([]);
-
+const [gradeDataC,setGradeDataC]=useState({})
   const [objSizeQty, setObjSizeQty] = useState({
     size: "",
     qty: "",
   });
-  const gradeDataC = [
-    {
-      ni: "11-14",
-      mn: "2max",
-      cr: "0.3",
-      mo: "23",
-      co: "56",
-      fe: "12",
-      pb: "58",
-    },
-  ];
+  // const gradeDataC = [
+  //   {
+  //     ni: "11-14",
+  //     mn: "2max",
+  //     cr: "0.3",
+  //     mo: "23",
+  //     co: "56",
+  //     fe: "12",
+  //     pb: "58",
+  //   },
+  // ];
 
   function getRandom(obj) {
     console.log("obj", obj);
@@ -230,7 +227,6 @@ const DataReport={
       const objData={
         instrument_id:name,
         user_email:session.user.email,
-        model_info:""
        }
     let resData= await axios.post(setInstrumentInfo,objData)
   console.log(resData,"resData")
@@ -255,10 +251,9 @@ const DataReport={
     try{
       const objData={
         model_info:modalname,
-        instrument_id:"",
         user_email:session.user.email
        }
-    let resData= await axios.post(setInstrumentInfo,objData)
+    let resData= await axios.post(setModalNumber,objData)
   console.log(resData,"resData")
     }catch(error){
   console.log("error",error)
@@ -344,6 +339,27 @@ key:item,
 
     // Router.push("/ReportPdf")
   };
+  const SelectedGrade=async(value)=>{
+    try{
+      const objData={
+        grade_name:value,
+        user_email:session.user.email
+       }
+    let resData= await axios.get(getGradeChemical,{params:objData})
+
+    if(resData.status === 200){
+    setGradeDataC(resData.data[0].chemical_name)
+
+  }else{
+    console.log(resData,"data not get from backemd")
+
+  }
+    }catch(error){
+  console.log("error",error)
+     
+    }
+
+  }
 
   return (
     <>
@@ -532,6 +548,7 @@ key:item,
                       showSearch
                       placeholder="Enter Grade name"
                       optionFilterProp="children"
+                      onSelect={SelectedGrade}
                       onChange={(value) => setGradeName(value)}
                       onSearch={onSearch}
                       filterOption={(input, option) =>
@@ -544,16 +561,17 @@ key:item,
                     />
                   </div>
                 </div>
-                <div className="col-12 col-md-9">
+                <div className="col-12 col-md-9 align-self-center">
                   <div className={styles.GradeChemical}>
                     <div className={styles.GradeBox}>
-                      <h4>Grade:304L</h4>
+                      <h4>Grade:{Gradename}</h4>
                     </div>
-                    <div className={styles.chemicalTable}>
+
+                   {Gradename?<div className={styles.chemicalTable}>
                       <table>
                         <thead>
                           <tr>
-                            {Object.keys(gradeDataC[0]).map((item,index) => {
+                            {Object.keys(gradeDataC).map((item,index) => {
                               return (
                                 <th style={{ textTransform: "capitalize" }} key={index}>
                                   {item}
@@ -564,17 +582,20 @@ key:item,
                         </thead>
                         <tbody>
                           <tr>
-                            {Object.keys(gradeDataC[0]).map((item,index) => {
+                            {Object.keys(gradeDataC).map((item,index) => {
                               return (
                                 <td style={{ textTransform: "capitalize" }} key={index}>
-                                  {gradeDataC[0][item]}
+                                  {gradeDataC[item]}
                                 </td>
                               );
                             })}
                           </tr>
                         </tbody>
                       </table>
-                    </div>
+                    </div>: <div className={styles.InfoMassage}>
+                      <h5>Select First Grade from Left Side DropDown </h5>
+                    </div>}
+                 
                   </div>
                 </div>
               </div>
@@ -595,9 +616,9 @@ key:item,
                 </button>
               </div>
               {tableview ? (
-                <ReportTable data={addeddata} ref={childRef} />
+                <ReportTable data={addeddata} ref={childRef} gradeDataC={gradeDataC} Gradename={Gradename} />
               ) : (
-                <Reportmobilelist />
+                <Reportmobilelist gradeDataC={gradeDataC} Gradename ={Gradename}/>
               )}
             </div>
 

@@ -101,10 +101,11 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 var AllData=[]
-const ReportTable = (props,ref) => {
+const ReportTable = ({data,gradeDataC,Gradename}) => {
+  console.log("gradeDataC",gradeDataC,Gradename)
 const { TextArea } = Input;
-var tabledaa=props.data
-AllData=props.data
+var tabledaa=data
+AllData=data
 console.log("table data",tabledaa)
 var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
 const [dataSource, setDataSource] = useState([...getOldData
@@ -126,20 +127,10 @@ const [tableview, setTableview] = useState(false);
        JSON.stringify([...olData])
      );
   };
-  const gradeDataC=[
-    {
-      ni:"11-14",
-      mn:"2max",
-      cr:"0.3",
-      mo:"23",
-      co:"56",
-      fe:"12",
-      pb:'58'
-    }
-  ]
+
  
   let columdata=[]
-  gradeDataC[0]?Object.keys(gradeDataC[0]).map((item)=>{
+  gradeDataC?Object.keys(gradeDataC).map((item)=>{
 
     if(item==="id"||item==="key"){
 
@@ -303,7 +294,7 @@ console.log("size qty values",objSizeQty)
       key:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
       srno:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
       ...objSizeQty,
-      ...getRandom(gradeDataC[0]),
+      ...getRandom(gradeDataC),
       remark:"Ok"
      }
 console.log("data data_get",data_get)
@@ -371,7 +362,7 @@ console.log("data data_get",data_get)
        
           <div className="col-4 d-flex col-md-2">
             <div className={styles.AddButon}>
-              <Button type="primary" onClick={AddreportItem}>
+              <Button type="primary" onClick={AddreportItem} disabled={Gradename?false:true}>
                 <PlusCircleOutlined />
                 ADD
               </Button>

@@ -8,7 +8,8 @@ import {
     Button,
    
   } from "antd";
-const Reportmobilelist = () => {
+const Reportmobilelist = ({gradeDataC,Gradename}) => {
+  console.log("gradeDataC",gradeDataC,Gradename)
 const { TextArea } = Input;
 
     const [tableview, setTableview] = useState(false)
@@ -42,17 +43,7 @@ const { TextArea } = Input;
      qty:"",
      heatno:""
     })
-    const gradeDataC=[
-     {
-       ni:"11-14",
-       mn:"2max",
-       cr:"0.3",
-       mo:"23",
-       co:"56",
-       fe:"12",
-       pb:'58'
-     }
-   ]
+ 
    const report_grade_edit=(data)=>{
     console.log("report_grade_edit",data)
     var obj={
@@ -113,7 +104,7 @@ const { TextArea } = Input;
         key:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
         srno:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
         ...objSizeQty,
-        ...getRandom(gradeDataC[0]),
+        ...getRandom(gradeDataC),
         remark:"Ok"
        }
        setAddedData([
@@ -172,7 +163,7 @@ const { TextArea } = Input;
           </div>
           <div className="col-4 col-md-2 d-flex">
             <div className={css.AddButon}>
-              <Button type="primary" onClick={AddreportItem}>
+              <Button type="primary" onClick={AddreportItem} disabled={Gradename?false:true}>
                 <PlusCircleOutlined />
                 ADD
               </Button>

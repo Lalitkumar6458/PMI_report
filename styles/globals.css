@@ -254,6 +254,9 @@ outline: none;
       padding: 7px 27px;
       height: 44px;
 }
+.gapRow{
+  row-gap: 20px;
+}
 @media  (max-width:920px) {
   .container_main {
     grid-template-columns: 29% auto;
@@ -369,7 +372,7 @@ font-size: 23px;
 .page_container {
   height: 88vh;
 overflow: auto;
-margin-top: 70px;
+margin-top: 56px;
 padding-bottom: 70px;
 }
 .container_main .right_side_section{

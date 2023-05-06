@@ -57,7 +57,7 @@ const[reportFormateData,setReportFormateData]=useState([
   return (
     <div>
 
-<div className="row">
+<div className="row gapRow">
 
 
     {
