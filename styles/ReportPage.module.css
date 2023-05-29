@@ -59,6 +59,13 @@ padding: 10px;
     font-size: 1.4rem;
     padding: 3px 10px;
 }
+.dateinput{
+    height: 32px;
+    padding: 0 4px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
 .AddButon{
     display: flex;
     align-items: flex-end;

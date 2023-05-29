@@ -1,12 +1,33 @@
 import Head from 'next/head'
-import React, { Children,useEffect } from 'react'
+import React, { useState} from 'react'
 import Mobile_Tabs from './Mobile_Tabs'
 import SideBar from './SideBar'
 import TopBar from './TopBar'
-
+import Router from 'next/router'
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 const Layout = ({children ,title}) => {
+  const[routeLoad,setRouteLoad]=useState(false)
   
- 
+  Router.events.on('routeChangeStart',(url)=>{
+
+    setRouteLoad(true)
+
+   
+  })
+  const antIcon = (
+    <LoadingOutlined
+      style={{
+        fontSize: 58,
+      }}
+      spin
+    />
+  );
+  Router.events.on('routeChangeComplete',(url)=>{
+  
+    setRouteLoad(false)
+
+  })
 
   return (
     <>
@@ -28,7 +49,13 @@ const Layout = ({children ,title}) => {
           <TopBar></TopBar>
         </div>
         <div className='page_container'>
-           {children}
+
+
+           {routeLoad?
+           <div className='loaderroute'>
+
+           <Spin indicator={antIcon} /></div>:
+           children}
         </div>
        </main>
        <Mobile_Tabs/>

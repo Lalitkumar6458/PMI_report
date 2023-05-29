@@ -8,6 +8,7 @@ import {
     Button,
    
   } from "antd";
+  import RandomGradeData from '../SmallComponets/RandomGradeData';
 const Reportmobilelist = ({gradeDataC,Gradename}) => {
   console.log("gradeDataC",gradeDataC,Gradename)
 const { TextArea } = Input;
@@ -57,32 +58,7 @@ const { TextArea } = Input;
       query: { data: JSON.stringify(obj)}
   },url)
 }
-    function getRandom(obj){
-     console.log("obj",obj)
-     var newobj={}
-  for(let i in obj){
-  if(obj[i].includes("-")){
-  var arr=obj[i].split("-")
-  newobj[i]= randomRange(arr[0],arr[1]) 
-  }else if(obj[i].includes("max") || obj[i].includes("Max")){
-   if(obj[i].includes("Max")){
-  newobj[i]= randomRange(0,obj[i].split("-")[0] )
-  }else{
-  newobj[i]= randomRange(0,obj[i].split("-")[0])
-  }
-  }else{
-   newobj[i]= randomRange(0,obj[i])
-  }
-  }
-  console.log("nen object",newobj)
-  function randomRange(min, max) {
-   min=parseFloat(min)
-   max=parseFloat(max)
-  let cal = Math.random() * (max - min) + min;
-  return parseFloat(cal.toFixed(2));
-  }
-  return newobj
-   }
+   
   
     const onSizeQtyHandler=(e)=>{
   const{name,value}=e.target
@@ -104,7 +80,7 @@ const { TextArea } = Input;
         key:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
         srno:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
         ...objSizeQty,
-        ...getRandom(gradeDataC),
+        ...RandomGradeData({data:gradeDataC}),
         remark:"Ok"
        }
        setAddedData([

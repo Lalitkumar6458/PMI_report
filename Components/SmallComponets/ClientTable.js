@@ -65,7 +65,6 @@ const ClientTable = (props) => {
   };
   useEffect(()=>{
     setData(props.data)
-
   }, [props.data])
   const userInfo = useSession();
 console.log("session clint", useSession());

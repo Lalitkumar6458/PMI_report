@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import MyDocument from '@/Components/ReportPdf/ReportPdfFormat'
 // import { Image } from "antd";
 import {PDFViewer,BlobProvider , PDFDownloadLink } from '@react-pdf/renderer';
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined,EyeOutlined } from '@ant-design/icons';
 import css from "../styles/ReportPage.module.css"
 import formate1 from "../public/Images/ReportFormate/formate1.jpg"
 import formate2 from "../public/Images/ReportFormate/formate2.jpg";
@@ -61,6 +61,15 @@ const [imagename, setImagename] = useState(formate1);
       setImagename(formate1);
     }
    setIsModalOpen(true);
+  }
+  const DOwnloadPdf=()=>{
+    if(filename){
+
+    }else{
+
+      alert("Enter File name")
+      return false
+    }
   }
   return (
     <>
@@ -125,7 +134,7 @@ const [imagename, setImagename] = useState(formate1);
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 d-flex align-items-center g-5">
               <BlobProvider
                 document={<MyDocument formateNo={formateNo}  />}
                 style={styles.viewer}
@@ -142,13 +151,17 @@ const [imagename, setImagename] = useState(formate1);
 
                     {/* <iframe src={url} title="Example PDF" filename="exmple.pdf" width="100%" height="500px"></iframe> */}
 
-                    <a href={url} download={filename} className="btnBox" target="_blank">
-                      Download PDF <DownloadOutlined />{" "}
+                    <a href={url} download={filename} className="btnBox mx-3" target="_blank">
+                      View PDF<EyeOutlined />{" "}
                     </a>
                     </>
                   )
                 }
               </BlobProvider>
+
+              <PDFDownloadLink onClick={()=>DOwnloadPdf()} className="btnBox" document={<MyDocument formateNo={formateNo} />} fileName={filename}>
+        {({ blob, url, loading, error }) => (loading ? 'Loading document...' : <>Download PDF <DownloadOutlined /></>)}
+      </PDFDownloadLink>
             </div>
           </div>
         </div>

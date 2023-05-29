@@ -12,15 +12,16 @@ export default function App({ Component, pageProps }) {
 
 
   const[loading,setLoading]=useState(true)
+  const[routeLoad,setRouteLoad]=useState(false)
   Router.events.on('routeChangeStart',(url)=>{
 
-    setLoading(true)
+    setRouteLoad(true)
 
    
   })
   Router.events.on('routeChangeComplete',(url)=>{
   
-    setLoading(false)
+    setRouteLoad(false)
 
   })
 useEffect(()=>{
@@ -34,7 +35,7 @@ useEffect(()=>{
 
        <Component {...pageProps} />
      </SessionProvider>
-
+    
   
 }
   

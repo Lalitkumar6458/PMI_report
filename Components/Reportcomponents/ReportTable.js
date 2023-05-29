@@ -1,7 +1,7 @@
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import { MdDelete } from "react-icons/md";
 import { DoubleRightOutlined,PlusCircleOutlined } from '@ant-design/icons';
-
+import RandomGradeData from '../SmallComponets/RandomGradeData';
 import styles from '../../styles/ReportPage.module.css'
 import React, { useContext, useEffect, useRef, useState,useImperativeHandle } from 'react';
 const EditableContext = React.createContext(null);
@@ -66,6 +66,8 @@ const EditableCell = ({
       console.log('Save failed:', errInfo);
     }
   };
+  
+  
   let childNode = children;
   if (editable) {
     childNode = editing ? (
@@ -103,6 +105,7 @@ const EditableCell = ({
 var AllData=[]
 const ReportTable = ({data,gradeDataC,Gradename}) => {
   console.log("gradeDataC",gradeDataC,Gradename)
+  console.log("Data random",RandomGradeData({data:gradeDataC}))
 const { TextArea } = Input;
 var tabledaa=data
 AllData=data
@@ -252,32 +255,7 @@ const [tableview, setTableview] = useState(false);
    qty:""
   })
  
-  function getRandom(obj){
-   console.log("obj",obj)
-   var newobj={}
-for(let i in obj){
-if(obj[i].includes("-")){
-var arr=obj[i].split("-")
-newobj[i]= randomRange(arr[0],arr[1]) 
-}else if(obj[i].includes("max") || obj[i].includes("Max")){
- if(obj[i].includes("Max")){
-newobj[i]= randomRange(0,obj[i].split("-")[0] )
-}else{
-newobj[i]= randomRange(0,obj[i].split("-")[0])
-}
-}else{
- newobj[i]= randomRange(0,obj[i])
-}
-}
-console.log("nen object",newobj)
-function randomRange(min, max) {
- min=parseFloat(min)
- max=parseFloat(max)
-let cal = Math.random() * (max - min) + min;
-return parseFloat(cal.toFixed(2));
-}
-return newobj
- }
+ 
 
   const onSizeQtyHandler=(e)=>{
 const{name,value}=e.target
@@ -294,7 +272,7 @@ console.log("size qty values",objSizeQty)
       key:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
       srno:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
       ...objSizeQty,
-      ...getRandom(gradeDataC),
+      ...RandomGradeData({data:gradeDataC}),
       remark:"Ok"
      }
 console.log("data data_get",data_get)
