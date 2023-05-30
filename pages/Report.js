@@ -276,7 +276,7 @@ key:item,
 
     if(resData.status === 200){
     setGradeDataC(resData.data[0].chemical_name)
-
+console.log(resData.data[0].chemical_name)
   }else{
     console.log(resData,"data not get from backemd")
 
@@ -287,6 +287,29 @@ key:item,
     }
 
   }
+
+  // const getGradeChemical= async (value)=>{
+  //   try{
+  //     const objData={
+  //       grade_name:value,
+  //       user_email:session.user.email
+  //      }
+  //   let resData= await axios.get(getGradeChemical,{params:objData})
+
+  //   if(resData.status === 200){
+  //   setGradeDataC(resData.data[0].chemical_name)
+
+  // }else{
+  //   console.log(resData,"data not get from backemd")
+
+  // }
+  //   }catch(error){
+  // console.log("error",error)
+     
+  //   }
+
+  
+  // }
   useEffect(()=>{
     let getDataLocal=localStorage.getItem('CreatedData')
     if(
@@ -295,6 +318,10 @@ key:item,
       localStorage.setItem("CreatedData",JSON.stringify({...JSON.parse(getDataLocal),'locationName':locationName,'agencyName':agencyName}))
       // $('#GradeId').trigger('change');
       // selectRef.current.props.onChange();
+      if(JSON.parse(getDataLocal)?.Gradename){
+        // getGradeChemical(JSON.parse(getDataLocal)?.Gradename)
+        SelectedGrade(JSON.parse(getDataLocal)?.Gradename)
+      }
     }else{
       localStorage.setItem("CreatedData",JSON.stringify({'locationName':locationName,'agencyName':agencyName}))
     }
@@ -302,14 +329,17 @@ key:item,
   },[])
 
   const commonOnChangeFun=(value,setvalue,name)=>{
-alert("call")
+  console.log("Value grade c",gradeDataC,name)
+
 setvalue(value)
+
   let getDataLocal=localStorage.getItem('CreatedData')
   if(
     getDataLocal
   ){
-    localStorage.setItem("CreatedData",JSON.stringify({...JSON.parse(getDataLocal),[name]:value,}))
-  }else{
+    localStorage.setItem("CreatedData",JSON.stringify({...JSON.parse(getDataLocal),[name]:value}))
+  }
+  else{
     localStorage.setItem("CreatedData",JSON.stringify({[name]:value}))
   }
   }

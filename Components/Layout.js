@@ -37,6 +37,8 @@ const Layout = ({children ,title}) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon123.ico" />
         <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+        {/* <link rel="preload"></link>
+        <link rel="prefetch"></link> */}
       </Head>
      
     <div>
