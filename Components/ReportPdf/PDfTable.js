@@ -12,6 +12,7 @@ const data23 = [
     // Add more rows as needed
   ];
   const PdfTable=({data})=>{
+    console.log(data,"data pdf table")
     const styles = StyleSheet.create({
         table: {
           display: 'table',
@@ -57,21 +58,21 @@ const data23 = [
     return(
         <View style={styles.table}>
       <View style={styles.tableRow}>
-        {Object.keys(data[0]).map(colHeader => (
+        {Object.keys(data).map(colHeader => (
           <View key={colHeader} style={styles.tableColHeader}>
             <Text>{colHeader.toUpperCase()}</Text>
           </View>
         ))}
       </View>
-      {data.map(row => (
-        <View key={row.id} style={styles.tableRow}>
-          {Object.values(row).map((col, index) => (
+    
+        <View style={styles.tableRow}>
+          {Object.keys(data).map((col, index) => (
             <View key={index} style={styles.tableCol}>
-              <Text>{col}</Text>
+              <Text>{data[col]}</Text>
             </View>
           ))}
         </View>
-      ))}
+   
     </View>
     )
   }

@@ -24,6 +24,20 @@
     font-size: 20px;
     font-family: var(--font-roboto);
     color: rgb(22, 21, 21);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.gobackbtn{
+cursor: pointer;
+padding: 5px;
+border-radius: 50%;
+}
+.gobackbtn:hover{
+background-color: #0e2072;
+color: var(--white);
+
+
 }
 .dopdown_user{
     display: flex;

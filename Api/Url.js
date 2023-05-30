@@ -18,7 +18,12 @@ export const Login_User = `${portNo}api/login/`;
 export const Logout_User = `${portNo}logout_view/`;
 export const getReportData = `${portNo}report_info_party_name/`;
 export const setInstrumentInfo = `${portNo}instrument_info/`;
+export const setModalNumber = `${portNo}set_model_info/`;
+export const getGradeChemical = `${portNo}chemical_based_on_grade/`;
+
 export const Google_login_User = `${portNo}google_register_login/`;
+
+
 
 
 

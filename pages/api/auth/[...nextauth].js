@@ -2,7 +2,8 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials';
 // import axios from "axios";
-
+import { Google_login_User } from "@/Api/Url";
+import axios from "axios";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -11,6 +12,7 @@ export const authOptions = {
         clientSecret: process.env.GOOGLE_SECRET,
     
     }),
+   
     CredentialsProvider({
       name : "Credentials",
       async authorize(credentials, req){
@@ -30,10 +32,28 @@ export const authOptions = {
     strategy: 'jwt',
 },
 
-callbacks:{
- async loginSucces(){
-  console.log("login succes")
- }
-}
+callbacks: {
+  async signIn(user, account, profile) {
+    console.log("user:",user.user)
+            const obj ={
+            username:user.user.name,
+            email:user.user.email,
+            img:user.user.image
+          }
+          console.log("obj",obj)
+          try{
+            await axios.post(Google_login_User,obj).then((res)=>{
+              console.log(res.status,res.data,"response")
+                      }).catch((e)=>{
+              console.log("error",e)
+                      })
+          }catch(error){
+            console.log("error",error)
+
+          }
+          
+    return true;
+  },
+},
 }
 export default NextAuth(authOptions)

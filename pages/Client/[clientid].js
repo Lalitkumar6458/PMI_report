@@ -4,7 +4,7 @@ import Router,{useRouter } from 'next/router'
 import { LeftOutlined } from '@ant-design/icons';
 import styles from "../../styles/ClientMobileTable.module.css"
 import { getClientDataUrl, UpdateClient } from '@/Api/Url';
-import { Button, Input } from 'antd';
+import { Button, Input,message } from 'antd';
 import axios from "axios";
 import { getSession, useSession, signOut } from "next-auth/react"
 
@@ -12,118 +12,20 @@ import { getSession, useSession, signOut } from "next-auth/react"
 const ClientInfo = () => {
   const { data: session } = useSession()
 
+  const [messageApi, contextHolder] = message.useMessage()
+
 const router=useRouter()
 const{query}=router
 const { TextArea } = Input;
-const[clientData,setClientData]=useState([])
-
-const GetclientData=async()=>{
- 
-
-  await axios
-    .get(
-      getClientDataUrl,
-      { params: { username: "admin" } },
-      {
-        "Content-Type": "application/json",
-        Connection: "Keep-Alive",
-        Authorization: `admin`,
-      }
-    )
-    .then((response) => {
-      setClientData(response.data.data);
-      console.log(response.data.data, "response.data.data");
-    })
-    .catch((error) => {
-      // dispatch({
-      //   type: ERROR_FINDING_USER
-      // })
-      console.log(error, "error");
-    });
+const[clientData,setClientData]=useState(JSON.parse(localStorage.getItem("ClientData")))
 
 
-}
-useEffect(() => {
-  GetclientData()
-}, [])
 
-const data=[
-  {
-    id:1,
-    name:"satyam Steel India",
-    email:"satyam@gmail.com",
-    phoneno:"997655863",
-    address:"mumbai"
-  },
-  {
-    id:2,
-    name:"Excel Steel",
-    email:"Excel@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-  ,
-  {
-    id:3,
-    name:"nitesh Steel",
-    email:"nitesh@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-  ,
-  {
-    id:4,
-    name:"neo inpex Steel",
-    email:"neoinpex@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-  ,
-  {
-    id:5,
-    name:"JH Metal",
-    email:"JHMetal@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-  ,
-  {
-    id:6,
-    name:"Vj Steel & alloys",
-    email:"VjSteel@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-  ,
-  {
-    id:7,
-    name:"shankesvar metal",
-    email:"shankesvar@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-  ,
-  {
-    id:8,
-    name:"vikash metal & alloys",
-    email:"vikash@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-  ,
-  {
-    id:9,
-    name:"mukund Steel",
-    email:"mukund@gmail.com",
-    phoneno:"96975605679",
-    address:"mumbai"
-  }
-]
 
-let newData = data.filter((x) => x.id == 1);
-console.log("newData",newData)
+
+let newData = [JSON.parse(localStorage.getItem("ClientData"))]
+console.log("newData 456",newData,"session",session)
 const[clientUpdate,setClientUpdate]=useState({...newData[0]})
-console.log("client update",clientUpdate)
 const UpdateClientHandler=(e)=>{
   const { name, value } = e.target;
   setClientUpdate({
@@ -131,30 +33,52 @@ const UpdateClientHandler=(e)=>{
     [name]: value,
   });
 }
+function messageAlert(type,content){
+  const key = 'updatable';
+
+messageApi.open({
+    key,
+    type,
+    content,
+  })
+}
 
 const UpdateBtnhandler=async()=>{
   console.log("clientUpdate",clientUpdate)
-//   const obj = {
-//   id: key,
-//   client_name: row.client_name,
-//   client_address: row.client_address,
-//   client_phone: row.client_phone_no,
-//   client_email: row.client_email,
-//   user_info_id:newData[index].user_info_id
-// };
-//       await axios
-//         .post(UpdateClient, obj)
-//         .then((response) => {
-//           console.log("success", response);
-//         })
-//         .catch((err) => {
-//           console.log("err", err);
-//         });
+  messageAlert('loading','Editing Client...')
+  try {
+   
+const obj = {
+  id:clientUpdate.key,
+client_name: clientUpdate.client_name,
+client_address: clientUpdate.client_address,
+client_phone_no: clientUpdate.client_phone_no,
+client_email: clientUpdate.client_email,
+user_info_id: clientUpdate.user_info_id,
+email: session.user.email,
+};
+    await axios
+      .post(UpdateClient, obj)
+      .then((response) => {
+        console.log("success", response);
+         messageAlert('success','Succesfully Updated Client')
+          
+      })
+      .catch((error) => {
+        console.log("error", error);
+      messageAlert('error',error.message)
+
+      });
+         
+ 
+  } catch (errInfo) {
+    console.log('Validate Failed:', errInfo);
+  }
 }
 
   return (
     <Layout title="client">
-
+{contextHolder}
 <div className={styles.ClientInfo_box}>
   <div className={styles.heading}>
   <span className={styles.arrow_left} onClick={()=>router.push("/Category")}><LeftOutlined  className={styles.icons_client} /></span>
@@ -164,19 +88,19 @@ const UpdateBtnhandler=async()=>{
   <div className={styles.client_infobox}>
     <div className={styles.input_client}>
       <label>Name</label>
-      <Input value={newData[0].client_name} name="client_name" placeholder="Basic usage" onChange={UpdateClientHandler} />
+      <Input value={clientUpdate.client_name} name="client_name" placeholder="Basic usage" onChange={UpdateClientHandler} />
     </div>
     <div className={styles.input_client}  >
       <label>Email</label>
-      <Input value={newData[0].client_email} name="client_email" onChange={UpdateClientHandler} />
+      <Input value={clientUpdate.client_email} name="client_email" onChange={UpdateClientHandler} />
     </div>
     <div className={styles.input_client} >
       <label>Phone No.</label>
-      <Input value={newData[0].client_phone_no} name="client_phone_no" onChange={UpdateClientHandler}  />
+      <Input value={clientUpdate.client_phone_no} name="client_phone_no" onChange={UpdateClientHandler}  />
     </div>
     <div className={styles.input_client} style={{height:"113px"}}>
       <label>Address</label>
-      <TextArea className={styles.text_client} showCount name="client_address" value={newData[0].client_address} maxLength={100} onChange={UpdateClientHandler} />
+      <TextArea className={styles.text_client} showCount name="client_address" value={clientUpdate.client_address} maxLength={100} onChange={UpdateClientHandler} />
 
     </div>
 

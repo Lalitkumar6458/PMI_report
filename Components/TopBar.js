@@ -12,19 +12,39 @@ import axios from 'axios';
 import { Avatar, Space } from 'antd';
 import { getSession, useSession, signOut } from "next-auth/react"
 import Router from 'next/router';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined,ArrowLeftOutlined } from '@ant-design/icons';
 import UserAvatar from './SmallComponets/Avatar';
+import { useRouter } from 'next/router';
 
 
 const TopBar = () => {
+  const router = useRouter();
+  const { pathname } = router;
+  console.log("pathname top bar",pathname)
 const[userdrop,setUserdrop]=useState(false)
+const[headingName,setHeadingname]=useState("DashBoard")
 const wrapperRef = useRef(null);
 const ref_div = useRef(null);
 const { data: session } = useSession()
 var username = localStorage.getItem("username");
 console.log("useSession()",useSession())
 
+useEffect(()=>{
 
+  if(pathname=="/Report"){
+    setHeadingname("Create Report")
+  }else if(pathname=="/Chemical"){
+    setHeadingname("Grade And Chemical compositions")
+  
+  }else if(pathname == '/Category'){
+    setHeadingname("Client Info")
+  }else if(pathname == '/Settings'){
+    setHeadingname("Settings")
+
+  }else if(pathname== "/ReportPdf"){
+    setHeadingname('Report Pdf File')
+  }
+},[])
 
 const Logouthandler =async()=>{
     var data={
@@ -37,13 +57,23 @@ const dropDown_show=()=>{
     setUserdrop(!userdrop); 
 }
 
-
+const goBack = () => {
+  router.back();
+};
 
   return (
     <>
       <div className={styles.top_bar_con}>
-        <h2>Dashboard</h2>
 
+        <h2>
+
+       { 
+headingName!="DashBoard"?<ArrowLeftOutlined title='GoBack' onClick={goBack} className={styles.gobackbtn} />:null
+       } 
+         {headingName}
+          
+          </h2>
+         
         <div className={styles.right_btn_con}>
           <span>
             <FiSearch className={styles.icon_t} />{" "}

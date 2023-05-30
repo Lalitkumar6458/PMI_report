@@ -8,7 +8,9 @@ import {
     Button,
    
   } from "antd";
-const Reportmobilelist = () => {
+  import RandomGradeData from '../SmallComponets/RandomGradeData';
+const Reportmobilelist = ({gradeDataC,Gradename}) => {
+  console.log("gradeDataC",gradeDataC,Gradename)
 const { TextArea } = Input;
 
     const [tableview, setTableview] = useState(false)
@@ -42,17 +44,7 @@ const { TextArea } = Input;
      qty:"",
      heatno:""
     })
-    const gradeDataC=[
-     {
-       ni:"11-14",
-       mn:"2max",
-       cr:"0.3",
-       mo:"23",
-       co:"56",
-       fe:"12",
-       pb:'58'
-     }
-   ]
+ 
    const report_grade_edit=(data)=>{
     console.log("report_grade_edit",data)
     var obj={
@@ -66,32 +58,7 @@ const { TextArea } = Input;
       query: { data: JSON.stringify(obj)}
   },url)
 }
-    function getRandom(obj){
-     console.log("obj",obj)
-     var newobj={}
-  for(let i in obj){
-  if(obj[i].includes("-")){
-  var arr=obj[i].split("-")
-  newobj[i]= randomRange(arr[0],arr[1]) 
-  }else if(obj[i].includes("max") || obj[i].includes("Max")){
-   if(obj[i].includes("Max")){
-  newobj[i]= randomRange(0,obj[i].split("-")[0] )
-  }else{
-  newobj[i]= randomRange(0,obj[i].split("-")[0])
-  }
-  }else{
-   newobj[i]= randomRange(0,obj[i])
-  }
-  }
-  console.log("nen object",newobj)
-  function randomRange(min, max) {
-   min=parseFloat(min)
-   max=parseFloat(max)
-  let cal = Math.random() * (max - min) + min;
-  return parseFloat(cal.toFixed(2));
-  }
-  return newobj
-   }
+   
   
     const onSizeQtyHandler=(e)=>{
   const{name,value}=e.target
@@ -113,7 +80,7 @@ const { TextArea } = Input;
         key:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
         srno:getOldData.length===0?1:parseInt(getOldData[getOldData.length-1]["key"])+1,
         ...objSizeQty,
-        ...getRandom(gradeDataC[0]),
+        ...RandomGradeData({data:gradeDataC}),
         remark:"Ok"
        }
        setAddedData([
@@ -172,7 +139,7 @@ const { TextArea } = Input;
           </div>
           <div className="col-4 col-md-2 d-flex">
             <div className={css.AddButon}>
-              <Button type="primary" onClick={AddreportItem}>
+              <Button type="primary" onClick={AddreportItem} disabled={Gradename?false:true}>
                 <PlusCircleOutlined />
                 ADD
               </Button>
