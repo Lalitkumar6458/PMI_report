@@ -6,13 +6,12 @@ import { Input,Tooltip,AutoComplete,message } from 'antd';
 import Button from '@/Components/SmallComponets/Button'
 import { UserAddOutlined } from '@ant-design/icons';
 import ClientTable from '@/Components/SmallComponets/ClientTable'
-import { saveClient, getClientDataUrl } from '@/Api/Url'
 import axios from 'axios'
 import EditTable from '@/Components/SmallComponets/EditTable'
 import {HiArrowNarrowDown,HiArrowNarrowUp } from "react-icons/hi";
 import { getSession, useSession, signOut } from "next-auth/react"
 import Router from 'next/router'
-
+import { ApiEndPoint } from '@/public/ApiEndPoint';
 
 
 const formatNumber = (value) => new Intl.NumberFormat().format(value);
@@ -80,7 +79,7 @@ const AddClient=()=>{
   clientInfo["username"]=session.user.name
   clientInfo["Useremail"]=session.user.email
   console.log("client info data",clientInfo)
-  axios.post(saveClient, clientInfo)
+  axios.post(`${ApiEndPoint}save_client_info/`, clientInfo)
       .then((response) => {
        console.log(response.data)
        messageAlert('success','Succesfully Added Client')
@@ -97,7 +96,7 @@ const AddClient=()=>{
 const GetclientData=async()=>{
 
     await axios
-      .get(getClientDataUrl, { params: { username:session.user.name,email:session.user.email } }, {
+      .get(`${ApiEndPoint}get_client_data/`, { params: { username:session.user.name,email:session.user.email } }, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,

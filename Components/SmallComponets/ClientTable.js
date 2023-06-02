@@ -4,10 +4,10 @@ import {FaEdit} from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { DeleteOutlined } from '@ant-design/icons';
 import styles from "../../styles/Category.module.css"
-import { UpdateClient, DeleteClient } from "@/Api/Url";
+// import { UpdateClient, DeleteClient } from "@/Api/Url";
 import axios from 'axios';
 import { getSession, useSession, signOut } from "next-auth/react"
-
+import { ApiEndPoint } from '@/public/ApiEndPoint';
 const EditableCell = ({
   editing,
   dataIndex,
@@ -85,7 +85,7 @@ const obj = {
   email: userInfo.data.user.email,
 };
       await axios
-        .post(UpdateClient, obj)
+        .post(`${ApiEndPoint}update_client_info/`, obj)
         .then((response) => {
           console.log("success", response);
            messageAlert('success','Succesfully Updated Client')
@@ -211,7 +211,7 @@ const newData1 = [...data];
       user_info_id: newData1[index].user_info_id,
     };
      await axios
-       .delete(DeleteClient, { params: obj })
+       .delete(`${ApiEndPoint}delete_client_info/`, { params: obj })
        .then((response) => {
          console.log("success", response);
        messageAlert('success','Succesfully Delete Client')

@@ -6,7 +6,7 @@ import Profile from '@/Components/Settings/Profile';
 import { useState } from "react";
 import { getSession, useSession, signOut } from "next-auth/react"
 import ReportFormate from '@/Components/Settings/ReportFormate';
-
+import LatterPad from '@/Components/Settings/latterPad/LatterPad';
 const Settings = ({session}) => {
   const[activetab,setActivetab]=useState("User Profile")
   console.log(session,"settings session")
@@ -25,7 +25,7 @@ const Settings = ({session}) => {
       {
         key: 2,
         label: "Latter Pad",
-        children: "latter Pad",
+        children: <LatterPad/>,
       },
       {
         key: 3,

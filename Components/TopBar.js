@@ -7,7 +7,7 @@ import { BiLogOut,BiHelpCircle } from "react-icons/bi";
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from "../public/Images/pmilogo.png"
-import { Logout_User } from '@/Api/Url';
+// import { Logout_User } from '@/Api/Url';
 import axios from 'axios';
 import { Avatar, Space } from 'antd';
 import { getSession, useSession, signOut } from "next-auth/react"
@@ -43,6 +43,8 @@ useEffect(()=>{
 
   }else if(pathname== "/ReportPdf"){
     setHeadingname('Report Pdf File')
+  }else if(pathname == "/Settings/Latterpad"){
+    setHeadingname("Create Latter Pad")
   }
 },[])
 

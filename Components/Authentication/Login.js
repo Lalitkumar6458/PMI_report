@@ -12,12 +12,11 @@ import {
 import css from "../../styles/login.module.css"
 import { Input, Tooltip, Button, notification, message } from "antd";
 import Signup from "./Signup";
-import { Login_User } from "@/Api/Url";
 
 import imgG from "../../public/Images/google.svg"
 import Image from "next/image";
 import { useRouter } from 'next/router'
-
+import { ApiEndPoint } from "@/public/ApiEndPoint";
 // import { login_url } from "./Url";
 const Login_com = () => {
   const [username, setUsername] = useState("");
@@ -81,7 +80,7 @@ const Login_com = () => {
         email: username,
         password: password,
       };
-      axios.post(Login_User, data)
+      axios.post(`${ApiEndPoint}api/login/`, data)
         .then(function (response) {
             console.log("User created",response)
           setIsLoading(false);

@@ -7,9 +7,10 @@ import {
   EyeTwoTone,
   MailOutlined,
 } from "@ant-design/icons";
+import { ApiEndPoint } from "@/public/ApiEndPoint";
 import css from "../../styles/login.module.css"
 import Link from "next/link";
-import { SignUp_User } from "@/Api/Url";
+// import { SignUp_User } from "@/Api/Url";
 
 import { Input, Tooltip, Button, notification, message } from "antd";
 import Router from "next/router";
@@ -47,7 +48,7 @@ const Signup = (props) => {
   const Loginhandler = () => {
     const options = {
       method: "POST",
-      url: SignUp_User,
+      url: `${ApiEndPoint}api/register/`,
       headers: {
         "content-type": "application/json",
       },

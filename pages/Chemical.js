@@ -3,7 +3,7 @@ import React, { useState,useEffect } from "react";
 import { Button, Modal, Input,message  } from "antd";
 import styles from "@/styles/Chemical.module.css";
 import Router from "next/router";
-import { GetChemicalData, ChemicalSave, Update_chemical, Delete_chemical, SearchGrade_chemical } from "@/Api/Url";
+import { ApiEndPoint } from "@/public/ApiEndPoint";
 import {
 
   FaPlusCircle,
@@ -69,7 +69,7 @@ console.log("userInfo", userInfo,item);
       email: userInfo.email,
     };
     await axios
-      .post(Delete_chemical, data, {
+      .post(`${ApiEndPoint}delete_chemical/`, data, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,
@@ -154,7 +154,7 @@ console.log("userInfo", userInfo,item);
     });
 
     axios
-      .post(ChemicalSave, data_obj, {
+      .post(`${ApiEndPoint}chemical_page_add/`, data_obj, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,
@@ -196,7 +196,7 @@ console.log("userInfo", userInfo,item);
     console.log("chemicalInput", chemicalInput, data, modalData)
 
     await axios
-      .post(Update_chemical, data, {
+      .post(`${ApiEndPoint}update_chemical/`, data, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,
@@ -222,7 +222,7 @@ console.log("userInfo", userInfo,item);
       username: userInfo.name,
       email:  userInfo.email
     };
-   await axios.get(GetChemicalData,{params:data_obj}, {
+   await axios.get(`${ApiEndPoint}get_grade_chemical_data/`,{params:data_obj}, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,
@@ -258,7 +258,7 @@ console.log("userInfo", userInfo,item);
     
     await axios
       .get(
-        SearchGrade_chemical,
+        `${ApiEndPoint}search_grade/`,
         {
           params: {
             word: e.target.value,
