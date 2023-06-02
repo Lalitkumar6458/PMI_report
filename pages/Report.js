@@ -10,7 +10,7 @@ import wapp from "../public/Images/wappicon.png"
 import email from "../public/Images/email.png"
 import Image from "next/image";
 import moment from 'moment';
-import { getReportData,setInstrumentInfo,setModalNumber,getGradeChemical } from "@/Api/Url";
+import { ApiEndPoint } from "@/public/ApiEndPoint";
 import {
   FileWordOutlined,
   UserOutlined,
@@ -44,6 +44,7 @@ const Report = ({ reportData,session }) => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
+  
   console.log("reportData", reportData,"session",session);
   const [items2, setItems2] = useState(reportData?.instrument_id?.map((item,index)=>{
     return{
@@ -66,7 +67,7 @@ const Report = ({ reportData,session }) => {
   const [addeddata, setAddeddata] = useState([]);
 const [gradeDataC,setGradeDataC]=useState({})
 
-
+const[api_endpoint,setApiEndpoint]=useState(ApiEndPoint)
   
 
 
@@ -147,7 +148,7 @@ const DataReport={
         instrument_id:name,
         user_email:session.user.email,
        }
-    let resData= await axios.post(setInstrumentInfo,objData)
+    let resData= await axios.post(`${ApiEndPoint}instrument_info/`,objData)
   console.log(resData,"resData")
     }catch(error){
   console.log("error",error)
@@ -172,7 +173,7 @@ const DataReport={
         model_info:modalname,
         user_email:session.user.email
        }
-    let resData= await axios.post(setModalNumber,objData)
+    let resData= await axios.post(`${ApiEndPoint}set_model_info/`,objData)
   console.log(resData,"resData")
     }catch(error){
   console.log("error",error)
@@ -267,12 +268,14 @@ key:item,
     // Router.push("/ReportPdf")
   };
   const SelectedGrade=async(value)=>{
+    console.log(ApiEndPoint,"ApiEndPoint}")
     try{
       const objData={
         grade_name:value,
         user_email:session.user.email
        }
-    let resData= await axios.get(getGradeChemical,{params:objData})
+    let resData= await axios.get(`${ApiEndPoint
+    }chemical_based_on_grade/`,{params:objData})
 
     if(resData.status === 200){
     setGradeDataC(resData.data[0].chemical_name)
@@ -701,7 +704,7 @@ try{
      email: session.user.email,
    };
 
-   const res = await axios.get(getReportData, { params: data });
+   const res = await axios.get(`${ApiEndPoint}report_info_party_name/`, { params: data });
 console.log("post data", res.data);
  if(!session){
     return {

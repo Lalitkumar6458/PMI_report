@@ -4,10 +4,9 @@ import React, { useState,useEffect } from "react";
 import styles from "@/styles/Userprofile.module.css";
 import { Button, Input, message, Upload} from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import { UserInfoSave, getUserDataUrl } from "@/Api/Url";
 import axios from "axios";
 import { getSession, useSession, signOut } from "next-auth/react"
-
+import { ApiEndPoint } from "@/public/ApiEndPoint";
 
 
 const getBase64 = (img, callback) => {
@@ -84,7 +83,7 @@ console.log(getUserDataUrl, "getUserDataUrl");
 
     await axios
       .get(
-        getUserDataUrl,
+        `${ApiEndPoint}get_user_data/`,
         {
           params: {
             username: data.user.name,
@@ -193,7 +192,7 @@ console.log(getUserDataUrl, "getUserDataUrl");
     
 
     await axios
-      .post(UserInfoSave, form, {
+      .post(`${ApiEndPoint}set_user_info/`, form, {
         "Content-Type": "application/json",
         Connection: "Keep-Alive",
         Authorization: `Bearer test`,

@@ -2,8 +2,8 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials';
 // import axios from "axios";
-import { Google_login_User } from "@/Api/Url";
 import axios from "axios";
+import { ApiEndPoint } from "@/public/ApiEndPoint";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -42,7 +42,7 @@ callbacks: {
           }
           console.log("obj",obj)
           try{
-            await axios.post(Google_login_User,obj).then((res)=>{
+            await axios.post(`${ApiEndPoint}google_register_login/`,obj).then((res)=>{
               console.log(res.status,res.data,"response")
                       }).catch((e)=>{
               console.log("error",e)

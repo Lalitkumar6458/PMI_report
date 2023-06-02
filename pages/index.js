@@ -9,7 +9,7 @@ import Link from "next/link";
 import { getSession, useSession, signOut } from "next-auth/react";
 import axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
-import { Google_login_User } from "@/Api/Url";
+// import { Google_login_User } from "@/Api/Url";
 export default function Home() {
   const { data: session, status } = useSession();
   function handleSignOut() {

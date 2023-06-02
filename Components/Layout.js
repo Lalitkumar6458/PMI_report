@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import Mobile_Tabs from './Mobile_Tabs'
 import SideBar from './SideBar'
 import TopBar from './TopBar'
@@ -28,6 +28,10 @@ const Layout = ({children ,title}) => {
     setRouteLoad(false)
 
   })
+
+useEffect(()=>{
+localStorage.setItem("ApiEndPoint",process.env.API_ENDPOINT)
+},[])
 
   return (
     <>

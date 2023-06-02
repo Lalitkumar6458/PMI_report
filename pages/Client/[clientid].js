@@ -3,12 +3,12 @@ import React,{useState,useEffect} from 'react'
 import Router,{useRouter } from 'next/router'
 import { LeftOutlined } from '@ant-design/icons';
 import styles from "../../styles/ClientMobileTable.module.css"
-import { getClientDataUrl, UpdateClient } from '@/Api/Url';
+// import { getClientDataUrl, UpdateClient } from '@/Api/Url';
 import { Button, Input,message } from 'antd';
 import axios from "axios";
 import { getSession, useSession, signOut } from "next-auth/react"
 
-
+import { ApiEndPoint } from '@/public/ApiEndPoint';
 const ClientInfo = () => {
   const { data: session } = useSession()
 
@@ -58,7 +58,7 @@ user_info_id: clientUpdate.user_info_id,
 email: session.user.email,
 };
     await axios
-      .post(UpdateClient, obj)
+      .post(`${ApiEndPoint}update_client_info/`, obj)
       .then((response) => {
         console.log("success", response);
          messageAlert('success','Succesfully Updated Client')
