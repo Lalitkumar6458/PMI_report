@@ -243,7 +243,7 @@ const [partyname, setPartyName] = useState(getDataLocal?getDataLocal.partyname:"
   const [locationName, setLocationName] = useState(getDataLocal?getDataLocal.locationName:"Mumbai");
   const [reportNo, setReportNo] = useState(getDataLocal?getDataLocal.reportNo:'');
   const [poNo, setPoNo] = useState(getDataLocal?getDataLocal.poNo:'');
-  const [date, setDate] = useState(getDataLocal?getDataLocal.date:formattedDate);
+  const [date, setDate] = useState(getDataLocal?getDataLocal.date == ''?formattedDate:getDataLocal.date:formattedDate);
   const [specifiedGrade, setSpecifiedGrade] = useState([
     ...Specgrade
   ]);

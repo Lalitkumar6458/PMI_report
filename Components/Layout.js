@@ -6,7 +6,11 @@ import TopBar from './TopBar'
 import Router from 'next/router'
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
+import { useRouter } from "next/router";
+
 const Layout = ({children ,title}) => {
+  const router = useRouter()
+
   const[routeLoad,setRouteLoad]=useState(false)
   
   Router.events.on('routeChangeStart',(url)=>{
@@ -57,14 +61,14 @@ localStorage.setItem("ApiEndPoint",process.env.API_ENDPOINT)
         <div className='page_container'>
 
 
-           {routeLoad?
+          {routeLoad?
            <div className='loaderroute'>
-
            <Spin indicator={antIcon} /></div>:
            children}
         </div>
        </main>
-       <Mobile_Tabs/>
+       
+       <Mobile_Tabs  />
         </div>
        
     </div>

@@ -167,6 +167,14 @@ color: #000000;
     color: #fff;
     border-radius: 5px;
 }
+.FormChangeClass{
+    height: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(168, 16, 16);
+}
 @media  (max-width: 1070px) {
 
     .textname h4{

@@ -10,6 +10,7 @@ import Formate2 from './PdfFormates/Formate2';
 import Formate2EndPdf from './PdfFormates/Formate2EndPdf';
 import Formate3 from './PdfFormates/Formate3';
 import Formate3EndPdf from './PdfFormates/Formate3EndPdf';
+import TopLatterPad from '../Settings/latterPad/TopLatterPad';
 // Create styles
 const styles = StyleSheet.create({
   page: {
@@ -173,7 +174,7 @@ console.log("ReportData",ReportData,"getData")
     <Page size="A4" style={styles.page}>
       <View style={styles.section_main}>
 <View style={styles.blank_space}>
-
+<TopLatterPad/>
 </View>
 <View style={styles.testHeading}><Text>TEST REPORT</Text></View>
 <View style={styles.reportDetailbox}>

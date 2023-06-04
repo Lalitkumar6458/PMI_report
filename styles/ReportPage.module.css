@@ -462,6 +462,12 @@ outline: none;
     .TextArea{
     height: auto !important;
 }
+.FileName input{
+    width: 100%;
+}
+.FileName{
+    margin-top: 30px;
+}
 }
 
 .formate_box{

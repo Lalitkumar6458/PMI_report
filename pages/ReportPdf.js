@@ -14,7 +14,12 @@ import Layout from '@/Components/Layout';
 const ReportPdf = () => {
 const [imagename, setImagename] = useState(formate1);
  const [isModalOpen, setIsModalOpen] = useState(false);
- const[filename,setFileName]=useState()
+ var currentDate = new Date();
+ var formattedDate = currentDate.toISOString().slice(0, 10);
+ const reportSetData=JSON.parse(localStorage.getItem('CreatedData'))
+ console.log("formattedDate",formattedDate,reportSetData,'reportSetData')
+ const dateNew=reportSetData.date== ''?formattedDate.replaceAll("-","_"):reportSetData.date.replaceAll("-","_")
+ const[filename,setFileName]=useState(reportSetData.partyname.replaceAll(" ","_")+"_"+reportSetData.Gradename+"_"+dateNew )
 
  const handleOk = () => {
    setIsModalOpen(false);
@@ -24,7 +29,7 @@ const [imagename, setImagename] = useState(formate1);
  };
          var data=JSON.parse(localStorage.getItem("ReportAllDAta"))
 
-        var date=data.date.split("T")[0].replaceAll("-","_")
+        var date=data.date.split("T")[0].replaceAll("-","_")||formattedDate
         var gradeName=data.Gradename
         const[formateNo,setFormateNo]=useState(1)
   const styles = {
