@@ -91,7 +91,7 @@ StyleSheet.create({
 
 
 // Create Document Component
-const MyDocument = ({formateNo}) => {
+const MyDocument = ({formateNo,latterPad}) => {
   // const router=useRouter()
   // const{query}=router
   // var getData=JSON.parse(query.data)
@@ -174,7 +174,7 @@ console.log("ReportData",ReportData,"getData")
     <Page size="A4" style={styles.page}>
       <View style={styles.section_main}>
 <View style={styles.blank_space}>
-<TopLatterPad/>
+{latterPad?<TopLatterPad latterPadFormNo={2} />:null}
 </View>
 <View style={styles.testHeading}><Text>TEST REPORT</Text></View>
 <View style={styles.reportDetailbox}>

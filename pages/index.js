@@ -60,7 +60,7 @@ function Guest() {
 function User({ session, handleSignOut }) {
   return (
     <>
-      <Layout title="Dashboard">
+      <Layout title="Dashboard" paddingTop='60px'>
         <div className={styles.dashboard_con}>
           <div className={styles.DashBoxs}>
             <div className="row">

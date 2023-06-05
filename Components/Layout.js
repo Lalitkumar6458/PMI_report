@@ -8,7 +8,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { useRouter } from "next/router";
 
-const Layout = ({children ,title}) => {
+const Layout = ({children ,title,paddingTop}) => {
   const router = useRouter()
 
   const[routeLoad,setRouteLoad]=useState(false)
@@ -36,7 +36,7 @@ const Layout = ({children ,title}) => {
 useEffect(()=>{
 localStorage.setItem("ApiEndPoint",process.env.API_ENDPOINT)
 },[])
-
+var paddingtop=paddingTop?paddingTop:'60px'
   return (
     <>
       <Head >
@@ -58,7 +58,7 @@ localStorage.setItem("ApiEndPoint",process.env.API_ENDPOINT)
         <div className='top_bar'>
           <TopBar></TopBar>
         </div>
-        <div className='page_container'>
+        <div className='page_container' style={{paddingTop:paddingtop}}>
 
 
           {routeLoad?

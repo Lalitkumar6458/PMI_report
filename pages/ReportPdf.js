@@ -8,7 +8,7 @@ import formate1 from "../public/Images/ReportFormate/formate1.jpg"
 import formate2 from "../public/Images/ReportFormate/formate2.jpg";
 import formate3 from "../public/Images/ReportFormate/formate3.jpg";
 import Image from 'next/image';
-import { Button, Modal } from "antd";
+import { Button, Modal,Checkbox  } from "antd";
 import Layout from '@/Components/Layout';
 
 const ReportPdf = () => {
@@ -20,13 +20,16 @@ const [imagename, setImagename] = useState(formate1);
  console.log("formattedDate",formattedDate,reportSetData,'reportSetData')
  const dateNew=reportSetData.date== ''?formattedDate.replaceAll("-","_"):reportSetData.date.replaceAll("-","_")
  const[filename,setFileName]=useState(reportSetData.partyname.replaceAll(" ","_")+"_"+reportSetData.Gradename+"_"+dateNew )
-
+const[withLatter,setWithLatterPad]=useState(false)
  const handleOk = () => {
    setIsModalOpen(false);
  };
  const handleCancel = () => {
    setIsModalOpen(false);
  };
+ const onChangeHandler = (e) => {
+  setWithLatterPad(e.target.checked)
+};
          var data=JSON.parse(localStorage.getItem("ReportAllDAta"))
 
         var date=data.date.split("T")[0].replaceAll("-","_")||formattedDate
@@ -82,10 +85,19 @@ const [imagename, setImagename] = useState(formate1);
         <div style={styles.container}>
           <div className="DownloadButton">
             <div className={css.format_row}>
-              <div className={css.FileName}>
+              <div className={`${css.pdfInfo} row`}>
+                <div className='col-12 col-md-7'>
+                <div className={css.FileName}>
                 <label>File Name</label>
-                <input type='text' value={filename} onChange={(e)=>setFileName(e.target.value)} placeholder='Enter File Name...'/>
+                <input type='text' className='w-100' value={filename} onChange={(e)=>setFileName(e.target.value)} placeholder='Enter File Name...'/>
               </div>
+                </div>
+                <div className='col-12 col-md-5 d-flex align-items-center justify-content-center mb-3'>
+                <Checkbox checked={withLatter} onChange={onChangeHandler}>With LatterPad</Checkbox>;
+                </div>
+
+              </div>
+              
               <div className="row">
                 <div className="col-6 col-md-4">
                   <div
@@ -141,7 +153,7 @@ const [imagename, setImagename] = useState(formate1);
 
             <div className="mt-4 d-flex align-items-center g-5">
               <BlobProvider
-                document={<MyDocument formateNo={formateNo}  />}
+                document={<MyDocument formateNo={formateNo} latterPad={withLatter}  />}
                 style={styles.viewer}
                 filename="example.pdf"
               >
@@ -156,7 +168,7 @@ const [imagename, setImagename] = useState(formate1);
 
                     {/* <iframe src={url} title="Example PDF" filename="exmple.pdf" width="100%" height="500px"></iframe> */}
 
-                    <a href={url} download={filename} className="btnBox mx-3" target="_blank">
+                    <a href={url}  className="btnBox mx-3" target="_blank">
                       View PDF<EyeOutlined />{" "}
                     </a>
                     </>

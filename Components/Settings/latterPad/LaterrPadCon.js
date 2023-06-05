@@ -24,6 +24,9 @@ const getBase64 = (img, callback) => {
 const LaterrPadCon = ({formId}) => {
     var nameColor=formId==2?' rgb(168, 16, 16)':'#167FDD'
   var FirstLineColor=formId==2?' rgb(168, 16, 16)':'#187EC7'
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
+  const[fileObj,setFileObj]=useState()
 const intialvalues={
   FirstLinetext1:"श्री गणेशाय नमः",
   FirstLinetext2:"श्री सुभद्रा माताय नमः",
@@ -35,8 +38,7 @@ const intialvalues={
   email:"your_email_id@gmail.com",
   textContent:"Stailness Steel Duplex Steel, Nickel & Titanium, Brass Alloys, Carbon Steel, Alloy Steel Etc",
   address:"your Address, Mumbai - 400 004.",
-  logo:""
-
+ 
 }
   const[FormateData,setFormateData]=useState(intialvalues)
   const[inputValue,setInputvalue]=useState({name:"",
@@ -57,9 +59,10 @@ setInputvalue({
   text:value
 })
 }
-const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
+
   const handleChange = (info) => {
+    console.log("info file",info)
+    setFileObj(info)
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
@@ -69,6 +72,7 @@ const [loading, setLoading] = useState(false);
       getBase64(info.file.originFileObj, (url) => {
         setLoading(false);
         setImageUrl(url);
+        localStorage.setItem("base64Img",url)
       });
     }
   };
@@ -108,6 +112,15 @@ const [loading, setLoading] = useState(false);
    
     }
   };
+  const SaveLaterPadData=()=>{
+console.log(FormateData,"FormateData")
+
+
+console.log(imageUrl,"imageUrl")
+localStorage.setItem('LatterPadData',JSON.stringify(FormateData))
+localStorage.setItem('FormateNO',formId)
+
+  }
   return (
    <>
    <div className={css.LatterpadCon}>
@@ -124,7 +137,6 @@ const [loading, setLoading] = useState(false);
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
-        action=""
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
@@ -170,7 +182,7 @@ formId==2?null:
         <div className={css.SetInputField}>
 
           <input type='text' value={inputValue.text} name={inputValue.name} onChange={setTextChange}/>
-          <button >Save</button>
+          <button onClick={()=>SaveLaterPadData()}>Save</button>
         </div>
         <BlobProvider
                 document={<ReportlatterPad  />}

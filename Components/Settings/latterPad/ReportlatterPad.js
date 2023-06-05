@@ -79,7 +79,7 @@ const ReportlatterPad = () => {
     <Page size="A4" style={styles.page}>
       <View style={styles.section_main}>
 <View style={styles.blank_space}>
-<TopLatterPad/>
+<TopLatterPad latterPadFormNo={2}/>
 </View>
 <View style={styles.testHeading}><Text>TEST REPORT</Text></View>
 

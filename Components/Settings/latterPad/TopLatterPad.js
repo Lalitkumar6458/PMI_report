@@ -1,19 +1,28 @@
 import React from 'react'
 import { Text, View, StyleSheet,Image } from '@react-pdf/renderer';
 import img from '../../../public/Images/poojaimg.png'
-const styles = StyleSheet.create({
+
+const TopLatterPad = ({latterPadFormNo}) => {
+
+const formId=localStorage.getItem('FormateNO')
+  const LaterPadData=JSON.parse(localStorage.getItem('LatterPadData'))||{}
+  const Img=localStorage.getItem('base64Img')
+
+      const Color_firstText=formId==2?'rgb(168, 16, 16)':'#187EC7'
+      const Colorname=formId==2?'rgb(168, 16, 16)':'#167FDD'
+
+  const styles = StyleSheet.create({
     FormateCon:{
         width:'100%',
         height:'100%',
         padding:7,
-        fontSize:12,
     },
     latterPadFirst:{
-     fontSize:10,
+     fontSize:9,
      flexDirection:'row',
      justifyContent:'space-between',
      alignItems:'center',
-     color:'#187EC7'
+     color:Color_firstText
     },
     logoNameBox:{
       flexDirection:'row',
@@ -22,12 +31,12 @@ const styles = StyleSheet.create({
       marginTop:10,
     },
     nameText:{
- fontSize:24,
- color:'#167FDD',
+ fontSize:25,
+ color:Colorname,
  fontWeight:600
     },
     plainText:{
-      fontSize:18,
+      fontSize:19,
       marginTop:5,
  fontWeight:500
 
@@ -44,11 +53,12 @@ fontSize:10,
     },
     imageContainer: {
       width: 100,
-      height:100
+      height:75
     },
     image: {
       width: '100%',
       height: '100%',
+      objectFit:'fill'
     },
     textinfo:{
       marginBottom:4
@@ -59,7 +69,8 @@ fontSize:10,
    borderBottomStyle:'solid',
    width:'100%',
    textAlign:'center',
-   paddingBottom:4
+   paddingBottom:4,
+   marginTop:6
     },
     Address:{
       fontSize:12,
@@ -67,40 +78,55 @@ fontSize:10,
 
 
     }
-
+,
+NewForm:{
+  backgroundColor:'rgb(168, 16, 16)',
+  color:'#fff',
+  height:25,
+  display:'flex',
+  alignItems:'center',
+  justifyContent:'center'
+}
 
 })
-const TopLatterPad = () => {
+
   return (
     <>
     <View style={styles.FormateCon} >
         <View style={styles.latterPadFirst}>
-         <Text>|| shree ganeshaay namah ||</Text>
-         <Text>|| shree subhadra maata namah ||</Text>
-         <Text>|| shree bhairavanaath namah ||</Text>
+         <Text>|| {LaterPadData.FirstLinetext1} ||</Text>
+         <Text>|| {LaterPadData.FirstLinetext2} ||</Text>
+         <Text>|| {LaterPadData.FirstLinetext3} ||</Text>
         </View>
         <View style={styles.logoNameBox}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image}   src="https://www.shutterstock.com/image-vector/jewellery-dummy-vector-logo-template-600w-2165228765.jpg"
+          <Image style={styles.image}   src={Img}
  />
         </View>
           <View style={styles.nameBox} >
-<Text style={styles.nameText}>Agency Name</Text>
-<Text style={styles.plainText}>PMI TESTING SERVICES</Text>
+<Text style={styles.nameText}>{LaterPadData.Agencyname}</Text>
+<Text style={styles.plainText}>{LaterPadData.textP}</Text>
 
 </View>
 <View style={styles.InfoBox} >
-<Text style={styles.textinfo}>Office: 022-67496465</Text>
-<Text style={styles.textinfo}>Mob: 9633219478/9367154189</Text>
-<Text style={styles.textinfo}>Email:your_email_id@gmail.com</Text>
+<Text style={styles.textinfo}>Office: {LaterPadData.officeNo}</Text>
+<Text style={styles.textinfo}>Mob: {LaterPadData.mobileNo}</Text>
+<Text style={styles.textinfo}>Email:{LaterPadData.email}</Text>
 </View>
         </View>
-        <View style={styles.textContent}>
-          <Text>Stailness Steel Duplex Steel, Nickel & Titanium, Brass Alloys, Carbon Steel, Alloy Steel Etc</Text>
-        </View>
+        {
+          formId!=2?<View style={styles.textContent}>
+          <Text>{LaterPadData.textContent}</Text>
+        </View>:null}
+        {formId==2?<View style={[styles.Address,styles.NewForm]}>
+          <Text>{LaterPadData.address}</Text>
+        </View>:
         <View style={styles.Address}>
-          <Text>your Address, Mumbai - 400 004.</Text>
+          <Text>{LaterPadData.address}</Text>
         </View>
+        }
+        
+        
     </View>
     </>
   )
