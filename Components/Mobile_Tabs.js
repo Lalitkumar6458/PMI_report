@@ -60,6 +60,7 @@ const Mobile_Tabs = () => {
        
       ];
   return (
+    
     <div className='mobile_tabs'
     >
         <ul>

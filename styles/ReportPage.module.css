@@ -434,6 +434,9 @@ outline: none;
     font-size: 1.7rem;
 }
 @media  (max-width: 767px) {
+    .pdfInfo{
+        margin-top: 76px;
+    }
     .saveButton{
         display: flex;
     }
@@ -461,6 +464,12 @@ outline: none;
     }
     .TextArea{
     height: auto !important;
+}
+.FileName input{
+    width: 100%;
+}
+.FileName{
+    margin-top: 30px;
 }
 }
 

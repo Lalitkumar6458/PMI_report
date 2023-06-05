@@ -47,7 +47,6 @@ body{
   height: 45px;
 }
 .page_container{
-  margin-top: 45px;
   overflow-y: auto;
   height: 100%;
 }
@@ -82,6 +81,10 @@ body{
 }
 .ant-modal-footer{
   display: none;
+}
+.ant-upload{
+  width: 100px !important;
+  height: 70px !important;
 }
 .Borbox_con{
   width: 100%;
@@ -379,8 +382,10 @@ font-size: 23px;
 .page_container {
   height: 88vh;
 overflow: auto;
-margin-top: 56px;
-padding-bottom: 70px;
+    padding-top: 78px;
+    margin-bottom: 50px
+px
+;
 }
 .container_main .right_side_section{
   overflow: auto;

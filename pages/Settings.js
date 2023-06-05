@@ -7,6 +7,8 @@ import { useState } from "react";
 import { getSession, useSession, signOut } from "next-auth/react"
 import ReportFormate from '@/Components/Settings/ReportFormate';
 import LatterPad from '@/Components/Settings/latterPad/LatterPad';
+import axios from 'axios';
+
 const Settings = ({session}) => {
   const[activetab,setActivetab]=useState("User Profile")
   console.log(session,"settings session")
@@ -41,12 +43,14 @@ const Settings = ({session}) => {
     const tabChangeHandler=(key)=>{
       setActivetab(tabsItem[key-1]['label'])
     }
+   
     
   return (
     <>
       <Layout title="Settings">
         <div className={css.Settings_page}>
             <h3>{activetab}</h3>
+
           <div className={css.Settings_Tabs}>
             <Tabs tabPosition={"top"} items={tabsItem} onChange={tabChangeHandler} />
           </div>

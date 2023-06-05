@@ -128,8 +128,18 @@ headingName!="DashBoard"?<ArrowLeftOutlined title='GoBack' onClick={goBack} clas
       </div>
       <div className={styles.mobile_topbar}>
         <div className={styles.mobile_top_bar}>
-          <Image src={logo} alt="logo" />
+
+       {
+        headingName!="DashBoard"?<h2>
+
+        <ArrowLeftOutlined style={{color:'#fff',fontSize:"3rem"}} title='GoBack' onClick={goBack} className={styles.gobackbtn} />
+           
+           </h2>:<>
+           <Image src={logo} alt="logo" />
           <h3>Pmi Report</h3>
+           </>
+       } 
+          
         </div>
         <div className={styles.right_btn_con}>
           <span>
