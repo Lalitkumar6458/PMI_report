@@ -14,7 +14,6 @@ const Profile = () => {
         phone:"+91 98775635834",
         company:"SAL Info Tech"
     })
-console.log(session,"session")
 
     const[EditData,setEditData]=useState([
         {
@@ -72,12 +71,10 @@ console.log(session,"session")
         
           
         })
-        console.log("userData",EditData)
 setEditData(newData)
     }
     
     const EditInputHandler=(name)=>{
-console.log("name",name)
 changeValueObj(name,false)
     }
 
@@ -87,7 +84,6 @@ changeValueObj(name,false)
 
     }
     const UpdateHandler=(name)=>{
-console.log("Update Value",UpdateValue)
 changeValueObj(name,true)
     }
     const OnchageInput=(e)=>{

@@ -6,7 +6,6 @@ import LaterrPadCon from '@/Components/Settings/latterPad/LaterrPadCon'
 
 const Latterpad = () => {
   const router  =useRouter()
-  console.log("router",router.query.formId)
 
   return (
     <Layout title="Latterpad">

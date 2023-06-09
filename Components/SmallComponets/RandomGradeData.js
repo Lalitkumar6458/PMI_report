@@ -1,18 +1,7 @@
 import React from 'react'
 
 const RandomGradeData = ({data}) => {
-    // const data=props.data
-    console.log(data,'objData')
-    // const data = {
-    //     Ni: '8-11',
-    //     Cr: '2max',
-    //     Mn: '25',
-    //     Co: '34Max',
-    //     Fe: 'Bal',
-    //     Mi: 'BAL',
-    //     Hn: '<24',
-    //     Bn:"78MAX"
-    // };
+ 
     
     function getRandomValueInRange(range) {
         if (range.includes('max') || range.includes('Max')|| range.includes('MAX')) {
@@ -49,13 +38,6 @@ const RandomGradeData = ({data}) => {
         return result;
     }
     
-    
-    
-    
-    
-    
-    
-    console.log("gradeDataC random",data)
     const randomData = generateRandomData(data);
     return randomData
 }

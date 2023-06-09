@@ -51,7 +51,6 @@ const SizeTable = () => {
 
       ];
       var dataKeys=Object.keys(data[0])
-      console.log("dataKeys",dataKeys)
   return (
    <View style={css.TableSizeCon}>
      <View style={css.table}>

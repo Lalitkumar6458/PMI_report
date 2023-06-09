@@ -9,7 +9,6 @@ function UserAvatar({ name, imageSrc, size }) {
     );
   } else {
     const initials = name?.split(' ').map(name => name.charAt(0)).join('');
-    console.log(initials,"initials")
     return (
       <Avatar size={size} icon={<UserOutlined />} style={{ backgroundColor: '#87d068' }}>
         {initials}

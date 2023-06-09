@@ -45,7 +45,6 @@ setProdDetails({
 
   
 )
-console.log(prodDetails,"prodDetails")
 
 }
 const changeChemical=(e)=>{

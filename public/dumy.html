@@ -1,0 +1,540 @@
+<html>
+  <body>
+    <style>
+      .mainDiv{
+        width: 100%;
+        height: 100%;
+        border: 1px solid #000;
+      }
+      .Topheader{
+        height: 140px;
+        width: 100%;
+        border-bottom: 1px solid #000;
+      }
+      .topHeading{
+        border-bottom: 1px solid #000;
+        display: flex;
+        align-items: center;
+font-size: 12px;
+        justify-content: center;
+        padding: 2px;
+      }
+      .topHeading h4{
+font-size: 12px;
+text-align: center;
+      }
+      .MainInfo{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        border-bottom: 1px solid #000;
+        width: 100%;
+        flex-direction: row;
+      }
+      .Col_3{
+
+             display: flex;
+      flex-direction: column;
+width: 35%;
+      gap: 5px;
+padding: 3px;
+      }
+      .Col_6{
+width: 50%;
+      display: flex;
+      flex-direction: column;
+      }
+      .Col_7{
+        width: 60%;
+      display: flex;
+      flex-direction: column;
+      }
+      .borderRigth{
+        border-right: 1px solid #000;
+      }
+      .heigh_box{
+        height: 80px;
+      }
+      .heigh_box_2{
+        height: 60px;
+      }
+      .borderTop{
+        border-top: 1px solid #000;
+      }
+      .textfont{
+        font-size: 12px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-left: 5px;
+      }
+      .LastCol{
+        width: 20%;
+      }
+      .topHeading_2{
+        border-bottom: 1px solid #000;
+        font-size: 12px;
+        text-align: center;
+        height: 30%;
+              display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pd_0{
+        padding: 0px;
+      }
+      .GradeBox,.remark{
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+      }
+       .alloyContent{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+          height: 70%;
+       }
+      .alloyContent table{
+        width: 100%;
+ border: 1px solid #000;
+border-right: none;
+      }
+
+        .alloyContent td{
+        border-bottom: none;
+      }
+      .alloyContent td,th{
+        font-size: 10px;
+        text-align: center;
+      }
+    
+      .alloyContent td:first-child,   .alloyContent th:first-child{
+      border-left: none;
+
+      }
+         .alloyContent td:last-child, .alloyContent th:last-child{
+      border-right: none;
+         }
+         .Sizetable{
+ display: flex;
+ flex-direction: column;
+ border-bottom: 1px solid #000;
+         }
+         .Sizetable .headertable{
+          display: flex;
+          flex-direction: row;
+          font-size: 10px;
+ border-bottom: 1px solid #000;
+font-weight: bold;
+         }
+         .headertable div,.Sizetable .TableRow div {
+          border-right: 1px solid #000;
+          display: flex;
+        align-items: center;
+        justify-content: center;
+
+         }
+         .headertable div:last-child,.Sizetable .TableRow div:last-child {
+          border-right: none;
+         }
+         .Sizetable .TableRow{
+          display: flex;
+          flex-direction: row;
+          font-size: 9px;
+          border-bottom: 1px solid #000;
+         }
+         .Sizetable .TableRow:last-child{
+          border-bottom:none;
+         }
+           .srNo{
+            width: 5%;
+
+           }
+           .qty_size{
+            width: 5%;
+           }
+           .SizeCol{
+            width: 30%;
+            padding: 2px;
+           }
+           .chemic_c{
+            width: 5%;
+           }
+           .heatNo,.remark_col{
+            width: 10%;
+           }
+           .EndPoinPDF{
+            border-top: 1px solid #000;
+            width: 100%;
+            height: 100px;
+            position: absolute;
+            bottom: 0px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+           }
+           .leftDiv{
+            width: 70%;
+            height: 100%;
+            border-right: 1px solid #000;
+           }
+           .rightDiv{
+            width: 30%;
+            height: 100%;
+            font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+           }
+           .TopDiv{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+           }
+           
+           .InstrmentId,.modalNo{
+            width: 50%;
+            height: 50px;
+            border-bottom: 1px solid #000;
+            font-size: 13px;
+
+           }
+           .BottomDiv{
+            font-size: 12px;
+            padding: 5px;
+           }
+         
+.testReport_text{
+  border-bottom: 1px solid #000;
+  display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+}
+.borderBottom{
+        border-bottom: 1px solid #000;
+      }
+      .heigth_25{
+        height: 25%;
+      }
+      .marTop{
+        margin-top: 5px;
+      }
+      .Col_3End{
+        width: 33%;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 5px;
+      }
+      .nedtext{
+        font-size: 10px;
+      }
+      .fontSize{
+        font-size: 10px;
+
+      }
+
+      .topHeading3{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        border-bottom: 1px solid #000;
+      }
+      .headingBox{
+        width: 80%;
+      }
+      .header_text{
+        font-size: 10px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 2px;
+      }
+      .PageNo{
+        width: 20%;
+        display: flex;
+        font-size: 11px;
+
+        align-items: center;
+        justify-content: center;
+      }
+      .rowBox{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 20%;
+      }
+      .textInfo{
+        width: 50%;
+        padding-left: 5px;
+        display: flex;
+        font-size: 10px;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .InstrId{
+        height: 33%;
+        font-size: 10px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-left: 5px;
+      }
+      .withness_box{
+        width: 100%;
+        font-size: 10px;
+        height: 50%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 2px;
+        padding-left: 5px;
+        
+
+      }
+      .textFirst{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        padding: 3px;
+      }
+      .textLater{
+        font-size: 10px;
+        color: #8F212A;;
+      }
+      .nameLogo{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-top: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      .Contact_info .Contact_text{
+        font-size: 11px;
+        padding: 0px;
+      }
+      .nametext{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .AgencyName {
+font-size: 30px;
+color: #8F212A;
+font-weight: bold;
+      }
+      .Nametext{
+        font-size: 23px;
+        margin-top: 5px;
+      }
+      .pd_b{
+        padding-bottom: 3px;
+      }
+      .pmitext{
+        font-size: 14px;
+        text-align: center;
+        margin-top: 7px;
+        border-bottom: 1px solid #8F212A;;
+        padding: 2px 5px;
+margin-left: 5px;
+margin-right: 5px;
+      }
+      .addresstext{
+        font-size: 13px;
+        text-align: center;
+margin-top: 5px;
+background-color: #8F212A;
+color: #fff;
+height: 25px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 10px;
+      }
+      .logoImg{
+        width: 80px;
+        height: 60px;
+        object-fit: fill;
+      }
+    </style>
+   <div class="mainDiv">
+   <div class="Topheader">
+    <div class="textFirst">
+    <div class="textLater">|| Shree Ganeshye namah ||</div>
+    <div class="textLater">|| Shree Ganeshye namah ||</div>
+    <div class="textLater">|| Shree Ganeshye namah ||</div>
+    </div>
+    <div class="nameLogo">
+      <div class="Logobox">
+        <img class="logoImg" src="data:image/png;base64,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" alt="logo"/>
+      </div>
+      <div class="nametext">
+<div class="AgencyName">
+  Agency Name
+</div>
+<div class="Nametext">
+  PMI TESTING SERVICES
+</div>
+      </div>
+      <div class="Contact_info">
+<div class="Contact_text pd_b">Office: 022-67496465</div>
+<div class="Contact_text pd_b">Mob: 9633219478/9367154189</div>
+
+<div class="Contact_text">Email:your_email_id@gmail.com</div>
+
+      </div>
+    </div>
+    <div class="addresstext">
+      your Address, Mumbai - 400 004.
+    </div>
+   </div>
+   <div class="testReport_text">
+    TEST REPORT
+   </div>
+<div class="topHeading3">
+  <div class="headingBox borderRigth">
+    <div class="header_text borderBottom">
+      POSITIVE MATERIAL IDENTIFICTION REPORT
+    </div>
+    <div class="header_text">
+      BULK MATERIAL(AT VENDOR WORK)
+    </div>
+  </div>
+  <div class="PageNo">
+    PAGE 1 Of 1
+  </div>
+
+</div>
+   <div class="MainInfo">
+    <div class="Col_6 heigh_box borderRigth">
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">PMI REPORT NO:</div>
+        <div class="textInfo">-MPT-00749997.</div>
+      </div>
+
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">Date:</div>
+        <div class="textInfo">-MPT-00749997.</div>
+      </div>
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">P.O NO:</div>
+        <div class="textInfo"></div>
+      </div>
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">PO Date:</div>
+        <div class="textInfo"></div>
+      </div>
+      <div class="rowBox">
+        <div class= "textInfo borderRigth">Lot NO.:</div>
+        <div class="textInfo"></div>
+      </div>
+    </div>
+    <div class="Col_6 heigh_box ">
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">Client:</div>
+        <div class="textInfo"></div>
+      </div>
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">Vendor:</div>
+        <div class="textInfo"></div>
+      </div>
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">Bluk Item Types(As Per reqstn):</div>
+        <div class="textInfo"></div>
+      </div>
+      <div class="rowBox borderBottom">
+        <div class= "textInfo borderRigth">SPECIFIED GRADE:</div>
+        <div class="textInfo"></div>
+      </div>
+
+      <div class="rowBox ">
+        <div class= "textInfo borderRigth">PMI Location:</div>
+        <div class="textInfo"></div>
+      </div>
+
+
+    </div>
+      
+    </div>
+    <div class="Sizetable">
+          <div class="headertable">
+            <div  class="srNo ">Sr No.</div>
+            <div  class="qty_size">QTY</div>
+            <div  class="SizeCol">Size(Descriptions)</div>
+            <div class="chemic_c">MN (%)</div>
+            <div class="chemic_c">NI</div>
+            <div class="chemic_c">CR</div>
+            <div class="chemic_c">Co</div>
+            <div class="chemic_c">PB</div>
+            <div class="chemic_c">NB</div>
+            <div class="chemic_c">MO</div>
+            <div class="chemic_c">kf</div>
+            <div class="chemic_c">rt</div>
+
+
+            <div class="chemic_c">FE</div>
+            <div class="heatNo">Heat NO</div>
+            <div class="remark_col">Reamrk</div>
+          </div>
+      
+          <div class="TableRow">
+            <div class="srNo">1</div>
+            <div  class="qty_size">34Pc</div>
+            <div class="SizeCol">5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW</div>
+            <div class="chemic_c">Mn</div>
+            <div class="chemic_c">NI</div>
+            <div class="chemic_c">CR</div>
+            <div class="chemic_c">Co</div>
+            <div class="chemic_c">PB</div>
+            <div class="chemic_c">NB</div>
+            <div class="chemic_c">MO</div>
+            <div class="chemic_c">FE</div>
+          <div class="chemic_c">45</div>
+          <div class="chemic_c">45</div>
+
+
+          <div class="heatNo">UMA/1321</div>
+          <div class="remark_col">ok</div>
+        </div>
+   </div>
+   <div class="EndPoinPDF">
+    <div class="leftDiv">
+    <div class="TopDiv">
+    <div class="InstrmentId borderRigth">
+    <div class="InstrId borderBottom" >Instrument Type/Id: gu7</div>
+    <div  class="InstrId borderBottom" >Models No.: 79</div>
+    <div  class="InstrId">SR No.:</div>
+    </div>
+    <div class="modalNo">
+      <div class="withness_box borderBottom" >WITNESSED BY:</div>
+      <div class="withness_box"  >INSPECTION AGENCY:</div>
+    </div>
+    </div>
+    <div class="BottomDiv">
+      Notes: 1. The above report The above report relates only to the sample
+    analyzed.
+    <br>
+    2. No part of the report may be alerted, adjusted without the knowledge of
+    PMI Analytical Services.
+    </div>
+    </div>
+    <div class="rightDiv">
+      <div class="Stamptext">
+        Operator Signature & Stamp
+      </div>
+    </div>
+       </div>
+   </div>
+  </body>
+</html>

@@ -39,7 +39,7 @@ const LatterPad = () => {
                   return(
                     <div className='col-12 col-md-4' key={item.id}>
                     <div className={css.formateCon}>
-                    <Image src={item.img} width={500} height={400}/>
+                    <Image src={item.img} width={500} height={400} alt='formate Img'/>
                     
                     <div className={css.btnBox}>
                       <Link href={{ pathname: '/Settings/Latterpad', query: { formId: item.id } }}>

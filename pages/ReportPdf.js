@@ -17,7 +17,6 @@ const [imagename, setImagename] = useState(formate1);
  var currentDate = new Date();
  var formattedDate = currentDate.toISOString().slice(0, 10);
  const reportSetData=JSON.parse(localStorage.getItem('CreatedData'))
- console.log("formattedDate",formattedDate,reportSetData,'reportSetData')
  const dateNew=reportSetData.date== ''?formattedDate.replaceAll("-","_"):reportSetData.date.replaceAll("-","_")
  const[filename,setFileName]=useState(reportSetData.partyname.replaceAll(" ","_")+"_"+reportSetData.Gradename+"_"+dateNew )
 const[withLatter,setWithLatterPad]=useState(false)
@@ -29,6 +28,7 @@ const[withLatter,setWithLatterPad]=useState(false)
  };
  const onChangeHandler = (e) => {
   setWithLatterPad(e.target.checked)
+  localStorage.setItem('WithLatterPad',e.target.checked)
 };
          var data=JSON.parse(localStorage.getItem("ReportAllDAta"))
 
@@ -166,7 +166,7 @@ const[withLatter,setWithLatterPad]=useState(false)
 
                     <>
 
-                    {/* <iframe src={url} title="Example PDF" filename="exmple.pdf" width="100%" height="500px"></iframe> */}
+              
 
                     <a href={url}  className="btnBox mx-3" target="_blank">
                       View PDF<EyeOutlined />{" "}

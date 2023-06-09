@@ -1,42 +1,17 @@
-import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import Layout from "@/Components/Layout";
 import { FileAddOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-import { useEffect, useState } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import { getSession, useSession, signOut } from "next-auth/react";
-import axios from "axios";
-const inter = Inter({ subsets: ["latin"] });
-// import { Google_login_User } from "@/Api/Url";
+
+
 export default function Home() {
   const { data: session, status } = useSession();
   function handleSignOut() {
     signOut();
   }
-  console.log(useSession().status, "session");
-  //   useEffect(()=>{
-  //     async function sendLoginStatus(){
-
-  //       if(status === "authenticated"){
-  //         const obj ={
-  //           username:session.user.name,
-  //           email:session.user.email,
-  //           img:session.user.image
-  //         }
-  //         console.log("obj",obj)
-  //         await axios.post(Google_login_User,obj).then((res)=>{
-  // console.log(res,"response")
-  //         }).catch((e)=>{
-  // console.log("error",e)
-  //         })
-  //   }else{
-
-  //   }
-  //     }
-  //     sendLoginStatus()
-  //   },[])
+  
 
   return <>{session ? User({ session, handleSignOut }) : Guest()}</>;
 }
@@ -58,6 +33,58 @@ function Guest() {
 }
 
 function User({ session, handleSignOut }) {
+//   let PizZipUtils = null;
+// if (typeof window !== "undefined") {
+//     import("pizzip/utils/index.js").then(function (r) {
+//         PizZipUtils = r;
+//     });
+// }
+
+// function loadFile(url, callback) {
+//     PizZipUtils.getBinaryContent(url, callback);
+// }
+
+// const generateDocument = () => {
+   
+//       axios
+//     .get(template, {
+//       responseType: "arraybuffer",
+//     })
+//     .then((response) => {
+//       const content = response.data;
+//       const zip = new PizZip(content);
+//       const doc = new Docxtemplater().loadZip(zip);
+//       // render the document (replace all occurrences of {first_name} by John, {last_name} by Doe, ...)
+      
+//       const data = {
+//         items: [
+//           { name1: 'Item 1',price:123 },
+//           { name1: 'Item 2',price:145 },
+//           { name1: 'Item 3',price:125 },
+//         ],
+//         name:"lalit kumar",
+    
+//       };
+  
+//       // Set the data for the template
+//       doc.setData(data);
+  
+//       // Perform the rendering
+//       doc.render();
+//       const blob = doc.getZip().generate({
+//         type: "blob",
+//         mimeType:
+//           "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+//       });
+//       // Output the document using Data-URI
+//       saveAs(blob, "output.docx");
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// };
+
+
   return (
     <>
       <Layout title="Dashboard" paddingTop='60px'>
@@ -170,7 +197,9 @@ function User({ session, handleSignOut }) {
               </div>
             </div>
           </div>
-
+{/* <div className="">
+<button onClick={generateDocument}>Generate Document</button>
+</div> */}
           <div className={styles.reportButon}>
             <button
             

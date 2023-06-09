@@ -28,9 +28,9 @@ const LaterrPadCon = ({formId}) => {
   const [imageUrl, setImageUrl] = useState();
   const[fileObj,setFileObj]=useState()
 const intialvalues={
-  FirstLinetext1:"श्री गणेशाय नमः",
-  FirstLinetext2:"श्री सुभद्रा माताय नमः",
-  FirstLinetext3:"श्री भैरवनाथ नमः",
+  FirstLinetext1:"Shree Ganeshaye namah",
+  FirstLinetext2:"Shree Shubhudra Mata namah",
+  FirstLinetext3:"Shree BheravNath namah",
   Agencyname:"Agency Name",
   textP:"PMI TESTING SERVICES",
   mobileNo:"9633219478/9367154189",
@@ -61,20 +61,13 @@ setInputvalue({
 }
 
   const handleChange = (info) => {
-    console.log("info file",info)
     setFileObj(info)
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (url) => {
+        getBase64(info.file.originFileObj, (url) => {
         setLoading(false);
         setImageUrl(url);
         localStorage.setItem("base64Img",url)
       });
-    }
+
   };
   const uploadButton = (
     <div>
@@ -113,10 +106,8 @@ setInputvalue({
     }
   };
   const SaveLaterPadData=()=>{
-console.log(FormateData,"FormateData")
 
 
-console.log(imageUrl,"imageUrl")
 localStorage.setItem('LatterPadData',JSON.stringify(FormateData))
 localStorage.setItem('FormateNO',formId)
 

@@ -5,7 +5,6 @@ import {FaUserCircle} from "react-icons/fa";
 import Link from 'next/link';
 import Router from 'next/router';
 const EditTable = (props) => {
-       console.log("data category",props.data)
  
 
   const CLientInfoHandler=(data)=>{

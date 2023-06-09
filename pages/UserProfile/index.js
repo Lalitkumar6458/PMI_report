@@ -10,7 +10,6 @@ import { ApiEndPoint } from "@/public/ApiEndPoint";
 
 
 const getBase64 = (img, callback) => {
-  console.log("image",img)
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
@@ -78,7 +77,6 @@ const index = () => {
   const getUserData = async()=>{
     messageAlert('loading','Geting Your profile Data...')
 
-console.log(getUserDataUrl, "getUserDataUrl");
 
 
     await axios
@@ -99,7 +97,6 @@ console.log(getUserDataUrl, "getUserDataUrl");
       )
       .then((response) => {
         let userData = response.data.data[0];
-        console.log(response, "profile");
         messageAlert("success", "Succesfully Get profile data");
 
         setImageUrl(userData.user_img);
@@ -112,7 +109,6 @@ console.log(getUserDataUrl, "getUserDataUrl");
           address: userData.address,
         });
 
-        console.log("response data c", response.data.data);
       })
       .catch((error) => {
         // dispatch({
@@ -133,7 +129,6 @@ console.log(getUserDataUrl, "getUserDataUrl");
     getBase64(info.file.originFileObj, (url) => {
       setLoading(false);
       setImageUrl(url);
-      console.log("url", url)
      
     });
     setUserDetails({
@@ -154,7 +149,6 @@ console.log(getUserDataUrl, "getUserDataUrl");
   };
   const handleChangelogo = (info) => {
 
-    console.log(info, "info", info.file.originFileObj)
     setUserDetails({
       ...userDetails,
       logoImg: info.file.originFileObj
@@ -162,25 +156,13 @@ console.log(getUserDataUrl, "getUserDataUrl");
        getBase64(info.file.originFileObj, (url) => {
         setLoading(false);
          setImagelogo(url);
-        console.log("url",url)
       });
-    // if (info.file.status === "uploading") {
-    //   setLoading(true);
-    //   return;
-    // }
-    // if (info.file.status === "done") {
-    //   // Get this url from response in real world.
-    //   getBase64(info.file.originFileObj, (url) => {
-    //     setLoading(false);
-    //     setImageUrl(url);
-    //   });
-    // }
+   
   };
   const userDetailsSave=async()=>{
     messageAlert('loading','Saving profile Details...')
 
     const form =new FormData()
-    console.log("userDetails", userDetails)
     form.append("name", userDetails.name)
     form.append("user_email", userDetails.email)
     form.append("phone_no",userDetails.phone)
@@ -198,7 +180,6 @@ console.log(getUserDataUrl, "getUserDataUrl");
         Authorization: `Bearer test`,
       })
       .then((response) => {
-        console.log("response data c", response);
         messageAlert('success','Succesfully Saved profile Details')
 
       })

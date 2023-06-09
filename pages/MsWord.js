@@ -1,92 +1,520 @@
 import React from 'react'
-import * as fs from "fs";
-import { Document, Packer, Paragraph, TextRun,FrameAnchorType,HorizontalPositionAlign,VerticalPositionAlign} from "docx";
-import { saveAs } from 'file-saver';
-const MsWord = () => {
+import { BlobProvider, Document, Page } from '@react-pdf/renderer'
+import Html from 'react-pdf-html';
+import pdfHtml from '@/Components/ReportPdf/pdfHtml';
+import htmlfile from "../public/dumy.html"
+import HtmlFormate2 from '@/Components/ReportPdf/PdfFormates/HtmlFormate2';
+import HtmlFormate3 from '@/Components/ReportPdf/PdfFormates/HtmlFormate3';
+// Invoke the function to read the HTML file
+const Data=[
+  {
+    srno:1,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
 
-// Documents contain sections, you can have multiple sections per document, go here to learn more about sections
-// This simple example will only contain one section
-const SaveWord=()=>{
-    const doc = new Document({
-        sections: [
-            {
-                properties: {},
-                children: [
-                    new Paragraph({
-                        frame: {
-                            position: {
-                                x: 1000,
-                                y: 3000,
-                            },
-                            width: 4000,
-                            height: 1000,
-                            anchor: {
-                                horizontal: FrameAnchorType.MARGIN,
-                                vertical: FrameAnchorType.MARGIN,
-                            },
-                            alignment: {
-                                x: HorizontalPositionAlign.CENTER,
-                                y: VerticalPositionAlign.TOP,
-                            },
-                        },
-                        border: {
-                            top: {
-                                color: "auto",
-                                space: 1,
-                                value: "single",
-                                size: 6,
-                            },
-                            bottom: {
-                                color: "auto",
-                                space: 1,
-                                value: "single",
-                                size: 6,
-                            },
-                            left: {
-                                color: "auto",
-                                space: 1,
-                                value: "single",
-                                size: 6,
-                            },
-                            right: {
-                                color: "auto",
-                                space: 1,
-                                value: "single",
-                                size: 6,
-                            },
-                        },
-                        children: [
-                            new TextRun("Hello World"),
-                            new TextRun({
-                                text: "Foo Bar",
-                                bold: true,
-                            }),
-                            new TextRun({
-                                text: "\tGithub is the best",
-                                bold: true,
-                            }),
-                        ],
-                    })
-                ],
-            },
-        ],
-    });
-    
-    // Used to export the file into a .docx file
-    // Packer.toBuffer(doc).then((buffer) => {
-    //     fs.writeFileSync("My Document.docx", buffer);
-    // });
-    Packer.toBlob(doc).then((blob) => {
-        // saveAs from FileSaver will download the file
-        saveAs(blob,"My Document.docx");
-    });
+  },
+  {
+    srno:2,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:3,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:4,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:5,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:6,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:7,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:8,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:9,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:10,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:11,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:12,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:13,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:14,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:15,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:16,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:17,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:18,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:19,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:20,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:21,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:22,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:23,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:24,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:25,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  },
+  {
+    srno:26,
+    qty:'23pc',
+    size:'5 DEGREE LONG RADIUS 10" X THIK 12.7 ASME B 16.9 BW',
+    chemical:{
+      Mn:'0.23',
+      Ni:'43',
+      Cr:'36',
+      Co:'0.4',
+      Pb:'0.45',
+      Nb:'32',
+      Mo:'41',
+      Fe:'BAL',
+    },
+    heatno:'45xst',
+    remark:'Ok'
+
+  }
+]
+
+
+
+const MsWord = () => {
+  const ReportDataTable=JSON.parse(localStorage.getItem("reportAddedData"))
+  const CreatedData=JSON.parse(localStorage.getItem("CreatedData"))
+
+  const htmlStr=HtmlFormate2({'ReportData':ReportDataTable,'CreatedData':CreatedData})
+  const MyDoc = () => {
+
+    const htlString=htmlfile
+
+    return (
+    <Document>
+     {
+      htmlStr.map((item)=>{
+return  <Page size="A4">
+<Html>{htlString}</Html>
+</Page>
+      })
+     }
+     
+    </Document>
+  )
 }
 
-
-// Done! A file called 'My Document.docx' will be in your file system.
   return (
     <div>MsWord
-        <button onClick={()=>SaveWord()}>Save MS word</button>
+       
+    <div>
+    <BlobProvider document={<MyDoc pageData={Data} />} fileName="somename.pdf">
+      {({ blob, url, loading, error }) => (loading ? 'Loading document...' :
+      
+      <a href={url}   target="_blank">
+      View PDF
+    </a>)}
+    </BlobProvider>
+ 
+  </div>
     </div>
   )
 }
