@@ -7,7 +7,6 @@ function checkStrEmpty(str) {
      
     function CustomTablePDF(props) {
     const { fields = [], data = [] } = props;
-    console.log("props",props)
     let tableCol = {
         borderStyle: BORDER_STYLE,
         borderColor: BORDER_COLOR,

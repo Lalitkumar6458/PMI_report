@@ -24,7 +24,6 @@ const[clientData,setClientData]=useState(JSON.parse(localStorage.getItem("Client
 
 
 let newData = [JSON.parse(localStorage.getItem("ClientData"))]
-console.log("newData 456",newData,"session",session)
 const[clientUpdate,setClientUpdate]=useState({...newData[0]})
 const UpdateClientHandler=(e)=>{
   const { name, value } = e.target;
@@ -44,7 +43,6 @@ messageApi.open({
 }
 
 const UpdateBtnhandler=async()=>{
-  console.log("clientUpdate",clientUpdate)
   messageAlert('loading','Editing Client...')
   try {
    
@@ -60,12 +58,10 @@ email: session.user.email,
     await axios
       .post(`${ApiEndPoint}update_client_info/`, obj)
       .then((response) => {
-        console.log("success", response);
          messageAlert('success','Succesfully Updated Client')
           
       })
       .catch((error) => {
-        console.log("error", error);
       messageAlert('error',error.message)
 
       });

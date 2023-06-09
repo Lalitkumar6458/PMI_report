@@ -10,7 +10,6 @@ import {
   } from "antd";
   import RandomGradeData from '../SmallComponets/RandomGradeData';
 const Reportmobilelist = ({gradeDataC,Gradename}) => {
-  console.log("gradeDataC",gradeDataC,Gradename)
 const { TextArea } = Input;
 
     const [tableview, setTableview] = useState(false)
@@ -46,7 +45,6 @@ const { TextArea } = Input;
     })
  
    const report_grade_edit=(data)=>{
-    console.log("report_grade_edit",data)
     var obj={
       gradeDataC,
       data
@@ -67,13 +65,11 @@ const { TextArea } = Input;
    ...objSizeQty,
    [name]:value
   })
-  console.log("size qty values",objSizeQty)
     }
    
     const AddreportItem=()=>{
       var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
 
-      console.log(getOldData.length,"getOldData[01]")
       
        
       const data_get={
@@ -91,7 +87,6 @@ const { TextArea } = Input;
     localStorage.setItem("reportAddedData",JSON.stringify([...getOldData,data_get]))
     setCountAdd(countadd+1)
    
-  console.log("data added data",addeddata)
     }
     
   return (

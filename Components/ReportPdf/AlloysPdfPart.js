@@ -80,7 +80,6 @@ flexBasis:"25%",
 })
 
 const AlloysPart=({data})=>{
-    console.log(data,"data pdf allpart")
 
     return(
      <View style={css.Main_container}>

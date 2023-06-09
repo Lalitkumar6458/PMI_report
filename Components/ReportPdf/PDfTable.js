@@ -12,7 +12,6 @@ const data23 = [
     // Add more rows as needed
   ];
   const PdfTable=({data})=>{
-    console.log(data,"data pdf table")
     const styles = StyleSheet.create({
         table: {
           display: 'table',

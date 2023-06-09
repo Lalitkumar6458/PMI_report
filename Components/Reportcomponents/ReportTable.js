@@ -40,10 +40,8 @@ const EditableCell = ({
   };
   
   const save = async () => {
-    console.log("edit colum")
     try {
       const values = await form.validateFields();
-      console.log("values", values, record);
       toggleEdit();
       handleSave({
         ...record,
@@ -56,7 +54,6 @@ const EditableCell = ({
          ...record,
          ...values,
        };
-       console.log(olData, "local", newData);
 
        localStorage.setItem(
          "reportAddedData",
@@ -104,12 +101,10 @@ const EditableCell = ({
 };
 var AllData=[]
 const ReportTable = ({data,gradeDataC,Gradename}) => {
-  console.log("gradeDataC",gradeDataC,Gradename)
-  console.log("Data random",RandomGradeData({data:gradeDataC}))
+ 
 const { TextArea } = Input;
 var tabledaa=data
 AllData=data
-console.log("table data",tabledaa)
 var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
 const [dataSource, setDataSource] = useState([...getOldData
 ]);
@@ -197,13 +192,9 @@ const [tableview, setTableview] = useState(false);
         ) : null,
     },
   ];
-  // useEffect(()=>{
-  //   setDataSource(tabledaa)
-  //   console.log("table data",tabledaa,dataSource)
-  // },[tabledaa])
+
   
   const handleAdd = (data) => {
-    console.log("data handleradd",data)
     alert("call add")
     const newData = {
       key: count,
@@ -264,7 +255,6 @@ setObjSizeQty({
  ...objSizeQty,
  [name]:value
 })
-console.log("size qty values",objSizeQty)
   }
   const AddreportItem=()=>{
     var getOldData=JSON.parse(localStorage.getItem("reportAddedData"))||[]
@@ -275,7 +265,6 @@ console.log("size qty values",objSizeQty)
       ...RandomGradeData({data:gradeDataC}),
       remark:"Ok"
      }
-console.log("data data_get",data_get)
     setDataSource([...getOldData, data_get]);
    
   

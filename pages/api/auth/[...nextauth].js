@@ -16,7 +16,6 @@ export const authOptions = {
     CredentialsProvider({
       name : "Credentials",
       async authorize(credentials, req){
-        console.log("credentials",credentials)
           var result ={
            id:1,
            name:credentials.name,
@@ -34,16 +33,13 @@ export const authOptions = {
 
 callbacks: {
   async signIn(user, account, profile) {
-    console.log("user:",user.user)
             const obj ={
             username:user.user.name,
             email:user.user.email,
             img:user.user.image
           }
-          console.log("obj",obj)
           try{
             await axios.post(`${ApiEndPoint}google_register_login/`,obj).then((res)=>{
-              console.log(res.status,res.data,"response")
                       }).catch((e)=>{
               console.log("error",e)
                       })

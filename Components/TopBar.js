@@ -20,14 +20,11 @@ import { useRouter } from 'next/router';
 const TopBar = () => {
   const router = useRouter();
   const { pathname } = router;
-  console.log("pathname top bar",pathname)
 const[userdrop,setUserdrop]=useState(false)
 const[headingName,setHeadingname]=useState("DashBoard")
 const wrapperRef = useRef(null);
 const ref_div = useRef(null);
 const { data: session } = useSession()
-var username = localStorage.getItem("username");
-console.log("useSession()",useSession())
 
 useEffect(()=>{
 

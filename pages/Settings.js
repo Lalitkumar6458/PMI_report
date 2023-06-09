@@ -1,22 +1,15 @@
 import Layout from '@/Components/Layout'
 import React from 'react'
 import css from "../styles/Settings.module.css"
-import { Radio, Space, Tabs } from "antd";
+import { Tabs } from "antd";
 import Profile from '@/Components/Settings/Profile';
 import { useState } from "react";
-import { getSession, useSession, signOut } from "next-auth/react"
+import { getSession} from "next-auth/react"
 import ReportFormate from '@/Components/Settings/ReportFormate';
 import LatterPad from '@/Components/Settings/latterPad/LatterPad';
-import axios from 'axios';
 
 const Settings = ({session}) => {
   const[activetab,setActivetab]=useState("User Profile")
-  console.log(session,"settings session")
-    const changeTabPosition = (e) => {
-      setTabPosition(e.target.value);
-    };
-
-   
     const tabsItem = [
       {
         key: 1,

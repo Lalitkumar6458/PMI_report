@@ -45,7 +45,6 @@ const Report = ({ reportData,session }) => {
   const [open1, setOpen1] = useState(false);
   const [tableview, setTableview] = useState(false);
   
-  console.log("reportData", reportData,"session",session);
   const [items2, setItems2] = useState(reportData?.instrument_id?.map((item,index)=>{
     return{
       value:item,
@@ -95,13 +94,8 @@ const[api_endpoint,setApiEndpoint]=useState(ApiEndPoint)
     console.log("search:", value);
   };
 
-  const onChangedate = (date, dateString) => {
-    console.log(moment);
-    console.log(date, dateString, "date");
-    setDate(date);
-  };
+
   const current = new Date();
-  const dateToday = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()}`;
 
   const handleMenuClick = (e) => {
 
@@ -149,7 +143,6 @@ const DataReport={
         user_email:session.user.email,
        }
     let resData= await axios.post(`${ApiEndPoint}instrument_info/`,objData)
-  console.log(resData,"resData")
     }catch(error){
   console.log("error",error)
     }
@@ -174,7 +167,6 @@ const DataReport={
         user_email:session.user.email
        }
     let resData= await axios.post(`${ApiEndPoint}set_model_info/`,objData)
-  console.log(resData,"resData")
     }catch(error){
   console.log("error",error)
      
@@ -223,7 +215,6 @@ const DataReport={
   const Table_view1 = () => {
     setTableview(false);
   };
-  console.log("moment()", moment()._locale);
 let Specgrade=reportData?.grade_name?.map((item,index)=>{
   return {
     value:item,
@@ -268,7 +259,6 @@ key:item,
     // Router.push("/ReportPdf")
   };
   const SelectedGrade=async(value)=>{
-    console.log(ApiEndPoint,"ApiEndPoint}")
     try{
       const objData={
         grade_name:value,
@@ -279,7 +269,6 @@ key:item,
 
     if(resData.status === 200){
     setGradeDataC(resData.data[0].chemical_name)
-console.log(resData.data[0].chemical_name)
   }else{
     console.log(resData,"data not get from backemd")
 
@@ -291,28 +280,7 @@ console.log(resData.data[0].chemical_name)
 
   }
 
-  // const getGradeChemical= async (value)=>{
-  //   try{
-  //     const objData={
-  //       grade_name:value,
-  //       user_email:session.user.email
-  //      }
-  //   let resData= await axios.get(getGradeChemical,{params:objData})
 
-  //   if(resData.status === 200){
-  //   setGradeDataC(resData.data[0].chemical_name)
-
-  // }else{
-  //   console.log(resData,"data not get from backemd")
-
-  // }
-  //   }catch(error){
-  // console.log("error",error)
-     
-  //   }
-
-  
-  // }
   useEffect(()=>{
     let getDataLocal=localStorage.getItem('CreatedData')
     if(
@@ -332,7 +300,6 @@ console.log(resData.data[0].chemical_name)
   },[])
 
   const commonOnChangeFun=(value,setvalue,name)=>{
-  console.log("Value grade c",gradeDataC,name)
 
 setvalue(value)
 
@@ -697,7 +664,6 @@ export default Report;
 export async function getServerSideProps({ req }){
   const session = await getSession({ req })
 
-   console.log(session, "session");
 
 try{
   let data = {
@@ -705,7 +671,6 @@ try{
    };
 
    const res = await axios.get(`${ApiEndPoint}report_info_party_name/`, { params: data });
-console.log("post data", res.data);
  if(!session){
     return {
       redirect : {

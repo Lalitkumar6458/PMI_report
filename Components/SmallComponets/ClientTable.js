@@ -43,7 +43,6 @@ const EditableCell = ({
   );
 };
 const ClientTable = (props) => {
-  console.log("data",props.data)
   var messageAlert=props.messageAlert
  const{session,status}=useSession()
 
@@ -67,7 +66,6 @@ const ClientTable = (props) => {
     setData(props.data)
   }, [props.data])
   const userInfo = useSession();
-console.log("session clint", useSession());
 
   const save = async (key) => {
      messageAlert('loading','Editing Client...')
@@ -87,7 +85,6 @@ const obj = {
       await axios
         .post(`${ApiEndPoint}update_client_info/`, obj)
         .then((response) => {
-          console.log("success", response);
            messageAlert('success','Succesfully Updated Client')
               if (index > -1) {
                 const item = newData[index];
@@ -104,7 +101,6 @@ const obj = {
               }
         })
         .catch((error) => {
-          console.log("error", error);
         messageAlert('error',error.message)
 
         });

@@ -32,7 +32,6 @@ const Login_com = () => {
     messageApi.info("Login Successfully...!");
   };
   const login_Status=useSession()
-  console.log("getSession",getSession(),login_Status)
   const router = useRouter()
   const openNotification = (placement, title, text, type) => {
     api[type]({
@@ -42,7 +41,6 @@ const Login_com = () => {
     });
   };
   const loginStatus=async (data)=>{
-    console.log("data",data)
     const status =  await signIn('credentials', {
       redirect: false,
       name:data.name,
@@ -50,7 +48,6 @@ const Login_com = () => {
       password: data.password,
       callbackUrl: "/"
   })
-  console.log(status,"status")
   if(status.ok) router.replace(status.url)
   }
   const Loginhandler = async() => {
@@ -82,7 +79,6 @@ const Login_com = () => {
       };
       axios.post(`${ApiEndPoint}api/login/`, data)
         .then(function (response) {
-            console.log("User created",response)
           setIsLoading(false);
           if (response.data == "Invalid credentials") {
             openNotification(
@@ -141,7 +137,6 @@ setLoginSignup(!loginSignup);
     
     signIn('google', { callbackUrl : "http://localhost:3000"})
 
-    console.log(login_Status,"login_Status")
 }
   return (
     <>

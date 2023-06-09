@@ -46,21 +46,17 @@ const Chemical = () => {
     })
   }
   const userInfo=data.user
-console.log(userInfo,"session status")
   const showModal = (data) => {
-    console.log("data", data);
     setModalData({ ...data });
     setChemicalInput({ ...data.chemical_name });
     setGradeName(data.Grade)
     setOpen(true);
-    console.log("modalData 345", modalData);
   };
   const hideModal = () => {
     setOpen(false);
   };
   const Deletegrade = async(item) => {
     messageAlert('loading','Deleting Grade...')
-console.log("userInfo", userInfo,item);
     const data = {
       gradeId: item.id,
       user_info: item.user_info,
@@ -75,18 +71,12 @@ console.log("userInfo", userInfo,item);
         Authorization: `Bearer test`,
       })
       .then((response) => {
-        console.log("response data c", response.data.data);
         messageAlert('success','Succesfully Deleted Grade')
-
-        // setAllGradeData(response.data.data)
-        // console.log("AllGradeData", allGradeData[1].chemical_name)
         getAllChemicalData()
         setOpen(false);
       })
       .catch((error) => {
-        // dispatch({
-        //   type: ERROR_FINDING_USER
-        // })
+
         messageAlert('error',error.message)
 
         console.log(error, "error");
@@ -125,7 +115,6 @@ console.log("userInfo", userInfo,item);
       }
     } else {
       setCheckempty(false);
-      console.log("values", values, gradedata);
       table_th.push(values.el_name);
       table_td.push(values.percent);
 
@@ -160,7 +149,6 @@ console.log("userInfo", userInfo,item);
         Authorization: `Bearer test`,
       })
       .then((response) => {
-        console.log("response data c", response.data);
     messageAlert('success','Succesfully Saved Grade Chemical')
         getAllChemicalData()
       })
@@ -193,7 +181,6 @@ console.log("userInfo", userInfo,item);
       username: userInfo.name,
       email: userInfo.email,
     };
-    console.log("chemicalInput", chemicalInput, data, modalData)
 
     await axios
       .post(`${ApiEndPoint}update_chemical/`, data, {
@@ -229,11 +216,8 @@ console.log("userInfo", userInfo,item);
 
       })
       .then((response) => {
-        console.log("response data c", response.data.data);
         setAllGradeData(response.data.data)
         messageAlert('success','Succesfully Get all Grade Chemical data')
-
-        console.log("AllGradeData", allGradeData[1].chemical_name)
       })
       .catch((error) => {
         // dispatch({
@@ -273,7 +257,6 @@ console.log("userInfo", userInfo,item);
         }
       )
       .then((response) => {
-        console.log("response data c", response.data.data);
         messageAlert('success','Succesfully Get Search result')
 
         setAllGradeData(response.data.data);
@@ -289,7 +272,6 @@ console.log("userInfo", userInfo,item);
   // if(status !== "authenticated" ){
   //   Router.replace('/login')
   //   }
-  console.log("useSession lalit ",useSession())
   return (
     <Layout title="Chemical">
  {contextHolder}
@@ -448,7 +430,6 @@ console.log("userInfo", userInfo,item);
               <table className={styles.mobile_table_c}>
                 <tbody>
                   {allGradeData.map((item) => {
-                    console.log("item",item)
                     return (
                       <tr>
                         <td className={styles.td_mobile}>
@@ -535,7 +516,6 @@ console.log("userInfo", userInfo,item);
 
             {chemicalInput
               ? Object.keys(chemicalInput).map((item) => {
-                  console.log(item, "data");
                   return (
                     <div className={styles.grade_box}>
                       <label>{item}:</label>

@@ -1,5 +1,4 @@
 import Layout from '@/Components/Layout'
-import Table from '@/Components/Table'
 import React, { useState, useEffect } from 'react'
 import styles from "../styles/Category.module.css"
 import { Input,Tooltip,AutoComplete,message } from 'antd';
@@ -10,7 +9,6 @@ import axios from 'axios'
 import EditTable from '@/Components/SmallComponets/EditTable'
 import {HiArrowNarrowDown,HiArrowNarrowUp } from "react-icons/hi";
 import { getSession, useSession, signOut } from "next-auth/react"
-import Router from 'next/router'
 import { ApiEndPoint } from '@/public/ApiEndPoint';
 
 
@@ -78,10 +76,8 @@ const AddClient=()=>{
   clientInfo["phone"]=value
   clientInfo["username"]=session.user.name
   clientInfo["Useremail"]=session.user.email
-  console.log("client info data",clientInfo)
   axios.post(`${ApiEndPoint}save_client_info/`, clientInfo)
       .then((response) => {
-       console.log(response.data)
        messageAlert('success','Succesfully Added Client')
 
         GetclientData()
@@ -103,7 +99,6 @@ const GetclientData=async()=>{
       })
       .then((response) => {
 
-        console.log("response data c", response.data);
          setClientData(response.data.data)
 
       })
