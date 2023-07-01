@@ -139,7 +139,7 @@ const Chemical = () => {
       grade_name: grade,
       chemical_name: arrlist,
       username:userInfo.name,
-      email: userInfo.email
+      user_info: userInfo.email
     });
 
     axios

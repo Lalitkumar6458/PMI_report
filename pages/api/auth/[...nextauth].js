@@ -42,6 +42,7 @@ callbacks: {
             await axios.post(`${ApiEndPoint}google_register_login/`,obj).then((res)=>{
                       }).catch((e)=>{
               console.log("error",e)
+              
                       })
           }catch(error){
             console.log("error",error)

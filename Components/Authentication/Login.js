@@ -193,7 +193,7 @@ setLoginSignup(!loginSignup);
                 onClick={handleGoogleSignin}
                 className={css.button_custom}
               >
-                <Image src={imgG} width="20" height={20} /> Sign In with Google
+                <Image src={imgG} alt="google image" width="20" height={20} /> Sign In with Google
               </button>
             </div>
             <div className={css.login_btn}>
