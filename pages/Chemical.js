@@ -1,6 +1,6 @@
 import Layout from "@/Components/Layout";
 import React, { useState,useEffect } from "react";
-import { Button, Modal, Input,message  } from "antd";
+import { Button, Modal, Input, message, Pagination, Popconfirm } from "antd";
 import styles from "@/styles/Chemical.module.css";
 import Router from "next/router";
 import { ApiEndPoint } from "@/public/ApiEndPoint";
@@ -45,17 +45,20 @@ const Chemical = () => {
       content,
     })
   }
+
   const userInfo=data.user
   const showModal = (data) => {
     setModalData({ ...data });
     setChemicalInput({ ...data.chemical_name });
     setGradeName(data.Grade)
     setOpen(true);
+
   };
   const hideModal = () => {
     setOpen(false);
   };
   const Deletegrade = async(item) => {
+    console.log("user email", userInfo);
     messageAlert('loading','Deleting Grade...')
     const data = {
       gradeId: item.id,
@@ -151,6 +154,11 @@ const Chemical = () => {
       .then((response) => {
     messageAlert('success','Succesfully Saved Grade Chemical')
         getAllChemicalData()
+
+        arrlist={}
+        setAllGradeData([])
+        setGrade("")
+
       })
       .catch((error) => {
       
@@ -233,13 +241,7 @@ const Chemical = () => {
   }, [])
   const SearchGradeHandler =async(e)=>{
     messageAlert('loading','Searching grade...')
-
     setSearchKeyword(e.target.value)
-        
-    
-   
-   
-    
     await axios
       .get(
         `${ApiEndPoint}search_grade/`,
@@ -272,218 +274,260 @@ const Chemical = () => {
   // if(status !== "authenticated" ){
   //   Router.replace('/login')
   //   }
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemperpage,setItemPerPage]=useState(3)
+let itemsPerPage=3
+    // Calculate total pages based on data length and items per page
+    const totalPages = allGradeData.length; 
+
+    // Calculate the data to be displayed on the current page
+    const startIndex = (currentPage - 1) * itemperpage;
+    const endIndex = startIndex + itemperpage;
+    const pageData = allGradeData.slice(startIndex, endIndex);
+
+    // Function to handle page changes
+    const handlePageChange = (pageNumber) => {
+      console.log(pageNumber, "pageNumber");
+      setCurrentPage(pageNumber);
+    };
+const onShowSizeChange = (current, pageSize) => {
+  console.log(current, pageSize);
+setItemPerPage(pageSize);
+};
   return (
     <Layout title="Chemical">
- {contextHolder}
+      {contextHolder}
       <div className={styles.Chemical_container}>
         <div className={styles.alloys_content}>
           <BorderBox title={"Add Chemical"}>
-          <div
-            className={
-             `${styles.grade_chemical} row`
-            }
-          >
-            <div className={`${styles.input_field} col-12 col-md-6 drop_box`}>
-              <div className={`${styles.input_div} ${styles.grade_input} `}>
-                <label>Grade Name</label>
-                <input
-                  type="text"
-                  placeholder="Enter Grade name..."
-                  value={grade}
-                  name="grade_name"
-                  onChange={Gradehandler}
-                />
-              </div>
-              <div className={styles.group_input}>
-                <div className={styles.input_div}>
-                  <label>Element Name</label>
+            <div className={`${styles.grade_chemical} row`}>
+              <div className={`${styles.input_field} col-12 col-md-6 drop_box`}>
+                <div className={`${styles.input_div} ${styles.grade_input} `}>
+                  <label>Grade Name</label>
                   <input
                     type="text"
-                    value={values.el_name}
-                    name="el_name"
-                    onChange={handleInputChange}
-                    placeholder="Enter Element name..."
+                    placeholder="Enter Grade name..."
+                    value={grade}
+                    name="grade_name"
+                    onChange={Gradehandler}
                   />
                 </div>
-                <div className={styles.input_div}>
-                  <label>Percent(%)</label>
-                  <input
-                    type="text"
-                    placeholder="Enter percnetage name..."
-                    value={values.percent}
-                    name="percent"
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <button
-                  className={styles.add_btn}
-                  onClick={() => sumbit_input()}
-                >
-                  Add <FaPlusCircle />
-                </button>
-              </div>
-            </div>
-            <div
-              className={`${styles.table_fields} col-12 col-md-6 drop_box`}
-              id="table_fields"
-            >
-              {checkempty ? (
-                <div className={styles.empty_table}>
-                  <Image src={add_gif} alt="" />
-                  <h4>Add Grade Name And it's Chemical</h4>
-                </div>
-              ) : (
-                <div>
-                  <h5>Grade:{grade}</h5>
-                  <table>
-                    <thead>
-                      <tr id="chemical_row">
-                        {table_th.map((item) => {
-                          return <th>{item}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr id="chemical_data">
-                        {table_td.map((item) => {
-                          return <td>{item}</td>;
-                        })}
-                      </tr>
-                    </tbody>
-                  </table>
+                <div className={styles.group_input}>
+                  <div className={styles.input_div}>
+                    <label>Element Name</label>
+                    <input
+                      type="text"
+                      value={values.el_name}
+                      name="el_name"
+                      onChange={handleInputChange}
+                      placeholder="Enter Element name..."
+                    />
+                  </div>
+                  <div className={styles.input_div}>
+                    <label>Percent(%)</label>
+                    <input
+                      type="text"
+                      placeholder="Enter percnetage name..."
+                      value={values.percent}
+                      name="percent"
+                      onChange={handleInputChange}
+                    />
+                  </div>
                   <button
                     className={styles.add_btn}
-                    onClick={() => saveGrade()}
+                    onClick={() => sumbit_input()}
                   >
-                    Save <HiOutlineSaveAs />
+                    Add <FaPlusCircle />
                   </button>
                 </div>
-              )}
+              </div>
+              <div
+                className={`${styles.table_fields} col-12 col-md-6 drop_box`}
+                id="table_fields"
+              >
+                {checkempty ? (
+                  <div className={styles.empty_table}>
+                    <Image src={add_gif} alt="" />
+                    <h4>Add Grade Name And it's Chemical</h4>
+                  </div>
+                ) : (
+                  <div>
+                    <h5>Grade:{grade}</h5>
+                    <table>
+                      <thead>
+                        <tr id="chemical_row">
+                          {table_th.map((item) => {
+                            return <th>{item}</th>;
+                          })}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr id="chemical_data">
+                          {table_td.map((item) => {
+                            return <td>{item}</td>;
+                          })}
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button
+                      className={styles.add_btn}
+                      onClick={() => saveGrade()}
+                    >
+                      Save <HiOutlineSaveAs />
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
           </BorderBox>
           <BorderBox title={"Chemical Compositions"}>
-          <div className={styles.table_grades}>
-            <div className={styles.chemical_comp}>
-              <div className={styles.wrraper_box}>
-                <div className={styles.search_box}>
-                  <HiOutlineSearch className={styles.searchicon} />
-                  <input type="text" placeholder="Search Grades chemical..." value={searchKeyword} onChange={SearchGradeHandler} />
+            <div className={styles.table_grades}>
+              <div className={styles.chemical_comp}>
+                <div className={styles.wrraper_box}>
+                  <div className={styles.search_box}>
+                    <HiOutlineSearch className={styles.searchicon} />
+                    <input
+                      type="text"
+                      placeholder="Search Grades chemical..."
+                      value={searchKeyword}
+                      onChange={SearchGradeHandler}
+                    />
+                  </div>
+                </div>
+
+                <table className={styles.main_grade}>
+                  <thead>
+                    <tr>
+                      <th>Grade</th>
+                      <th>Chemical</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pageData.map((item) => {
+                      return (
+                        <tr key={item.id}>
+                          <td className={styles.grade_td}>{item.Grade}</td>
+                          <td>
+                            <div className={styles.divChemical}>
+                              <table>
+                                <thead>
+                                  <tr>
+                                    {Object.keys(item.chemical_name).map(
+                                      (each, index) => {
+                                        return <th key={index}>{each}</th>;
+                                      }
+                                    )}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    {Object.keys(item.chemical_name).map(
+                                      (each, index) => {
+                                        return (
+                                          <td key={index}>
+                                            {item.chemical_name[each]}
+                                          </td>
+                                        );
+                                      }
+                                    )}
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </td>
+                          <td className={styles.button_actions}>
+                            <button onClick={() => showModal(item)}>
+                              Edit <FaEdit className={styles.icon_t} />
+                            </button>
+                            <Popconfirm
+                              title="Delete the Item"
+                              description="Are you sure to delete this item?"
+                              onConfirm={() => Deletegrade(item)}
+                            >
+                              <button>
+                                Delete <MdDelete className={styles.icon_t} />
+                              </button>
+                            </Popconfirm>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              
+
+                <table className={styles.mobile_table_c}>
+                  <tbody>
+                    {pageData.map((item) => {
+                      return (
+                        <tr>
+                          <td className={styles.td_mobile}>
+                            <div className={styles.divChemical}>
+                              <h3>Grade:{item.Grade}</h3>
+                              <table>
+                                <thead>
+                                  <tr>
+                                    {Object.keys(item.chemical_name).map(
+                                      (each, index) => {
+                                        return <th key={index}>{each}</th>;
+                                      }
+                                    )}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    {Object.keys(item.chemical_name).map(
+                                      (each, index) => {
+                                        return (
+                                          <td key={index}>
+                                            {item.chemical_name[each]}
+                                          </td>
+                                        );
+                                      }
+                                    )}
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                              <div className={styles.buttons_eddit}>
+                                <span>
+                                  <FaEdit
+                                    className={styles.icon_edit}
+                                    onClick={() => showModal(item)}
+                                  />
+                                </span>
+                                <span>
+                                  <Popconfirm
+                                    title="Delete the Item"
+                                    description="Are you sure to delete this item?"
+                                    onConfirm={() => Deletegrade(item)}
+                                  >
+                                    <MdDelete className={styles.icon_delete} />
+                                  </Popconfirm>
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <div className="paginationTable">
+                  <Pagination
+                    showSizeChanger
+                    onShowSizeChange={onShowSizeChange}
+                    total={totalPages}
+                    pageSizeOptions={[5, 10, 15, 20, 25]}
+                    pageSize={itemperpage}
+                    onChange={handlePageChange}
+                  />
                 </div>
               </div>
-
-              <table className={styles.main_grade}>
-                <thead>
-                  <tr>
-                    <th>Grade</th>
-                    <th>Chemical</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allGradeData.map((item) => {
-                    return (
-                      <tr key={item.id}>
-                        <td className={styles.grade_td}>Grade:{item.Grade}</td>
-                        <td>
-                          <div className={styles.divChemical}>
-                            <table>
-                              <thead>
-                                <tr>
-                                  {Object.keys(item.chemical_name).map(
-                                    (each, index) => {
-                                      return <th key={index}>{each}</th>;
-                                    }
-                                  )}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  {Object.keys(item.chemical_name).map(
-                                    (each, index) => {
-                                      return (
-                                        <td key={index}>
-                                          {item.chemical_name[each]}
-                                        </td>
-                                      );
-                                    }
-                                  )}
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </td>
-                        <td className={styles.button_actions}>
-                          <button onClick={() => showModal(item)}>
-                            Edit <FaEdit className={styles.icon_t} />
-                          </button>
-                          <button onClick={() => Deletegrade(item)}>
-                            Delete <MdDelete className={styles.icon_t} />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-
-              <table className={styles.mobile_table_c}>
-                <tbody>
-                  {allGradeData.map((item) => {
-                    return (
-                      <tr>
-                        <td className={styles.td_mobile}>
-                          <div className={styles.divChemical}>
-                            <h3>Grade:{item.Grade}</h3>
-                            <table>
-                              <thead>
-                                <tr>
-                                  {Object.keys(item.chemical_name).map(
-                                    (each, index) => {
-                                      return <th key={index}>{each}</th>;
-                                    }
-                                  )}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  {Object.keys(item.chemical_name).map(
-                                    (each, index) => {
-                                      return (
-                                        <td key={index}>
-                                          {item.chemical_name[each]}
-                                        </td>
-                                      );
-                                    }
-                                  )}
-                                </tr>
-                              </tbody>
-                            </table>
-                            <div className={styles.buttons_eddit}>
-                              <span>
-                                <FaEdit
-                                  className={styles.icon_edit}
-                                  onClick={() => showModal(item)}
-                                />
-                              </span>
-                              <span>
-                                <MdDelete
-                                  className={styles.icon_delete}
-                                  onClick={() => Deletegrade(item)}
-                                />
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
             </div>
-          </div>
-            </BorderBox>
-          
+          </BorderBox>
         </div>
       </div>
       <Modal
@@ -510,7 +554,7 @@ const Chemical = () => {
               <Input
                 placeholder="grade name"
                 value={gradeName}
-                onChange={(e)=>setGradeName(e.target.value)}
+                onChange={(e) => setGradeName(e.target.value)}
               />
             </div>
 

@@ -79,7 +79,6 @@ const Login_com = () => {
       };
       axios.post(`${ApiEndPoint}api/login/`, data)
         .then(function (response) {
-          setIsLoading(false);
           if (response.data == "Invalid credentials") {
             openNotification(
               "bottomRight",
@@ -98,6 +97,8 @@ const data={
             loginStatus(
 data
             )
+          setIsLoading(false);
+
     
             // info();
             // Router.push("/");

@@ -1,1 +1,1 @@
-export const ApiEndPoint = "http://192.168.14.103:8000/"
+export const ApiEndPoint = "http://192.168.35.103:8000/";
