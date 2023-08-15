@@ -176,23 +176,36 @@ Router.push(pagename);
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
-  const resData = await axios.get(`${ApiEndPoint}dashboard_info/`, {
-    params: { userEmail: session?.user?.email },
-  });
-console.log("resData", resData.data);
-  if (!session) {
+
+  try{
+   const  resData = await axios.get(`${ApiEndPoint}dashboard_info/`, {
+      params: { userEmail: session?.user?.email },
+    });
+    if (!session) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
+    }
+  
     return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
+      props: {
+        session,
+        dashBoardData: resData.data,
+      },
+    };
+
+  }catch(e){
+    console.log("Error"+e)
+    return {
+      props: {
+        session,
+        dashBoardData: {},
       },
     };
   }
 
-  return {
-    props: {
-      session,
-      dashBoardData: resData.data,
-    },
-  };
+
 }
