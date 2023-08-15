@@ -79,7 +79,6 @@ const Login_com = () => {
       };
       axios.post(`${ApiEndPoint}api/login/`, data)
         .then(function (response) {
-          setIsLoading(false);
           if (response.data == "Invalid credentials") {
             openNotification(
               "bottomRight",
@@ -98,6 +97,8 @@ const data={
             loginStatus(
 data
             )
+          setIsLoading(false);
+
     
             // info();
             // Router.push("/");
@@ -193,7 +194,7 @@ setLoginSignup(!loginSignup);
                 onClick={handleGoogleSignin}
                 className={css.button_custom}
               >
-                <Image src={imgG} width="20" height={20} /> Sign In with Google
+                <Image src={imgG} alt="google image" width="20" height={20} /> Sign In with Google
               </button>
             </div>
             <div className={css.login_btn}>
